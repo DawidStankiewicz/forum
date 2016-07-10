@@ -13,6 +13,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<org.springframework-version>4.2.6.RELEASE</org.springframework-version>
+		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 		<org.thymeleaf-version>3.0.0.RELEASE</org.thymeleaf-version>
 	</properties>
 	<build>
@@ -44,6 +45,25 @@
 		</dependency>
 
 
+		<!-- Spring Security -->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${org.springsecurity-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springsecurity-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springsecurity-version}</version>
+		</dependency>
+
+
 		<!-- Servlet -->
 
 		<dependency>
@@ -70,6 +90,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+
 		<!-- Thymeleaf -->
 
 		<dependency>
@@ -77,6 +98,7 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${org.thymeleaf-version}</version>
 		</dependency>
+
 
 	</dependencies>
 </project>
