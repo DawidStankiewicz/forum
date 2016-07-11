@@ -1,8 +1,14 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
 <body>
-<h1 th:text="${message}"></h1>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <div class="container">
+
+        <h1 th:text="${message}"></h1>
+
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
