@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().and().authorizeRequests().antMatchers("/user/**").hasRole("USER");
+        http.formLogin().loginPage("/login").and().logout().and().authorizeRequests().antMatchers("/user/**").hasRole("USER");
     }
     
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
