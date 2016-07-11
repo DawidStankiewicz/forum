@@ -98,6 +98,11 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${org.thymeleaf-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>${org.thymeleaf-version}</version>
+		</dependency>
 
 
 	</dependencies>
