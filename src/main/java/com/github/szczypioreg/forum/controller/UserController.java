@@ -34,14 +34,14 @@ public class UserController {
         return "users";
     }
     
-    @RequestMapping(value = "/regiristration", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String regiristrationForm(Model model) {
         User user = new User();
         model.addAttribute("userModel", user);
-        return "regiristration";
+        return "registration";
     }
     
-    @RequestMapping(value = "/regiristration", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String regiristrationNewUser(@ModelAttribute("newUser") User user) {
         userService.add(user);
         return "redirect:/user/" + user.getName();
