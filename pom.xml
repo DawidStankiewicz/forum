@@ -15,6 +15,7 @@
 		<org.springframework-version>4.2.6.RELEASE</org.springframework-version>
 		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 		<org.thymeleaf-version>3.0.0.RELEASE</org.thymeleaf-version>
+		<hibernate-version>5.0.1.Final</hibernate-version>
 	</properties>
 	<build>
 		<plugins>
@@ -102,6 +103,30 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<version>${org.thymeleaf-version}</version>
+		</dependency>
+
+
+		<!-- Hibernate -->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
+
+
+		<!-- Other -->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>6.0.3</version>
 		</dependency>
 
 
