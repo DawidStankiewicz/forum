@@ -15,9 +15,9 @@
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
 
             <sec:authentication property="principal.username" var="username" scope="request" />
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/user/} + ${username}">My Profile</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{../user/} + ${username}">My Profile</a></li>
 
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{../logout}">Logout</a></li>
         </ul>
     </nav>
 </body>

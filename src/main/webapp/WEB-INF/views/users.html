@@ -5,8 +5,25 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <table>
+                    <tr>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}">Onions</td>
+                        <td th:text="${user.email}">123</td>
+                    </tr>
+                </table>
+                <div class="collection">
+                    <a class="collection-item" th:each="user : ${users}" th:href="@{/user/} + ${user.idUser}"><span
+                        th:text="${user.username}"></span></a>
+                </div>
+            </div>
+        </div>
 
-        
 
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
