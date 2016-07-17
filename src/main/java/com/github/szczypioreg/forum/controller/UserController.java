@@ -26,7 +26,14 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    @RequestMapping("/user/{id}")
+    @RequestMapping("/user/{username}")
+    public String getUserProfileByUsername(Model model, @PathVariable("username") String username) {
+        User user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "user";
+    }
+    
+    @RequestMapping("/user/id/{id}")
     public String getUserProfileById(Model model, @PathVariable("id") int id) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
@@ -42,12 +49,12 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String regiristrationForm(Model model) {
         User user = new User();
-        model.addAttribute("userModel", user);
+        model.addAttribute("user", user);
         return "registration";
     }
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String regiristrationNewUser(@ModelAttribute("newUser") User user) {
+    public String regiristrationNewUser(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/user/" + user.getUsername();
     }
