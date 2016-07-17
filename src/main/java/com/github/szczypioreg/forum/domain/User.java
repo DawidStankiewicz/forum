@@ -26,21 +26,26 @@ public class User implements Serializable {
     @Column(name = "username")
     private String username;
     
-    @Column(name = "passwordmd5")
-    private String passwordMd5;
+    @Column(name = "password")
+    private String password;
     
     @Column(name = "role")
     private String role;
     
+    @Column(name = "active")
+    private boolean active;
+    
     public User() {}
     
-    public User(int idUser, String email, String username, String passwordMd5, String role) {
+    public User(int idUser, String email, String username, String password, String role,
+            boolean active) {
         super();
         this.idUser = idUser;
         this.email = email;
         this.username = username;
-        this.passwordMd5 = passwordMd5;
+        this.password = password;
         this.role = role;
+        this.active = active;
     }
     
     public int getIdUser() {
@@ -67,12 +72,12 @@ public class User implements Serializable {
         this.username = username;
     }
     
-    public String getPasswordMd5() {
-        return passwordMd5;
+    public String getPassword() {
+        return password;
     }
     
-    public void setPasswordMd5(String passwordMd5) {
-        this.passwordMd5 = passwordMd5;
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public String getRole() {
@@ -83,6 +88,14 @@ public class User implements Serializable {
         this.role = role;
     }
     
+    public boolean isActive() {
+        return active;
+    }
+    
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -91,9 +104,10 @@ public class User implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + (active ? 1231 : 1237);
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + idUser;
-        result = prime * result + ((passwordMd5 == null) ? 0 : passwordMd5.hashCode());
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
@@ -108,6 +122,8 @@ public class User implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
+        if (active != other.active)
+            return false;
         if (email == null) {
             if (other.email != null)
                 return false;
@@ -115,10 +131,10 @@ public class User implements Serializable {
             return false;
         if (idUser != other.idUser)
             return false;
-        if (passwordMd5 == null) {
-            if (other.passwordMd5 != null)
+        if (password == null) {
+            if (other.password != null)
                 return false;
-        } else if (!passwordMd5.equals(other.passwordMd5))
+        } else if (!password.equals(other.password))
             return false;
         if (role == null) {
             if (other.role != null)
@@ -136,7 +152,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User [idUser=" + idUser + ", email=" + email + ", username=" + username
-                + ", passwordMd5=" + passwordMd5 + ", role=" + role + "]";
+                + ", password=" + password + ", role=" + role + ", active=" + active + "]";
     }
     
 }
