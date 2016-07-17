@@ -12,10 +12,10 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
-		<org.springframework-version>4.2.6.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.1.RELEASE</org.springframework-version>
 		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 		<org.thymeleaf-version>3.0.0.RELEASE</org.thymeleaf-version>
-		<hibernate-version>5.0.1.Final</hibernate-version>
+		<hibernate-version>5.2.1.Final</hibernate-version>
 	</properties>
 	<build>
 		<plugins>
@@ -44,6 +44,12 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 
 
 		<!-- Spring Security -->
@@ -113,6 +119,12 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-version}</version>
+		</dependency>
+
 
 
 		<!-- Other -->
@@ -126,7 +138,8 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>6.0.3</version>
+			<!-- <version>6.0.3</version> -->
+			<version>5.1.39</version>
 		</dependency>
 
 
