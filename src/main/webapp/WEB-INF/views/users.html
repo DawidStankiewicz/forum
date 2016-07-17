@@ -18,7 +18,7 @@
                     </tr>
                 </table>
                 <div class="collection">
-                    <a class="collection-item" th:each="user : ${users}" th:href="@{/user/} + ${user.idUser}"><span
+                    <a class="collection-item" th:each="user : ${users}" th:href="@{/user/} + ${user.username}"><span
                         th:text="${user.username}"></span></a>
                 </div>
             </div>
