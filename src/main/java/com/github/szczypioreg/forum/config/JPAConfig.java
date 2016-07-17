@@ -3,15 +3,22 @@
  */
 package com.github.szczypioreg.forum.config;
 
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -48,4 +55,12 @@ public class JPAConfig {
         adapter.setPrepareConnection(false);
         return adapter;
     }
+    
+    @Bean
+    public PlatformTransactionManager
+           transactionManagerJPA(EntityManagerFactory entityManagerFactory) throws NamingException {
+        JpaTransactionManager txManager = new JpaTransactionManager(entityManagerFactory);
+        return txManager;
+    }
+    
 }
