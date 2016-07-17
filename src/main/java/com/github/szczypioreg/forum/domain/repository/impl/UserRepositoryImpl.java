@@ -7,15 +7,16 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.domain.repository.UserRepository;
 
 @Repository
-@Transactional(readOnly = false)
 public class UserRepositoryImpl implements UserRepository {
     
     @PersistenceContext
@@ -23,7 +24,11 @@ public class UserRepositoryImpl implements UserRepository {
     
     @Override
     public List<User> getAllUsers() {
-        return null;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> rootEntry = criteriaQuery.from(User.class);
+        CriteriaQuery<User> all = criteriaQuery.select(rootEntry);
+        return entityManager.createQuery(all).getResultList();
     }
     
     @Override

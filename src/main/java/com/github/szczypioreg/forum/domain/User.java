@@ -34,13 +34,13 @@ public class User implements Serializable {
     
     public User() {}
     
-    public User(int idUser, String email, String name, String passwordMd5, String type) {
+    public User(int idUser, String email, String username, String passwordMd5, String role) {
         super();
         this.idUser = idUser;
         this.email = email;
-        this.username = name;
+        this.username = username;
         this.passwordMd5 = passwordMd5;
-        this.role = type;
+        this.role = role;
     }
     
     public int getIdUser() {
@@ -59,12 +59,12 @@ public class User implements Serializable {
         this.email = email;
     }
     
-    public String getName() {
+    public String getUsername() {
         return username;
     }
     
-    public void setName(String name) {
-        this.username = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     public String getPasswordMd5() {
@@ -75,12 +75,16 @@ public class User implements Serializable {
         this.passwordMd5 = passwordMd5;
     }
     
-    public String getType() {
+    public String getRole() {
         return role;
     }
     
-    public void setType(String type) {
-        this.role = type;
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
     
     @Override
@@ -89,9 +93,9 @@ public class User implements Serializable {
         int result = 1;
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + idUser;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
         result = prime * result + ((passwordMd5 == null) ? 0 : passwordMd5.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
     
@@ -111,11 +115,6 @@ public class User implements Serializable {
             return false;
         if (idUser != other.idUser)
             return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
         if (passwordMd5 == null) {
             if (other.passwordMd5 != null)
                 return false;
@@ -126,6 +125,18 @@ public class User implements Serializable {
                 return false;
         } else if (!role.equals(other.role))
             return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
         return true;
     }
+    
+    @Override
+    public String toString() {
+        return "User [idUser=" + idUser + ", email=" + email + ", username=" + username
+                + ", passwordMd5=" + passwordMd5 + ", role=" + role + "]";
+    }
+    
 }

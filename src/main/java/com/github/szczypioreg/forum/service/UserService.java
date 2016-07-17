@@ -5,8 +5,6 @@ package com.github.szczypioreg.forum.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.github.szczypioreg.forum.domain.User;
 
 public interface UserService {

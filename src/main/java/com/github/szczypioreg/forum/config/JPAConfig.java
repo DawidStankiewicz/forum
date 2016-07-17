@@ -8,10 +8,10 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
-import org.springframework.instrument.classloading.LoadTimeWeaver;
-import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -19,20 +19,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class JPAConfig {
     
     @Bean
-    public JpaTransactionManager jpaTransactionManager() throws Exception {
-        JpaTransactionManager jtManager = new JpaTransactionManager(
-                getEntityManagerFactoryBean().getObject());
-        return jtManager;
-    }
-    
-    @Bean
-    public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() throws Exception {
-        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
-        lcemfb.setDataSource(getDataSource());
-        lcemfb.setPersistenceUnitName("localContainerEntity");
-        LoadTimeWeaver loadTimeWeaver = new InstrumentationLoadTimeWeaver();
-        lcemfb.setLoadTimeWeaver(loadTimeWeaver);
-        return lcemfb;
+    public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource,
+            JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
+        emfb.setDataSource(dataSource);
+        emfb.setJpaVendorAdapter(jpaVendorAdapter);
+        emfb.setPackagesToScan("com.github.szczypioreg.forum.domain");
+        return emfb;
     }
     
     @Bean
@@ -41,7 +34,18 @@ public class JPAConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/forum");
         dataSource.setUsername("root");
-        dataSource.setPassword("mysql");
+        dataSource.setPassword("");
         return dataSource;
+    }
+    
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.MYSQL);
+        adapter.setShowSql(true);
+        adapter.setGenerateDdl(false);
+        adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+        adapter.setPrepareConnection(false);
+        return adapter;
     }
 }

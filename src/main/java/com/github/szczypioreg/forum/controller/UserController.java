@@ -3,8 +3,6 @@
  */
 package com.github.szczypioreg.forum.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +13,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,10 +26,16 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @RequestMapping("/user/{id}")
+    public String getUserProfileById(Model model, @PathVariable("id") int id) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "user";
+    }
+    
     @RequestMapping("/users")
     public String allUsersPage(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
+        model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
     
@@ -44,7 +49,7 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String regiristrationNewUser(@ModelAttribute("newUser") User user) {
         userService.add(user);
-        return "redirect:/user/" + user.getName();
+        return "redirect:/user/" + user.getUsername();
     }
     
     @RequestMapping("/logout")
