@@ -5,16 +5,43 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="container">
+
         <div class="row">
             <div class="col s12">
-                <h3>Sections</h3>
-                <div class="divider"></div>
-                <div class="section" th:each="section : ${sections}">
-                    <a th:href="@{/section/} + ${section.name}"><span th:text="${section.name}"></span></a>
-                </div>
-                <div class="divider"></div>
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Sections</h4></li>
+                    <li class="collection-item" th:each="section : ${sections}"><a
+                        th:href="@{/section/} + ${section.name}"><span th:text="${section.name}"></span></a></li>
+                </ul>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Recent Topics</h4></li>
+                    <li class="collection-item" th:each="topic : ${topics}"><a
+                        th:href="@{/topic/} + ${topic.title}"> <span th:text="${topic.title} "></span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Recent Posts</h4></li>
+                    <li class="collection-item" th:each="post : ${posts}"><a
+                        th:href="@{/topic/} + ${post.topic.title}"> <span
+                            th:text="${post.user.username} + ' wrote to ' + ${post.topic.title}"></span>
+                    </a> <span class="secondary-content"
+                        th:text="${post.date.date} + '.' + ${post.date.month + 1}+ '.' + ${post.date.year + 1900} + ' ' + ${post.date.hours} + ':' +  ${post.date.minutes}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>

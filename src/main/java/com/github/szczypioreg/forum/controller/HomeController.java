@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.SectionService;
+import com.github.szczypioreg.forum.service.TopicService;
 
 @Controller
 @RequestMapping("/")
@@ -17,9 +19,17 @@ public class HomeController {
     @Autowired
     private SectionService sectionService;
     
+    @Autowired
+    private TopicService topicService;
+    
+    @Autowired
+    private PostService postService;
+    
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("sections", sectionService.getAllSection());
+        model.addAttribute("sections", sectionService.getAllSections());
+        model.addAttribute("topics", topicService.getRecent());
+        model.addAttribute("posts", postService.getRecent());
         return "home";
     }
 }
