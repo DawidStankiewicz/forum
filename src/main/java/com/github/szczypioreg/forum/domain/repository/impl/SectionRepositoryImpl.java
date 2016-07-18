@@ -25,6 +25,11 @@ public class SectionRepositoryImpl implements SectionRepository {
     private EntityManager entityManager;
     
     @Override
+    public List<Section> getAllSections() {
+        return entityManager.createQuery("select s from Section s").getResultList();
+    }
+    
+    @Override
     public Section getSectionById(int id) {
         return entityManager.find(Section.class, id);
     }
@@ -36,12 +41,13 @@ public class SectionRepositoryImpl implements SectionRepository {
     }
     
     @Override
-    public List<Section> getAllSection() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Section> criteriaQuery = criteriaBuilder.createQuery(Section.class);
-        Root<Section> rootEntry = criteriaQuery.from(Section.class);
-        CriteriaQuery<Section> all = criteriaQuery.select(rootEntry);
-        return entityManager.createQuery(all).getResultList();
+    public void create(Section section) {
+        entityManager.persist(section);
+    }
+    
+    @Override
+    public void delete(int id) {
+        entityManager.remove(getSectionById(id));
     }
     
 }

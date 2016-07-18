@@ -9,10 +9,14 @@ import com.github.szczypioreg.forum.domain.Section;
 
 public interface SectionRepository {
     
+    List<Section> getAllSections();
+    
     Section getSectionById(int id);
     
     Section getSectionByName(String name);
     
-    List<Section> getAllSection();
+    void create(Section section);
+    
+    void delete(int id);
     
 }

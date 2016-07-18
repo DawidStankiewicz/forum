@@ -19,6 +19,11 @@ public class SectionServiceImpl implements SectionService {
     private SectionRepository sectionRepository;
     
     @Override
+    public List<Section> getAllSections() {
+        return sectionRepository.getAllSections();
+    }
+    
+    @Override
     public Section getSectionById(int id) {
         return sectionRepository.getSectionById(id);
     }
@@ -29,8 +34,13 @@ public class SectionServiceImpl implements SectionService {
     }
     
     @Override
-    public List<Section> getAllSection() {
-        return sectionRepository.getAllSection();
+    public void create(Section section) {
+        sectionRepository.create(section);
+    }
+    
+    @Override
+    public void delete(int id) {
+        sectionRepository.delete(id);
     }
     
 }
