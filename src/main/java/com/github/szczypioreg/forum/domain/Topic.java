@@ -33,19 +33,14 @@ public class Topic implements Serializable {
     @Column(name = "views")
     private int views;
     
-    @OneToOne
-    @JoinColumn(name = "idfirstpost")
-    private Post firstPost;
-    
     public Topic() {}
     
-    public Topic(int idTopic, String title, Section section, int views, Post firstPost) {
+    public Topic(int idTopic, String title, Section section, int views) {
         super();
         this.idTopic = idTopic;
         this.title = title;
         this.section = section;
         this.views = views;
-        this.firstPost = firstPost;
     }
     
     public int getIdTopic() {
@@ -80,14 +75,6 @@ public class Topic implements Serializable {
         this.views = views;
     }
     
-    public Post getFirstPost() {
-        return firstPost;
-    }
-    
-    public void setFirstPost(Post firstPost) {
-        this.firstPost = firstPost;
-    }
-    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -96,7 +83,6 @@ public class Topic implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((firstPost == null) ? 0 : firstPost.hashCode());
         result = prime * result + idTopic;
         result = prime * result + ((section == null) ? 0 : section.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -113,11 +99,6 @@ public class Topic implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Topic other = (Topic) obj;
-        if (firstPost == null) {
-            if (other.firstPost != null)
-                return false;
-        } else if (!firstPost.equals(other.firstPost))
-            return false;
         if (idTopic != other.idTopic)
             return false;
         if (section == null) {
@@ -138,7 +119,7 @@ public class Topic implements Serializable {
     @Override
     public String toString() {
         return "Topic [idTopic=" + idTopic + ", title=" + title + ", section=" + section
-                + ", views=" + views + ", firstPost=" + firstPost + "]";
+                + ", views=" + views + "]";
     }
     
 }
