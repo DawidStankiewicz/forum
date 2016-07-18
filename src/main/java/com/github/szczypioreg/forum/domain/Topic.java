@@ -9,24 +9,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "threads")
-public class Thread implements Serializable {
+@Table(name = "topics")
+public class Topic implements Serializable {
     
     private static final long serialVersionUID = -1722083052479276312L;
-
+    
     @Id
-    @Column(name = "idthread")
-    private int idThread;
+    @Column(name = "idtopic")
+    private int idTopic;
     
     @Column(name = "title")
     private String title;
     
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "idsection")
     private Section section;
     
@@ -37,23 +37,23 @@ public class Thread implements Serializable {
     @JoinColumn(name = "idfirstpost")
     private Post firstPost;
     
-    public Thread() {}
+    public Topic() {}
     
-    public Thread(int idThread, String title, Section section, int views, Post firstPost) {
+    public Topic(int idTopic, String title, Section section, int views, Post firstPost) {
         super();
-        this.idThread = idThread;
+        this.idTopic = idTopic;
         this.title = title;
         this.section = section;
         this.views = views;
         this.firstPost = firstPost;
     }
     
-    public int getIdThread() {
-        return idThread;
+    public int getIdTopic() {
+        return idTopic;
     }
     
-    public void setIdThread(int idThread) {
-        this.idThread = idThread;
+    public void setIdTopic(int idTopic) {
+        this.idTopic = idTopic;
     }
     
     public String getTitle() {
@@ -88,12 +88,16 @@ public class Thread implements Serializable {
         this.firstPost = firstPost;
     }
     
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((firstPost == null) ? 0 : firstPost.hashCode());
-        result = prime * result + idThread;
+        result = prime * result + idTopic;
         result = prime * result + ((section == null) ? 0 : section.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + views;
@@ -108,13 +112,13 @@ public class Thread implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Thread other = (Thread) obj;
+        Topic other = (Topic) obj;
         if (firstPost == null) {
             if (other.firstPost != null)
                 return false;
         } else if (!firstPost.equals(other.firstPost))
             return false;
-        if (idThread != other.idThread)
+        if (idTopic != other.idTopic)
             return false;
         if (section == null) {
             if (other.section != null)
@@ -133,7 +137,7 @@ public class Thread implements Serializable {
     
     @Override
     public String toString() {
-        return "Thread [idThread=" + idThread + ", title=" + title + ", section=" + section
+        return "Topic [idTopic=" + idTopic + ", title=" + title + ", section=" + section
                 + ", views=" + views + ", firstPost=" + firstPost + "]";
     }
     

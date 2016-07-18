@@ -10,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Post implements Serializable {
     
     private static final long serialVersionUID = 4235393151425571253L;
-
+    
     @Id
     @Column(name = "idpost")
     private int idPost;
@@ -29,23 +29,23 @@ public class Post implements Serializable {
     @Column(name = "content")
     private String content;
     
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "iduser")
     private User user;
     
-    @OneToMany
-    @JoinColumn(name = "idthread")
-    private Thread thread;
+    @ManyToOne
+    @JoinColumn(name = "idtopic")
+    private Topic topic;
     
     public Post() {}
     
-    public Post(int idPost, Date date, String content, User user, Thread thread) {
+    public Post(int idPost, Date date, String content, User user, Topic topic) {
         super();
         this.idPost = idPost;
         this.date = date;
         this.content = content;
         this.user = user;
-        this.thread = thread;
+        this.topic = topic;
     }
     
     public int getIdPost() {
@@ -80,12 +80,12 @@ public class Post implements Serializable {
         this.user = user;
     }
     
-    public Thread getThread() {
-        return thread;
+    public Topic getTopic() {
+        return topic;
     }
     
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
     
     @Override
@@ -95,7 +95,7 @@ public class Post implements Serializable {
         result = prime * result + ((content == null) ? 0 : content.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + idPost;
-        result = prime * result + ((thread == null) ? 0 : thread.hashCode());
+        result = prime * result + ((topic == null) ? 0 : topic.hashCode());
         result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
     }
@@ -121,10 +121,10 @@ public class Post implements Serializable {
             return false;
         if (idPost != other.idPost)
             return false;
-        if (thread == null) {
-            if (other.thread != null)
+        if (topic == null) {
+            if (other.topic != null)
                 return false;
-        } else if (!thread.equals(other.thread))
+        } else if (!topic.equals(other.topic))
             return false;
         if (user == null) {
             if (other.user != null)
@@ -137,7 +137,7 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "Post [idPost=" + idPost + ", date=" + date + ", content=" + content + ", user="
-                + user + ", thread=" + thread + "]";
+                + user + ", thread=" + topic + "]";
     }
     
 }
