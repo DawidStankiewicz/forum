@@ -5,9 +5,16 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="container">
-
-        <h1 th:text="${message}"></h1>
-
+        <div class="row">
+            <div class="col s12">
+                <h3>Sections</h3>
+                <div class="divider"></div>
+                <div class="section" th:each="section : ${sections}">
+                    <a th:href="@{/section/} + ${section.name}"><span th:text="${section.name}"></span></a>
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>
