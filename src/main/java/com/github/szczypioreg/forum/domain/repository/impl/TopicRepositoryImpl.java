@@ -47,4 +47,11 @@ public class TopicRepositoryImpl implements TopicRepository {
         entityManager.persist(topic);
     }
     
+    @Override
+    public List<Topic> getTopicsBySection(String section) {
+        return (List<Topic>) entityManager
+                .createQuery("select t from Topic t where t.section.name=?")
+                .setParameter(0, section).getResultList();
+    }
+    
 }

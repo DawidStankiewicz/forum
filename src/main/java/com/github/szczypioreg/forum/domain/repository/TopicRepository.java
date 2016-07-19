@@ -16,4 +16,7 @@ public interface TopicRepository {
     List<Topic> getRecent(int count);
     
     void create(Topic topic);
+    
+    List<Topic> getTopicsBySection(String section);
+    
 }

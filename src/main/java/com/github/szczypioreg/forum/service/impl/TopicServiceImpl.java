@@ -37,12 +37,15 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> getRecent(int count) {
         return topicRepository.getRecent(count);
     }
-
+    
     @Override
     public void create(Topic topic) {
         topicRepository.create(topic);
     }
     
-   
+    @Override
+    public List<Topic> getTopicsBySection(String section) {
+        return topicRepository.getTopicsBySection(section);
+    }
     
 }
