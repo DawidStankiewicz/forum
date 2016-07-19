@@ -8,15 +8,13 @@
 
 
 <body>
-    <nav th:fragment="navbar" class="nav-wrapper">
-        <a th:href="@{~/forum}" class="brand-logo" style="margin-left: 10px;">Forum</a>
+    <nav th:fragment="navbar" class="nav-wrapper amber darken-4">
+        <a th:href=" @{~/forum}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
 
-            <sec:authentication property="principal.username" var="username" scope="request" />
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/user/} + ${username}">My Profile</a></li>
-
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/user/} + ${#authentication.name}">My Profile</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
         </ul>
     </nav>
