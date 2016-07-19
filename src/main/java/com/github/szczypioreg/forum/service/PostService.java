@@ -19,4 +19,7 @@ public interface PostService {
     List<Post> getPostsByUser(User user);
     
     void create(Post post);
+    
+    List<Post> getPostsByTopic(int idTopic);
+    
 }

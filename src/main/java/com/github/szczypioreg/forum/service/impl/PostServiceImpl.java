@@ -44,4 +44,9 @@ public class PostServiceImpl implements PostService {
         postRepository.create(post);
     }
     
+    @Override
+    public List<Post> getPostsByTopic(int idTopic) {
+        return postRepository.getPostsByTopic(idTopic);
+    }
+    
 }

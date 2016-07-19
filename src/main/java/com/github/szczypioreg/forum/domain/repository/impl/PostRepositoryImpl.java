@@ -43,4 +43,11 @@ public class PostRepositoryImpl implements PostRepository {
         entityManager.persist(post);
     }
     
+    @Override
+    public List<Post> getPostsByTopic(int idTopic) {
+        return (List<Post>) entityManager
+                .createQuery("select p from Post p where p.topic.idTopic=?")
+                .setParameter(0, idTopic).getResultList();
+    }
+    
 }

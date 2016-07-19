@@ -22,7 +22,8 @@
                 <ul class="collection with-header">
                     <li class="collection-header"><h4>Recent Topics</h4></li>
                     <li class="collection-item" th:each="topic : ${topics}"><a
-                        th:href="@{/topic/} + ${topic.title}"> <span th:text="${topic.title} "></span>
+                        th:href="@{/section/} + ${topic.section.name} + '/topic/' + ${topic.idTopic}"> <span
+                            th:text="${topic.title} "></span>
                     </a></li>
                 </ul>
             </div>

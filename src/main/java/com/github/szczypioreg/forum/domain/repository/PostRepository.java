@@ -17,4 +17,7 @@ public interface PostRepository {
     List<Post> getPostsByUser(User user);
     
     void create(Post post);
+    
+    List<Post> getPostsByTopic(int idTopic);
+    
 }
