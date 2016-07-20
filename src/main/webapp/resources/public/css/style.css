@@ -7,3 +7,7 @@ body {
 footer {
 	flex: 1 0 auto;
 }
+
+body > .container {
+	padding-top: 50px;
+}
