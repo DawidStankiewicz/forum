@@ -35,10 +35,13 @@ public class User implements Serializable {
     @Column(name = "active")
     private boolean active;
     
+    @Column(name = "idprofilepicture")
+    private int idProfilePicture;
+    
     public User() {}
     
     public User(int idUser, String email, String username, String password, String role,
-            boolean active) {
+            boolean active, int idProfilePicture) {
         super();
         this.idUser = idUser;
         this.email = email;
@@ -46,6 +49,7 @@ public class User implements Serializable {
         this.password = password;
         this.role = role;
         this.active = active;
+        this.idProfilePicture = idProfilePicture;
     }
     
     public int getIdUser() {
@@ -96,6 +100,14 @@ public class User implements Serializable {
         this.active = active;
     }
     
+    public int getIdProfilePicture() {
+        return idProfilePicture;
+    }
+    
+    public void setIdProfilePicture(int idProfilePicture) {
+        this.idProfilePicture = idProfilePicture;
+    }
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -106,6 +118,7 @@ public class User implements Serializable {
         int result = 1;
         result = prime * result + (active ? 1231 : 1237);
         result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + idProfilePicture;
         result = prime * result + idUser;
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -128,6 +141,8 @@ public class User implements Serializable {
             if (other.email != null)
                 return false;
         } else if (!email.equals(other.email))
+            return false;
+        if (idProfilePicture != other.idProfilePicture)
             return false;
         if (idUser != other.idUser)
             return false;
@@ -152,7 +167,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User [idUser=" + idUser + ", email=" + email + ", username=" + username
-                + ", password=" + password + ", role=" + role + ", active=" + active + "]";
+                + ", password=" + password + ", role=" + role + ", active=" + active
+                + ", idProfilePicture=" + idProfilePicture + "]";
     }
     
 }
