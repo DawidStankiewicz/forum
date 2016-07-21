@@ -5,16 +5,18 @@ package com.github.szczypioreg.forum.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.github.szczypioreg.forum.domain.User;
 
-public interface UserRepository {
-    List<User> getAllUsers();
+public interface UserRepository extends JpaRepository<User, Integer> {
     
-    User getUserById(int id);
+    List<User> findAll();
+    
+    User getUserByIdUser(int id);
     
     User getUserByUsername(String username);
     
     User getUserByEmail(String email);
     
-    void add(User user);
 }

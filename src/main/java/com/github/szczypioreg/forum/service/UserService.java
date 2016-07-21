@@ -8,9 +8,9 @@ import java.util.List;
 import com.github.szczypioreg.forum.domain.User;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<User> findAll();
     
-    User getUserById(int id);
+    User getUserByIdUser(int id);
     
     User getUserByUsername(String username);
     

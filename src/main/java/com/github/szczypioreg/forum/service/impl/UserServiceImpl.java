@@ -17,18 +17,18 @@ import com.github.szczypioreg.forum.service.UserService;
 public class UserServiceImpl implements UserService {
     
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
     
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
     
     @Override
-    public User getUserById(int id) {
-        return userRepository.getUserById(id);
+    public User getUserByIdUser(int id) {
+        return userRepository.getUserByIdUser(id);
     }
     
     @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("USER");
-        userRepository.add(user);
+        // userRepository.add(user);
     }
     
 }

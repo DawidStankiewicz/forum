@@ -4,15 +4,13 @@
 package com.github.szczypioreg.forum.config;
 
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,9 +21,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.github.szczypioreg.forum.domain")
 public class JPAConfig {
     
-    @Bean
+    @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
@@ -56,7 +55,7 @@ public class JPAConfig {
         return adapter;
     }
     
-    @Bean
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager
            transactionManagerJPA(EntityManagerFactory entityManagerFactory) throws NamingException {
         JpaTransactionManager txManager = new JpaTransactionManager(entityManagerFactory);

@@ -35,14 +35,14 @@ public class UserController {
     
     @RequestMapping("/user/id/{id}")
     public String getUserProfileById(Model model, @PathVariable("id") int id) {
-        User user = userService.getUserById(id);
+        User user = userService.getUserByIdUser(id);
         model.addAttribute("user", user);
         return "user";
     }
     
     @RequestMapping("/users")
     public String allUsersPage(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
     
