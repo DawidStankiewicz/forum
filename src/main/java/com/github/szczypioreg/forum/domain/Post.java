@@ -23,29 +23,28 @@ public class Post implements Serializable {
     @Column(name = "idpost")
     private int idPost;
     
-    @Column(name = "date")
-    private Date date;
-    
-    @Column(name = "content")
-    private String content;
+    @ManyToOne
+    @JoinColumn(name = "idtopic")
+    private Topic topic;
     
     @ManyToOne
     @JoinColumn(name = "iduser")
     private User user;
     
-    @ManyToOne
-    @JoinColumn(name = "idtopic")
-    private Topic topic;
+    @Column(name = "content")
+    private String content;
+    
+    @Column(name = "date")
+    private Date date;
     
     public Post() {}
     
-    public Post(int idPost, Date date, String content, User user, Topic topic) {
+    public Post(Topic topic, User user, String content, Date date) {
         super();
-        this.idPost = idPost;
-        this.date = date;
-        this.content = content;
-        this.user = user;
         this.topic = topic;
+        this.user = user;
+        this.content = content;
+        this.date = date;
     }
     
     public int getIdPost() {
@@ -56,20 +55,12 @@ public class Post implements Serializable {
         this.idPost = idPost;
     }
     
-    public Date getDate() {
-        return date;
+    public Topic getTopic() {
+        return topic;
     }
     
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
-    public String getContent() {
-        return content;
-    }
-    
-    public void setContent(String content) {
-        this.content = content;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
     
     public User getUser() {
@@ -80,12 +71,24 @@ public class Post implements Serializable {
         this.user = user;
     }
     
-    public Topic getTopic() {
-        return topic;
+    public String getContent() {
+        return content;
     }
     
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+    
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
     
     @Override
@@ -136,8 +139,8 @@ public class Post implements Serializable {
     
     @Override
     public String toString() {
-        return "Post [idPost=" + idPost + ", date=" + date + ", content=" + content + ", user="
-                + user + ", thread=" + topic + "]";
+        return "Post [idPost=" + idPost + ", topic=" + topic + ", user=" + user + ", content="
+                + content + ", date=" + date + "]";
     }
     
 }

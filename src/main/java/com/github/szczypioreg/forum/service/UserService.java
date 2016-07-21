@@ -8,13 +8,18 @@ import java.util.List;
 import com.github.szczypioreg.forum.domain.User;
 
 public interface UserService {
+    
     List<User> findAll();
     
-    User getUserByIdUser(int id);
+    User findOne(int id);
     
-    User getUserByUsername(String username);
+    User findByUsername(String username);
     
-    User getUserByEmail(String email);
+    User findByEmail(String email);
     
-    void add(User user);
+    User save(User user);
+    
+    void remove(int id);
+    
+    void remove(User user);
 }

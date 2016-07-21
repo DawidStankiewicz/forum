@@ -19,7 +19,7 @@ public class SectionController {
     
     @RequestMapping("/section/{section}")
     public String getTopicsFromSection(@PathVariable String section, Model model) {
-        model.addAttribute("topics", topicService.getTopicsBySection(section));
+        model.addAttribute("topics", topicService.findBySection(section));
         return "section";
     }
 }

@@ -27,25 +27,34 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User getUserByIdUser(int id) {
-        return userRepository.getUserByIdUser(id);
+    public User findOne(int id) {
+        return userRepository.findOne(id);
     }
     
     @Override
-    public User getUserByUsername(String username) {
-        return userRepository.getUserByUsername(username);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
     
     @Override
-    public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
     
     @Override
-    public void add(User user) {
+    public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("USER");
-        // userRepository.add(user);
+        return userRepository.save(user);
+    }
+    
+    @Override
+    public void remove(int id) {
+        remove(findOne(id));
+    }
+    
+    @Override
+    public void remove(User user) {
+        userRepository.delete(user);
     }
     
 }

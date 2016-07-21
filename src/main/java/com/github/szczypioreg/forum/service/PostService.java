@@ -6,20 +6,29 @@ package com.github.szczypioreg.forum.service;
 import java.util.List;
 
 import com.github.szczypioreg.forum.domain.Post;
+import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.domain.User;
 
 public interface PostService {
     
-    Post getPostById(int id);
+    Post findOne(int id);
     
-    List<Post> getRecent();
+    List<Post> findAll();
     
-    List<Post> getRecent(int count);
+    List<Post> findRecent();
     
-    List<Post> getPostsByUser(User user);
+    List<Post> findRecent(int count);
     
-    void create(Post post);
+    List<Post> findByUser(User user);
     
-    List<Post> getPostsByTopic(int idTopic);
+    List<Post> findByTopic(int idTopic);
+    
+    List<Post> findByTopic(Topic topic);
+    
+    void save(Post post);
+    
+    void delete(int id);
+    
+    void delete(Post post);
     
 }

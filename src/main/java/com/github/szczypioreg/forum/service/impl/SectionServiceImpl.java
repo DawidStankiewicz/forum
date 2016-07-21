@@ -19,28 +19,33 @@ public class SectionServiceImpl implements SectionService {
     private SectionRepository sectionRepository;
     
     @Override
-    public List<Section> getAllSections() {
-        return sectionRepository.getAllSections();
+    public List<Section> findAll() {
+        return sectionRepository.findAll();
     }
     
     @Override
-    public Section getSectionById(int id) {
-        return sectionRepository.getSectionById(id);
+    public Section findOne(int id) {
+        return sectionRepository.findOne(id);
     }
     
     @Override
-    public Section getSectionByName(String name) {
-        return sectionRepository.getSectionByName(name);
+    public Section findByName(String name) {
+        return sectionRepository.findByName(name);
     }
     
     @Override
-    public void create(Section section) {
-        sectionRepository.create(section);
+    public void save(Section section) {
+        sectionRepository.save(section);
     }
     
     @Override
     public void delete(int id) {
-        sectionRepository.delete(id);
+        delete(findOne(id));
+    }
+    
+    @Override
+    public void delete(Section section) {
+        sectionRepository.delete(section);
     }
     
 }

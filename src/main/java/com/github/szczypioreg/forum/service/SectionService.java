@@ -9,14 +9,16 @@ import com.github.szczypioreg.forum.domain.Section;
 
 public interface SectionService {
     
-    List<Section> getAllSections();
+    List<Section> findAll();
     
-    Section getSectionById(int id);
+    Section findOne(int id);
     
-    Section getSectionByName(String name);
+    Section findByName(String name);
     
-    void create(Section section);
+    void save(Section section);
     
     void delete(int id);
+    
+    void delete(Section section);
     
 }

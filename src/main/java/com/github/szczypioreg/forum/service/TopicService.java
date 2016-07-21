@@ -5,20 +5,27 @@ package com.github.szczypioreg.forum.service;
 
 import java.util.List;
 
+import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.Topic;
 
 public interface TopicService {
     
-    List<Topic> getAllTopics();
+    List<Topic> findAll();
     
-    Topic getTopicdById(int id);
+    Topic findOne(int id);
     
-    List<Topic> getRecent();
+    List<Topic> findRecent();
     
-    List<Topic> getRecent(int count);
+    List<Topic> findRecent(int count);
     
-    void create(Topic topic);
+    List<Topic> findBySection(Section section);
     
-    List<Topic> getTopicsBySection(String section);
+    List<Topic> findBySection(String sectionName);
+    
+    void save(Topic topic);
+    
+    void delete(int id);
+    
+    void delete(Topic topic);
     
 }

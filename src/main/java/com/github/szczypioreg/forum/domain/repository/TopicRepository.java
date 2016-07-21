@@ -5,18 +5,13 @@ package com.github.szczypioreg.forum.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.Topic;
 
-public interface TopicRepository {
+public interface TopicRepository extends JpaRepository<Topic, Integer> {
     
-    List<Topic> getAllTopics();
-    
-    Topic getTopicdById(int id);
-    
-    List<Topic> getRecent(int count);
-    
-    void create(Topic topic);
-    
-    List<Topic> getTopicsBySection(String section);
+    List<Topic> findBySection(Section section);
     
 }

@@ -13,7 +13,6 @@ import com.github.szczypioreg.forum.service.SectionService;
 import com.github.szczypioreg.forum.service.TopicService;
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
     
     @Autowired
@@ -25,11 +24,11 @@ public class HomeController {
     @Autowired
     private PostService postService;
     
-    @RequestMapping("/")
+    @RequestMapping(value = { "/", "/home" })
     public String home(Model model) {
-        model.addAttribute("sections", sectionService.getAllSections());
-        model.addAttribute("topics", topicService.getRecent());
-        model.addAttribute("posts", postService.getRecent());
+        model.addAttribute("sections", sectionService.findAll());
+        model.addAttribute("topics", topicService.findRecent());
+        model.addAttribute("posts", postService.findRecent());
         return "home";
     }
 }

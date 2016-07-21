@@ -26,45 +26,45 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    @RequestMapping("/user/{username}")
-    public String getUserProfileByUsername(Model model, @PathVariable("username") String username) {
-        User user = userService.getUserByUsername(username);
+    @RequestMapping(value = "/user/{username}")
+    public String findUserByUsernameAndViewProfilePage(@PathVariable("username") String username,
+            Model model) {
+        User user = userService.findByUsername(username);
         model.addAttribute("user", user);
         return "user";
     }
     
-    @RequestMapping("/user/id/{id}")
-    public String getUserProfileById(Model model, @PathVariable("id") int id) {
-        User user = userService.getUserByIdUser(id);
-        model.addAttribute("user", user);
+    @RequestMapping(value = "/user/id/{id}")
+    public String findUserByIdAndViewProfilePage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.findOne(id));
         return "user";
     }
     
-    @RequestMapping("/users")
-    public String allUsersPage(Model model) {
+    @RequestMapping(value = "/users")
+    public String listOfAllUser(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users";
     }
     
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String regiristrationForm(Model model) {
+    public String regiristrationPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "registration";
     }
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String regiristrationNewUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+    public String processAndSaveNewUser(@ModelAttribute("user") User user) {
+        userService.save(user);
         return "redirect:/user/" + user.getUsername();
     }
     
-    @RequestMapping("/logout")
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/logout")
+    public String logOutAndRedirectToLoginPage(HttpServletRequest request,
+            HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
-            
         }
         return "redirect:/login?logout=true";
     }

@@ -3,20 +3,12 @@
  */
 package com.github.szczypioreg.forum.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.github.szczypioreg.forum.domain.Section;
 
-public interface SectionRepository {
+public interface SectionRepository extends JpaRepository<Section, Integer> {
     
-    List<Section> getAllSections();
-    
-    Section getSectionById(int id);
-    
-    Section getSectionByName(String name);
-    
-    void create(Section section);
-    
-    void delete(int id);
+    Section findByName(String name);
     
 }

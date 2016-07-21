@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.szczypioreg.forum.domain.Post;
+import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.domain.repository.PostRepository;
 import com.github.szczypioreg.forum.service.PostService;
+import com.github.szczypioreg.forum.service.TopicService;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -19,34 +21,58 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
     
+    @Autowired
+    private TopicService topicService;
+    
     @Override
-    public Post getPostById(int id) {
-        return postRepository.getPostById(id);
+    public Post findOne(int id) {
+        return postRepository.findOne(id);
     }
     
     @Override
-    public List<Post> getRecent() {
-        return getRecent(10);
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
     
     @Override
-    public List<Post> getRecent(int count) {
-        return postRepository.getRecent(count);
+    public List<Post> findRecent() {
+        return findRecent(10);
     }
     
     @Override
-    public List<Post> getPostsByUser(User user) {
-        return postRepository.getPostsByUser(user);
+    public List<Post> findRecent(int count) {
+        // TODO
+        return findAll();
     }
     
     @Override
-    public void create(Post post) {
-        postRepository.create(post);
+    public List<Post> findByUser(User user) {
+        return postRepository.findByUser(user);
     }
     
     @Override
-    public List<Post> getPostsByTopic(int idTopic) {
-        return postRepository.getPostsByTopic(idTopic);
+    public List<Post> findByTopic(int idTopic) {
+        return findByTopic(topicService.findOne(idTopic));
+    }
+    
+    @Override
+    public List<Post> findByTopic(Topic topic) {
+        return postRepository.findByTopic(topic);
+    }
+    
+    @Override
+    public void save(Post post) {
+        postRepository.save(post);
+    }
+    
+    @Override
+    public void delete(int id) {
+        delete(findOne(id));
+    }
+    
+    @Override
+    public void delete(Post post) {
+        postRepository.delete(post);
     }
     
 }
