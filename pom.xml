@@ -12,10 +12,14 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
+		<!-- Version dependencies -->
+
 		<org.springframework-version>4.3.1.RELEASE</org.springframework-version>
 		<org.springsecurity-version>4.1.0.RELEASE</org.springsecurity-version>
 		<org.thymeleaf-version>3.0.0.RELEASE</org.thymeleaf-version>
 		<hibernate-version>5.2.1.Final</hibernate-version>
+		<junit-version>4.12</junit-version>
+
 	</properties>
 	<build>
 		<plugins>
@@ -60,7 +64,6 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.10.2.RELEASE</version>
 		</dependency>
-
 
 
 		<!-- Spring Security -->
@@ -136,6 +139,29 @@
 			<version>${hibernate-version}</version>
 		</dependency>
 
+
+		<!-- Test -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.contrib</groupId>
+			<artifactId>junit-theories</artifactId>
+			<version>${junit-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.0.87-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 
 
 		<!-- Other -->

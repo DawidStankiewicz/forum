@@ -10,8 +10,9 @@
             <div class="col s12">
                 <ul class="collection with-header">
                     <li class="collection-header"><h4>Topics in this section</h4></li>
-                    <li class="collection-item" th:each="topic : ${topics}"><a
-                        th:href="@{/topics/topic} + ${topic.title}"> <span th:text="${topic.title} "></span>
+                    <li class="collection-item" th:each="topic : ${topics}"><a th:href="@{/topics/topic} + ${topic.title}"> <span
+                            th:text="${topic.title} "
+                        ></span>
                     </a></li>
                 </ul>
             </div>
