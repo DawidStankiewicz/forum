@@ -17,9 +17,10 @@ public interface UserService {
     
     User findByEmail(String email);
     
-    User save(User user);
+    void save(User user);
     
     void remove(int id);
     
     void remove(User user);
+    
 }

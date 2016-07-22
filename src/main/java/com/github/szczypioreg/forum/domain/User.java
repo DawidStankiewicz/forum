@@ -4,18 +4,18 @@
 package com.github.szczypioreg.forum.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +25,7 @@ public class User implements Serializable {
     
     @Id
     @Column(name = "iduser")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
     
     @Column(name = "email")
@@ -46,12 +47,12 @@ public class User implements Serializable {
     @JoinTable(name = "rolesofusers",
                joinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"),
                inverseJoinColumns = @JoinColumn(name = "idrole", referencedColumnName = "idrole"))
-    private List<Role> roles;
+    private Set<Role> roles;
     
     public User() {}
     
     public User(int idUser, String email, String username, String password, boolean active,
-            int idProfilePicture, List<Role> roles) {
+            int idProfilePicture, Set<Role> roles) {
         super();
         this.idUser = idUser;
         this.email = email;
@@ -110,11 +111,11 @@ public class User implements Serializable {
         this.idProfilePicture = idProfilePicture;
     }
     
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
     
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     
@@ -131,7 +132,6 @@ public class User implements Serializable {
         result = prime * result + idProfilePicture;
         result = prime * result + idUser;
         result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((roles == null) ? 0 : roles.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
@@ -173,7 +173,7 @@ public class User implements Serializable {
             return false;
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "User [idUser=" + idUser + ", email=" + email + ", username=" + username

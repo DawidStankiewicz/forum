@@ -3,14 +3,18 @@
  */
 package com.github.szczypioreg.forum.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.github.szczypioreg.forum.domain.Role;
 import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.domain.repository.UserRepository;
+import com.github.szczypioreg.forum.service.RoleService;
 import com.github.szczypioreg.forum.service.UserService;
 
 @Service
@@ -18,8 +22,12 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private RoleService roleService;
     
     @Override
     public List<User> findAll() {
@@ -42,9 +50,15 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User save(User user) {
+    public void save(User user) {
+        Set<Role> roles = new HashSet<>();
+        Role role = roleService.findByName("USER");
+        roles.add(role);
+        user.setRoles(roles);
+        
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        user.setActive(true);
+        userRepository.save(user);
     }
     
     @Override

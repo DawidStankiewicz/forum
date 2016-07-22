@@ -3,9 +3,15 @@
  */
 package com.github.szczypioreg.forum.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,11 +19,15 @@ import javax.persistence.Table;
 public class Role {
     
     @Id
-    @Column(name = "idrole")
+    @Column(name = "idrole", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRole;
     
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
+    
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    private Set<User> users;
     
     public Role() {}
     
@@ -40,6 +50,14 @@ public class Role {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public Set<User> getUsers() {
+        return users;
+    }
+    
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
     
     @Override
@@ -67,12 +85,17 @@ public class Role {
                 return false;
         } else if (!name.equals(other.name))
             return false;
+        if (users == null) {
+            if (other.users != null)
+                return false;
+        } else if (!users.equals(other.users))
+            return false;
         return true;
     }
     
     @Override
     public String toString() {
-        return "Role [idRole=" + idRole + ", name=" + name + "]";
+        return "Role [idRole=" + idRole + ", name=" + name + ", users=" + users + "]";
     }
     
 }

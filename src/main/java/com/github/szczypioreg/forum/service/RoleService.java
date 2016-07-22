@@ -3,9 +3,7 @@
  */
 package com.github.szczypioreg.forum.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
+import java.util.Set;
 
 import com.github.szczypioreg.forum.domain.Role;
 
@@ -15,7 +13,7 @@ public interface RoleService {
     
     Role findByName(String name);
     
-    List<Role> findAll();
+    Set<Role> findAll();
     
     void save(Role role);
     
