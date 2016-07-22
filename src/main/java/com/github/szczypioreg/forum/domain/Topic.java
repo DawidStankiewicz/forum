@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +25,7 @@ public class Topic implements Serializable {
     
     @Id
     @Column(name = "idtopic")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTopic;
     
     @ManyToOne
@@ -45,7 +48,7 @@ public class Topic implements Serializable {
     @Column(name = "views")
     private int views;
     
-    @OneToMany
+    @OneToMany(mappedBy = "topic")
     private List<Post> posts;
     
     public Topic() {}
