@@ -4,11 +4,18 @@
 package com.github.szczypioreg.forum.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "users")
@@ -29,27 +36,30 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     
-    @Column(name = "role")
-    private String role;
-    
     @Column(name = "active")
     private boolean active;
     
     @Column(name = "idprofilepicture")
     private int idProfilePicture;
     
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "rolesofusers",
+               joinColumns = @JoinColumn(name = "iduser", referencedColumnName = "iduser"),
+               inverseJoinColumns = @JoinColumn(name = "idrole", referencedColumnName = "idrole"))
+    private List<Role> roles;
+    
     public User() {}
     
-    public User(int idUser, String email, String username, String password, String role,
-            boolean active, int idProfilePicture) {
+    public User(int idUser, String email, String username, String password, boolean active,
+            int idProfilePicture, List<Role> roles) {
         super();
         this.idUser = idUser;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
         this.active = active;
         this.idProfilePicture = idProfilePicture;
+        this.roles = roles;
     }
     
     public int getIdUser() {
@@ -84,14 +94,6 @@ public class User implements Serializable {
         this.password = password;
     }
     
-    public String getRole() {
-        return role;
-    }
-    
-    public void setRole(String role) {
-        this.role = role;
-    }
-    
     public boolean isActive() {
         return active;
     }
@@ -108,6 +110,14 @@ public class User implements Serializable {
         this.idProfilePicture = idProfilePicture;
     }
     
+    public List<Role> getRoles() {
+        return roles;
+    }
+    
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -121,7 +131,7 @@ public class User implements Serializable {
         result = prime * result + idProfilePicture;
         result = prime * result + idUser;
         result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((roles == null) ? 0 : roles.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
@@ -151,10 +161,10 @@ public class User implements Serializable {
                 return false;
         } else if (!password.equals(other.password))
             return false;
-        if (role == null) {
-            if (other.role != null)
+        if (roles == null) {
+            if (other.roles != null)
                 return false;
-        } else if (!role.equals(other.role))
+        } else if (!roles.equals(other.roles))
             return false;
         if (username == null) {
             if (other.username != null)
@@ -163,12 +173,12 @@ public class User implements Serializable {
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "User [idUser=" + idUser + ", email=" + email + ", username=" + username
-                + ", password=" + password + ", role=" + role + ", active=" + active
-                + ", idProfilePicture=" + idProfilePicture + "]";
+                + ", password=" + password + ", active=" + active + ", idProfilePicture="
+                + idProfilePicture + ", roles=" + roles + "]";
     }
     
 }
