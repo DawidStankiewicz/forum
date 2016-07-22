@@ -14,6 +14,7 @@ import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.domain.repository.PostRepository;
 import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.TopicService;
+import com.github.szczypioreg.forum.service.UserService;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -23,6 +24,9 @@ public class PostServiceImpl implements PostService {
     
     @Autowired
     private TopicService topicService;
+    
+    @Autowired
+    private UserService userService;
     
     @Override
     public Post findOne(int id) {
@@ -73,6 +77,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public void delete(Post post) {
         postRepository.delete(post);
+    }
+    
+    @Override
+    public void save(String content, String username, int idTopic) {
+        Post post = new Post();
+        post.setTopic(topicService.findOne(idTopic));
+        post.setUser(userService.findByUsername(username));
+        post.setContent(content);
+        save(post);
     }
     
 }

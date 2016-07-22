@@ -30,5 +30,7 @@ public interface PostService {
     void delete(int id);
     
     void delete(Post post);
+
+    void save(String content, String username, int idTopic);
     
 }

@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "posts")
@@ -37,7 +39,8 @@ public class Post implements Serializable {
     @Column(name = "content")
     private String content;
     
-    @Column(name = "date")
+    @Column(name = "date", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     
     public Post() {}
