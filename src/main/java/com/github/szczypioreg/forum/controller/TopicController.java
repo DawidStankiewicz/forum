@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.domain.Post;
-import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.service.PostService;
+import com.github.szczypioreg.forum.service.TopicService;
 
 @Controller
 public class TopicController {
@@ -22,8 +23,12 @@ public class TopicController {
     @Autowired
     private PostService postService;
     
+    @Autowired
+    private TopicService topicService;
+    
     @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.GET)
     public String getTopicsFromSection(@PathVariable int idTopic, Model model) {
+        model.addAttribute("topic", topicService.findOne(idTopic));
         model.addAttribute("posts", postService.findByTopic(idTopic));
         model.addAttribute("reply", new Post());
         return "topic";
@@ -33,6 +38,7 @@ public class TopicController {
     public String addPost(@ModelAttribute("reply") String content, Authentication authentication,
             @PathVariable int idTopic, Model model) {
         postService.save(content, authentication.getName(), idTopic);
+        model.asMap().clear();
         return "redirect:/topic/" + idTopic;
     }
 }

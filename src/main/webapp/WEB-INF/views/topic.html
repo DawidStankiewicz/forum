@@ -1,16 +1,26 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col s10 right">
-                <h4 th:text="${posts[0].topic.title}"></h4>
+        <h5 th:text="${topic.title}"></h5>
+        <div class="row z-depth-1">
+            <div class="col s2  center">
+                <h5 th:text="${topic.user.username}"></h5>
+                <div class="col s12">
+                    <img th:src="@{/resources/img/} + ${topic.user.idProfilePicture} + '.png'" class="responsive-img" />
+                </div>
+
+            </div>
+            <div class="col s10">
+                <p th:text="${topic.date}"></p>
+                <p th:text="${topic.content}"></p>
             </div>
         </div>
+
         <div class="row z-depth-1" th:each="post : ${posts}">
             <div class="col s2  center">
                 <h5 th:text="${post.user.username}"></h5>
@@ -23,6 +33,14 @@
                 <p th:text="${post.date}"></p>
                 <p th:text="${post.content}"></p>
             </div>
+            <div class="row" th:if="${#authentication.name} eq ${post.user.username}">
+                <div class="col s11 right-align">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/delete/} + ${post.idPost}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div class="row ">
