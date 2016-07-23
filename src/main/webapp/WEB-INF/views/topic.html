@@ -43,7 +43,7 @@
 
         </div>
 
-        <div class="row ">
+        <div class="row " sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
                 <form th:action="@{/topic/} + ${posts[0].topic.idTopic}" method="POST">
                     <div class="row">
@@ -60,6 +60,12 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        
+        <div class="row z-depth-1" sec:authorize="!isAuthenticated()">
+            <div class="col s12">
+                <h5 th:text="#{login.to.reply}"></h5>
             </div>
         </div>
     </div>
