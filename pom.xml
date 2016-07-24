@@ -19,6 +19,7 @@
 		<org.thymeleaf-version>3.0.0.RELEASE</org.thymeleaf-version>
 		<hibernate-version>5.2.1.Final</hibernate-version>
 		<junit-version>4.12</junit-version>
+		<jackson.core-version>2.8.1</jackson.core-version>
 
 	</properties>
 	<build>
@@ -164,6 +165,21 @@
 		</dependency>
 
 
+		<!-- Jackson JSON -->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.core-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.core-version}</version>
+		</dependency>
+
+
 		<!-- Other -->
 
 		<dependency>
@@ -184,6 +200,8 @@
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
 		</dependency>
+
+
 
 
 	</dependencies>
