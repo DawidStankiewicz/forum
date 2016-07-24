@@ -48,13 +48,9 @@ public class Topic implements Serializable {
     @Column(name = "views")
     private int views;
     
-    @OneToMany(mappedBy = "topic")
-    private List<Post> posts;
-    
     public Topic() {}
     
-    public Topic(Section section, User user, String title, String content, Date date, int views,
-            List<Post> posts) {
+    public Topic(Section section, User user, String title, String content, Date date, int views) {
         super();
         this.section = section;
         this.user = user;
@@ -62,7 +58,6 @@ public class Topic implements Serializable {
         this.content = content;
         this.date = date;
         this.views = views;
-        this.posts = posts;
     }
     
     public int getIdTopic() {
@@ -121,14 +116,6 @@ public class Topic implements Serializable {
         this.views = views;
     }
     
-    public List<Post> getPosts() {
-        return posts;
-    }
-    
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -140,7 +127,6 @@ public class Topic implements Serializable {
         result = prime * result + ((content == null) ? 0 : content.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + idTopic;
-        result = prime * result + ((posts == null) ? 0 : posts.hashCode());
         result = prime * result + ((section == null) ? 0 : section.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -169,11 +155,6 @@ public class Topic implements Serializable {
             return false;
         if (idTopic != other.idTopic)
             return false;
-        if (posts == null) {
-            if (other.posts != null)
-                return false;
-        } else if (!posts.equals(other.posts))
-            return false;
         if (section == null) {
             if (other.section != null)
                 return false;
@@ -197,8 +178,7 @@ public class Topic implements Serializable {
     @Override
     public String toString() {
         return "Topic [idTopic=" + idTopic + ", section=" + section + ", user=" + user + ", title="
-                + title + ", content=" + content + ", date=" + date + ", views=" + views
-                + ", posts=" + posts + "]";
+                + title + ", content=" + content + ", date=" + date + ", views=" + views + "]";
     }
     
 }
