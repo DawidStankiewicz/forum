@@ -30,7 +30,7 @@
 
             </div>
             <div class="col s10">
-                <p th:text="${post.date}"></p>
+                <p th:text="${post.date} + ' id: ' + ${post.idPost} "></p>
                 <p th:text="${post.content}"></p>
             </div>
             <div class="row" th:if="${#authentication.name} eq ${post.user.username}">
@@ -62,7 +62,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="row z-depth-1" sec:authorize="!isAuthenticated()">
             <div class="col s12">
                 <h5 th:text="#{login.to.reply}"></h5>
