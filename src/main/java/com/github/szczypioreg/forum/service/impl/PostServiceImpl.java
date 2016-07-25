@@ -3,7 +3,10 @@
  */
 package com.github.szczypioreg.forum.service.impl;
 
+
+
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,17 +53,17 @@ public class PostServiceImpl implements PostService {
     }
     
     @Override
-    public List<Post> findByUser(User user) {
+    public Set<Post> findByUser(User user) {
         return postRepository.findByUser(user);
     }
     
     @Override
-    public List<Post> findByTopic(int idTopic) {
+    public Set<Post> findByTopic(int idTopic) {
         return findByTopic(topicService.findOne(idTopic));
     }
     
     @Override
-    public List<Post> findByTopic(Topic topic) {
+    public Set<Post> findByTopic(Topic topic) {
         return postRepository.findByTopic(topic);
     }
     

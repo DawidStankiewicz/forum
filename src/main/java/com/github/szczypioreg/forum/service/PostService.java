@@ -4,6 +4,7 @@
 package com.github.szczypioreg.forum.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.domain.Topic;
@@ -19,18 +20,18 @@ public interface PostService {
     
     List<Post> findRecent(int count);
     
-    List<Post> findByUser(User user);
+    Set<Post> findByUser(User user);
     
-    List<Post> findByTopic(int idTopic);
+    Set<Post> findByTopic(int idTopic);
     
-    List<Post> findByTopic(Topic topic);
+    Set<Post> findByTopic(Topic topic);
     
     void save(Post post);
     
     void delete(int id);
     
     void delete(Post post);
-
+    
     void save(String content, String username, int idTopic);
     
 }
