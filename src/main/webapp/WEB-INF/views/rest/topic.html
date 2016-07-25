@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="container" ng-app="topicApp" ng-controller="topicController" ng-init="initTopic(1)">
+        <h5>{{topic.title}}</h5>
+        <div class="row z-depth-1">
+            <div class="col s2  center">
+                <h5>topic.user.username</h5>
+                <div class="col s12">
+                    <img src="/forum/resources/img/1.png" class="responsive-img" />
+                </div>
+
+            </div>
+            <div class="col s10">
+                <p>topic.date</p>
+                <p>topic.content</p>
+            </div>
+        </div>
+
+        <div class="row z-depth-1">
+            <!-- each post from posts -->
+            <div class="col s2  center">
+                <h5>post.user.username</h5>
+                <div class="col s12">
+                    <img src="/forum/resources/img/0.png " class="responsive-img" />
+                    <!-- img -->
+
+                </div>
+
+            </div>
+            <div class="col s10">
+                <p>post.date and post.id</p>
+                <p>post.content</p>
+            </div>
+            <div class="row">
+                <!-- If th:if="${#authentication.name} eq ${post.user.username}" -->
+                <div class="col s11 right-align">
+                    <a class="btn-floating btn waves-effect waves-ligh green">
+                        <!-- post delete -->
+                        <i class="material-icons">delete</i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

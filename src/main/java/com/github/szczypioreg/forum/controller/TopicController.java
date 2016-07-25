@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.service.PostService;
@@ -27,7 +26,7 @@ public class TopicController {
     private TopicService topicService;
     
     @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.GET)
-    public String getTopicsFromSection(@PathVariable int idTopic, Model model) {
+    public String getTopicById(@PathVariable int idTopic, Model model) {
         model.addAttribute("topic", topicService.findOne(idTopic));
         model.addAttribute("posts", postService.findByTopic(idTopic));
         model.addAttribute("reply", new Post());
@@ -40,5 +39,11 @@ public class TopicController {
         postService.save(content, authentication.getName(), idTopic);
         model.asMap().clear();
         return "redirect:/topic/" + idTopic;
+    }
+    
+    @RequestMapping(value = "/rest/topic/{topicId}", method = RequestMethod.GET)
+    public String getTopicRestView(@PathVariable int topicId, Model model) {
+        model.addAttribute("topicId", topicId);
+        return "rest/topic";
     }
 }
