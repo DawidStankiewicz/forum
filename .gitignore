@@ -134,3 +134,7 @@ gradle-app.setting
 
 ### SQL ### 
 *.sql
+
+### OTHER ###
+src/main/webapp/resources/public/img/*
+gource.sh
