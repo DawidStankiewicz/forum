@@ -16,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "topics")
@@ -42,7 +45,8 @@ public class Topic implements Serializable {
     @Column(name = "content")
     private String content;
     
-    @Column(name = "date")
+    @Column(name = "date", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     
     @Column(name = "views")
