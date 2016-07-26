@@ -44,17 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                            "ADMIN" };
     
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").and().httpBasic().and().logout().and()
-                .authorizeRequests().antMatchers(PAGES_ONLY_FOR_AUTHORIZED_USERS).hasAnyRole(
-                        LIST_OF_AUTHORIZED_ROLES).antMatchers(LIST_OF_PAGES_ONLY_FOR_ADMINS)
-                .hasAnyRole(LIST_OF_ADMINS_ROLES);
+        http.formLogin().loginPage("/login").and().logout().and().authorizeRequests().antMatchers(
+                PAGES_ONLY_FOR_AUTHORIZED_USERS).hasAnyRole(LIST_OF_AUTHORIZED_ROLES).antMatchers(
+                        LIST_OF_PAGES_ONLY_FOR_ADMINS).hasAnyRole(LIST_OF_ADMINS_ROLES);
         
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
         
-        http.csrf().disable();
     }
     
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

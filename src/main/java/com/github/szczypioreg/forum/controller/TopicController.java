@@ -16,6 +16,7 @@ import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.TopicService;
 
+
 @Controller
 public class TopicController {
     
@@ -41,9 +42,4 @@ public class TopicController {
         return "redirect:/topic/" + idTopic;
     }
     
-    @RequestMapping(value = "/rest/topic/{topicId}", method = RequestMethod.GET)
-    public String getTopicRestView(@PathVariable int topicId, Model model) {
-        model.addAttribute("topicId", topicId);
-        return "rest/topic";
-    }
 }
