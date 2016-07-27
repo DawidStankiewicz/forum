@@ -55,8 +55,8 @@ public class TopicServiceImpl implements TopicService {
     }
     
     @Override
-    public void save(Topic topic) {
-        topicRepository.save(topic);
+    public Topic save(Topic topic) {
+        return topicRepository.save(topic);
     }
     
     @Override

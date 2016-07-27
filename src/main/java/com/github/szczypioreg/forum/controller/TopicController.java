@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.szczypioreg.forum.domain.Post;
+import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.service.PostService;
+import com.github.szczypioreg.forum.service.SectionService;
 import com.github.szczypioreg.forum.service.TopicService;
 
 
@@ -25,6 +27,9 @@ public class TopicController {
     
     @Autowired
     private TopicService topicService;
+    
+    @Autowired
+    private SectionService sectionService;
     
     @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.GET)
     public String getTopicById(@PathVariable int idTopic, Model model) {
@@ -40,6 +45,22 @@ public class TopicController {
         postService.save(content, authentication.getName(), idTopic);
         model.asMap().clear();
         return "redirect:/topic/" + idTopic;
+    }
+    
+    @RequestMapping(value = "/topic/new", method = RequestMethod.GET)
+    public String getNewTopictForm(Model model) {
+        Topic topicModel = new Topic();
+        model.addAttribute("topicModel", topicModel);
+        model.addAttribute("sections", sectionService.findAll());
+        return "newtopicform";
+    }
+    
+    @RequestMapping(value = "/topic/new", method = RequestMethod.POST)
+    public String processAndAddNewTopic(@ModelAttribute("topicModel") Topic topicToAdded,
+            Authentication authentication) {
+        Topic topic = topicService.save(topicToAdded);
+        System.out.println();
+        return "redirect:/topic/" + topic.getIdTopic();
     }
     
 }

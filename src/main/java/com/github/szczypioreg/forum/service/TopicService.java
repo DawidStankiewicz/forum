@@ -22,7 +22,7 @@ public interface TopicService {
     
     List<Topic> findBySection(String sectionName);
     
-    void save(Topic topic);
+    Topic save(Topic topic);
     
     void delete(int id);
     
