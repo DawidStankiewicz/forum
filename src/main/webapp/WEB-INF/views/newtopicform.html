@@ -14,7 +14,7 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <form class="col s12" name='f' th:action='@{/topic/new}' th:object="${topicModel}" method="POST">
+                        <form class="col s12" name='f' th:action='@{/topic/new}' th:object="${newTopic}" method="POST">
                             <div class="row">
 
                                 <div class="row">
@@ -35,7 +35,7 @@
                                     <div class="input-field col s12">
                                         <select class="browser-default" id="section" >
                                             <option value="" disabled selected>Choose section</option>
-                                            <option th:each="section : ${sections}" th:text="${section.name}" th:field="*{section.idSection}" th:value="${section.idSection}"></option>
+                                            <option th:each="section : ${sections}" th:text="${section.name}" th:field="*{sectionId}" th:value="${section.idSection}"></option>
                                         </select>
 
                                     </div>
