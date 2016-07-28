@@ -19,7 +19,7 @@ public class Section implements Serializable {
     private static final long serialVersionUID = 4309596024036692836L;
     
     @Id
-    @Column(name = "idsection")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSection;
     

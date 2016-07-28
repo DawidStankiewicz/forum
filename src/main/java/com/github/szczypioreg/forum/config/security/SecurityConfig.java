@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private static final String AUTHORIZES_BY_USERNAME_QUERY =
         "select users.username, concat('ROLE_', roles.name) from users, roles, rolesofusers "
-                + "where users.username=? and users.iduser=forum.rolesofusers.iduser and rolesofusers.idrole=roles.idrole";
+                + "where users.username=? and users.id=forum.rolesofusers.id and rolesofusers.id=roles.id";
     
     private static final String[] PAGES_ONLY_FOR_AUTHORIZED_USERS = { "/user/**" };
     

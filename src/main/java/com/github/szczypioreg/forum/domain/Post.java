@@ -24,7 +24,7 @@ public class Post implements Serializable {
     private static final long serialVersionUID = 4235393151425571253L;
     
     @Id
-    @Column(name = "idpost")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPost;
     

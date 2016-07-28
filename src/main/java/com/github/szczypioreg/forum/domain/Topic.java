@@ -27,7 +27,7 @@ public class Topic implements Serializable {
     private static final long serialVersionUID = -1722083052479276312L;
     
     @Id
-    @Column(name = "idtopic")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTopic;
     
