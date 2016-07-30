@@ -6,43 +6,23 @@ package com.github.szczypioreg.forum.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.github.szczypioreg.forum.config.RootConfig;
-import com.github.szczypioreg.forum.config.ThymeleafConfig;
-import com.github.szczypioreg.forum.config.WebConfig;
+import com.github.szczypioreg.forum.ConfigTest;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = { RootConfig.class,
-                                  WebConfig.class,
-                                  ThymeleafConfig.class })
-public class UserControllerTest {
-    
-    @Autowired
-    private WebApplicationContext context;
-    
-    private MockMvc mockMvc;
-    
-    @Before
-    public void init() {
-        mockMvc = webAppContextSetup(this.context).build();
-    }
+public class UserControllerTest extends ConfigTest {
     
     @Test
     public void testRegisterForm() throws Exception {
         mockMvc.perform(get("/registration")).andExpect(status().isOk()).andExpect(view().name(
-                "registration"));
+                "new_user_form"));
+    }
+    
+    @Test
+    public void testNotFoundException() throws Exception {
+        mockMvc.perform(get("/user/nas4enfn3saenfasj2knefkjnaskje4nfkjas")).andExpect(status()
+                .isNotFound());
     }
 }
