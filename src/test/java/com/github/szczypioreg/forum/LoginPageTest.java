@@ -3,7 +3,6 @@
  */
 package com.github.szczypioreg.forum;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -14,35 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.github.szczypioreg.forum.config.RootConfig;
-import com.github.szczypioreg.forum.config.ThymeleafConfig;
-import com.github.szczypioreg.forum.config.WebConfig;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = { RootConfig.class,
-                                  WebConfig.class,
-                                  ThymeleafConfig.class })
-public class LoginPageTest {
+public class LoginPageTest extends ConfigTest {
     
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
-    
-    @Autowired
-    private WebApplicationContext context;
-    
-    private MockMvc mockMvc;
     
     @Before
     public void setup() {
@@ -59,7 +38,7 @@ public class LoginPageTest {
     @Test
     public void testLogin() throws Exception {
         
-        this.mockMvc.perform(post("/login").param("username", "admin").param("password", "admin")
+        this.mockMvc.perform(post("/login").param("username", "Admin").param("password", "admin")
                 .with(csrf())).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/"))
                 .andExpect(authenticated());
     }
