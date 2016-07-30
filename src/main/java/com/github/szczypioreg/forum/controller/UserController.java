@@ -5,6 +5,7 @@ package com.github.szczypioreg.forum.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +65,12 @@ public class UserController {
     }
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String processAndSaveNewUser(@ModelAttribute("newUser") NewUserForm newUser) {
+    public String processAndSaveNewUser(@Valid @ModelAttribute("newUser") NewUserForm newUser,
+            BindingResult result) {
+        
+        if (result.hasErrors()) {
+            return "new_user_form";
+        }
         
         User user = new User();
         user.setEmail(newUser.getEmail());
