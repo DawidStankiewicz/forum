@@ -11,18 +11,16 @@
                     <tr>
                         <th>NAME</th>
                         <th>EMAIL</th>
+                        <th>ROLES</th>
                     </tr>
                     <tr th:each="user : ${users}">
                         <td th:text="${user.username}">Onions</td>
                         <td th:text="${user.email}">123</td>
+                        <td th:each="role : ${user.roles}"><span th:text="${role.name}"></span></td>
                     </tr>
                 </table>
-                <div class="collection">
-                    <a class="collection-item" th:each="user : ${users}" th:href="@{/user/} + ${user.username}"><span th:text="${user.username}"></span></a>
-                </div>
             </div>
         </div>
-
 
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
