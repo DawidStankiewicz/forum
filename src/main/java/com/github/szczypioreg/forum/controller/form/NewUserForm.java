@@ -3,7 +3,7 @@
  */
 package com.github.szczypioreg.forum.controller.form;
 
-public class UserRegistrationForm {
+public class NewUserForm {
 	
 	private String email;
 	
@@ -11,7 +11,7 @@ public class UserRegistrationForm {
 	
 	private String password;
 	
-	public UserRegistrationForm() {}
+	public NewUserForm() {}
 
 	public String getEmail() {
 		return email;

@@ -3,7 +3,7 @@
  */
 package com.github.szczypioreg.forum.controller.form;
 
-public class CreateTopicForm {
+public class NewTopicForm {
 	
 	private String title;
 	
@@ -11,7 +11,7 @@ public class CreateTopicForm {
 	
 	private int sectionId;
 
-	public CreateTopicForm() {}
+	public NewTopicForm() {}
 	
 	public String getTitle() {
 		return title;
