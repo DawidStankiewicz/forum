@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] LIST_OF_ADMINS_ROLES = { "HEAD_ADMIN",
                                                            "ADMIN" };
     
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login").and().logout().and().authorizeRequests().antMatchers(
                 PAGES_ONLY_FOR_AUTHORIZED_USERS).hasAnyRole(LIST_OF_AUTHORIZED_ROLES).antMatchers(
@@ -58,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
     }
     
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(
                 USERS_BY_USERNAME_QUERY).authoritiesByUsernameQuery(AUTHORIZES_BY_USERNAME_QUERY)

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.github.szczypioreg.forum.domain.Role;
 
+
 public interface RoleService {
     
     Role findOne(int id);

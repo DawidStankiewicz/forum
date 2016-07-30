@@ -17,6 +17,7 @@ import com.github.szczypioreg.forum.domain.repository.UserRepository;
 import com.github.szczypioreg.forum.service.RoleService;
 import com.github.szczypioreg.forum.service.UserService;
 
+
 @Service
 public class UserServiceImpl implements UserService {
     

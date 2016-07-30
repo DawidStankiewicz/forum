@@ -11,6 +11,7 @@ import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.domain.User;
 
+
 public interface PostRepository extends JpaRepository<Post, Integer> {
     
     Set<Post> findByUser(User user);

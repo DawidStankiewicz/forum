@@ -5,7 +5,6 @@ package com.github.szczypioreg.forum.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -140,42 +138,57 @@ public class Topic implements Serializable {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Topic other = (Topic) obj;
         if (content == null) {
-            if (other.content != null)
+            if (other.content != null) {
                 return false;
-        } else if (!content.equals(other.content))
+            }
+        } else if (!content.equals(other.content)) {
             return false;
+        }
         if (date == null) {
-            if (other.date != null)
+            if (other.date != null) {
                 return false;
-        } else if (!date.equals(other.date))
+            }
+        } else if (!date.equals(other.date)) {
             return false;
-        if (idTopic != other.idTopic)
+        }
+        if (idTopic != other.idTopic) {
             return false;
+        }
         if (section == null) {
-            if (other.section != null)
+            if (other.section != null) {
                 return false;
-        } else if (!section.equals(other.section))
+            }
+        } else if (!section.equals(other.section)) {
             return false;
+        }
         if (title == null) {
-            if (other.title != null)
+            if (other.title != null) {
                 return false;
-        } else if (!title.equals(other.title))
+            }
+        } else if (!title.equals(other.title)) {
             return false;
+        }
         if (user == null) {
-            if (other.user != null)
+            if (other.user != null) {
                 return false;
-        } else if (!user.equals(other.user))
+            }
+        } else if (!user.equals(other.user)) {
             return false;
-        if (views != other.views)
+        }
+        if (views != other.views) {
             return false;
+        }
         return true;
     }
     

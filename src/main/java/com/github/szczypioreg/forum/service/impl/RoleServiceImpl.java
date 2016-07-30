@@ -12,6 +12,7 @@ import com.github.szczypioreg.forum.domain.Role;
 import com.github.szczypioreg.forum.domain.repository.RoleRepository;
 import com.github.szczypioreg.forum.service.RoleService;
 
+
 @Service
 public class RoleServiceImpl implements RoleService {
     

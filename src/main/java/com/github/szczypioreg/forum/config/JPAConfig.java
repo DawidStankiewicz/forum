@@ -19,6 +19,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.github.szczypioreg.forum.domain")
@@ -56,8 +57,8 @@ public class JPAConfig {
     }
     
     @Bean(name = "transactionManager")
-    public PlatformTransactionManager
-           transactionManagerJPA(EntityManagerFactory entityManagerFactory) throws NamingException {
+    public PlatformTransactionManager transactionManagerJPA(
+            EntityManagerFactory entityManagerFactory) throws NamingException {
         JpaTransactionManager txManager = new JpaTransactionManager(entityManagerFactory);
         return txManager;
     }

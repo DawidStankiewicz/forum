@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.github.szczypioreg.forum.domain.User;
 
+
 public interface UserService {
     
     List<User> findAll();

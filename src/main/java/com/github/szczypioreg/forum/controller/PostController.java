@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.service.PostService;
 
+
 @Controller
 @RequestMapping(value = "/post")
 public class PostController {

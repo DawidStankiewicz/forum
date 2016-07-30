@@ -10,6 +10,7 @@ import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.domain.User;
 
+
 public interface PostService {
     
     Post findOne(int id);

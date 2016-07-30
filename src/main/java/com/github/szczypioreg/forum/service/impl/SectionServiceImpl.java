@@ -12,6 +12,7 @@ import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.repository.SectionRepository;
 import com.github.szczypioreg.forum.service.SectionService;
 
+
 @Service
 public class SectionServiceImpl implements SectionService {
     

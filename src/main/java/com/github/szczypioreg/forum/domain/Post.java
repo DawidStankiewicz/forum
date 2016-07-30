@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
 @Table(name = "posts")
 public class Post implements Serializable {
@@ -111,35 +112,47 @@ public class Post implements Serializable {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Post other = (Post) obj;
         if (content == null) {
-            if (other.content != null)
+            if (other.content != null) {
                 return false;
-        } else if (!content.equals(other.content))
+            }
+        } else if (!content.equals(other.content)) {
             return false;
+        }
         if (date == null) {
-            if (other.date != null)
+            if (other.date != null) {
                 return false;
-        } else if (!date.equals(other.date))
+            }
+        } else if (!date.equals(other.date)) {
             return false;
-        if (idPost != other.idPost)
+        }
+        if (idPost != other.idPost) {
             return false;
+        }
         if (topic == null) {
-            if (other.topic != null)
+            if (other.topic != null) {
                 return false;
-        } else if (!topic.equals(other.topic))
+            }
+        } else if (!topic.equals(other.topic)) {
             return false;
+        }
         if (user == null) {
-            if (other.user != null)
+            if (other.user != null) {
                 return false;
-        } else if (!user.equals(other.user))
+            }
+        } else if (!user.equals(other.user)) {
             return false;
+        }
         return true;
     }
     

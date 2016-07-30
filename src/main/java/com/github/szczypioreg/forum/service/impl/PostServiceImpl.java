@@ -3,8 +3,6 @@
  */
 package com.github.szczypioreg.forum.service.impl;
 
-
-
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +16,7 @@ import com.github.szczypioreg.forum.domain.repository.PostRepository;
 import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.TopicService;
 import com.github.szczypioreg.forum.service.UserService;
+
 
 @Service
 public class PostServiceImpl implements PostService {

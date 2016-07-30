@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -138,39 +139,53 @@ public class User implements Serializable {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         User other = (User) obj;
-        if (active != other.active)
+        if (active != other.active) {
             return false;
+        }
         if (email == null) {
-            if (other.email != null)
+            if (other.email != null) {
                 return false;
-        } else if (!email.equals(other.email))
+            }
+        } else if (!email.equals(other.email)) {
             return false;
-        if (idProfilePicture != other.idProfilePicture)
+        }
+        if (idProfilePicture != other.idProfilePicture) {
             return false;
-        if (idUser != other.idUser)
+        }
+        if (idUser != other.idUser) {
             return false;
+        }
         if (password == null) {
-            if (other.password != null)
+            if (other.password != null) {
                 return false;
-        } else if (!password.equals(other.password))
+            }
+        } else if (!password.equals(other.password)) {
             return false;
+        }
         if (roles == null) {
-            if (other.roles != null)
+            if (other.roles != null) {
                 return false;
-        } else if (!roles.equals(other.roles))
+            }
+        } else if (!roles.equals(other.roles)) {
             return false;
+        }
         if (username == null) {
-            if (other.username != null)
+            if (other.username != null) {
                 return false;
-        } else if (!username.equals(other.username))
+            }
+        } else if (!username.equals(other.username)) {
             return false;
+        }
         return true;
     }
     

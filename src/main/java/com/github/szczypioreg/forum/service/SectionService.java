@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.github.szczypioreg.forum.domain.Section;
 
+
 public interface SectionService {
     
     List<Section> findAll();
