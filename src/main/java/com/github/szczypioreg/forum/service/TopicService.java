@@ -8,6 +8,7 @@ import java.util.List;
 import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.Topic;
 
+
 public interface TopicService {
     
     List<Topic> findAll();
@@ -27,5 +28,7 @@ public interface TopicService {
     void delete(int id);
     
     void delete(Topic topic);
+    
+    List<Topic> findBySection(int id);
     
 }

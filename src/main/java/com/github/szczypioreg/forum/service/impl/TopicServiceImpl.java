@@ -14,6 +14,7 @@ import com.github.szczypioreg.forum.domain.repository.TopicRepository;
 import com.github.szczypioreg.forum.service.SectionService;
 import com.github.szczypioreg.forum.service.TopicService;
 
+
 @Service
 public class TopicServiceImpl implements TopicService {
     
@@ -67,6 +68,11 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public void delete(Topic topic) {
         topicRepository.delete(topic);
+    }
+    
+    @Override
+    public List<Topic> findBySection(int id) {
+        return findBySection(sectionService.findOne(id));
     }
     
 }
