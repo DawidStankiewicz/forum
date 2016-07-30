@@ -34,8 +34,8 @@ public class SectionServiceImpl implements SectionService {
     }
     
     @Override
-    public void save(Section section) {
-        sectionRepository.save(section);
+    public Section save(Section section) {
+        return sectionRepository.save(section);
     }
     
     @Override

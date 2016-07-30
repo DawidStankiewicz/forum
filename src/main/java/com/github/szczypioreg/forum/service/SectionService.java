@@ -15,7 +15,7 @@ public interface SectionService {
     
     Section findByName(String name);
     
-    void save(Section section);
+    Section save(Section section);
     
     void delete(int id);
     
