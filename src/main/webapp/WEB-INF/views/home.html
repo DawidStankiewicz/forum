@@ -1,8 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
@@ -14,23 +11,25 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <h4 th:text="#{sections}">Sections</h4>
+                        <div class="row">
+                            <div class="col s6">
+                                <h4 th:text="#{sections}">Sections</h4>
+                            </div>
+                            <div class="col s6">
+                                <a sec:authorize="hasAnyRole('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/new}" th:text="'[' + #{new.section} + ']'"
+                                    class="right"></a>
+                            </div>
+                        </div>
                         <div class="divider"></div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col s12">
-                        <div
-                            class="row"
-                            th:each="section : ${sections}"
-                        >
+                        <div class="row" th:each="section : ${sections}">
                             <div class="col s12">
                                 <div class="section">
-                                    <a
-                                        th:href="@{/section/} + ${section.name}"
-                                        th:text="${section.name}"
-                                    ></a>
+                                    <a th:href="@{/section/} + ${section.idSection}" th:text="${section.name}"></a>
                                 </div>
                                 <div class="divider"></div>
                             </div>
@@ -54,22 +53,12 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <div
-                            class="row"
-                            th:each="topic : ${topics}"
-                        >
+                        <div class="row" th:each="topic : ${topics}">
                             <div class="col s12">
                                 <div class="section">
-                                    <a
-                                        th:href="@{/topic/} + ${topic.idTopic}"
-                                        th:text="${topic.user.username} + ': ' + ${topic.title}"
-                                    ></a> <span
-                                        class="right"
-                                        th:text="${#calendars.format(topic.date, 'dd MMMM yyyy H:m')}"
-                                    ></span> <span
-                                        class="truncate"
-                                        th:text="${topic.content}"
-                                    ></span>
+                                    <a th:href="@{/topic/} + ${topic.idTopic}" th:text="${topic.user.username} + ': ' + ${topic.title}"></a>
+                                    <span class="right" th:text="${#calendars.format(topic.date, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
+                                        th:text="${topic.content}"></span>
                                 </div>
                                 <div class="divider"></div>
                             </div>
@@ -94,22 +83,13 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <div
-                            class="row"
-                            th:each="post : ${posts}"
-                        >
+                        <div class="row" th:each="post : ${posts}">
                             <div class="col s12">
                                 <div class="section">
-                                    <span th:text="${post.user.username} + ' ' + #{reply.to}"></span> <a
-                                        th:href="@{/topic/} + ${post.topic.idTopic}"
-                                        th:text="${post.topic.title}"
-                                    ></a> <span
-                                        class="right"
-                                        th:text="${#calendars.format(post.date, 'dd MMMM yyyy H:m')}"
-                                    ></span> <span
-                                        class="truncate"
-                                        th:text="${post.content}"
-                                    ></span>
+                                    <span th:text="${post.user.username} + ' ' + #{reply.to}"></span>
+                                    <a th:href="@{/topic/} + ${post.topic.idTopic}" th:text="${post.topic.title}"></a>
+                                    <span class="right" th:text="${#calendars.format(post.date, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
+                                        th:text="${post.content}"></span>
                                 </div>
                                 <div class="divider"></div>
                             </div>
