@@ -3,10 +3,15 @@
  */
 package com.github.szczypioreg.forum.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.szczypioreg.forum.controller.form.NewTopicForm;
 import com.github.szczypioreg.forum.domain.Post;
+import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.SectionService;
@@ -60,15 +66,21 @@ public class TopicController {
     }
     
     @RequestMapping(value = "/topic/new", method = RequestMethod.POST)
-    public String processAndAddNewTopic(@ModelAttribute("newTopic") NewTopicForm newTopic,
-            Authentication authentication) {
+    public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
+            BindingResult result, Authentication authentication, Model model) {
+        
+        if (result.hasErrors()) {
+            model.addAttribute("sections", sectionService.findAll());
+            return "new_topic_form";
+        }
+        
         Topic topic = new Topic();
         topic.setUser(userService.findByUsername(authentication.getName()));
         topic.setTitle(newTopic.getTitle());
         topic.setContent(newTopic.getContent());
         topic.setSection(sectionService.findOne(newTopic.getSectionId()));
-        System.out.println("Topic section: " + newTopic.getSectionId());
         topicService.save(topic);
+        
         return "redirect:/topic/" + topic.getIdTopic();
     }
     
