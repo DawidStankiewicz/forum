@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.szczypioreg.forum.controller.form.UserRegistrationForm;
+import com.github.szczypioreg.forum.controller.form.NewUserForm;
 import com.github.szczypioreg.forum.domain.User;
+import com.github.szczypioreg.forum.exception.UserNotFoundException;
 import com.github.szczypioreg.forum.service.UserService;
+
 
 @Controller
 public class UserController {
@@ -31,13 +33,20 @@ public class UserController {
     public String findUserByUsernameAndViewProfilePage(@PathVariable("username") String username,
             Model model) {
         User user = userService.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
         model.addAttribute("user", user);
         return "user";
     }
     
     @RequestMapping(value = "/user/id/{id}")
     public String findUserByIdAndViewProfilePage(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
+        User user = userService.findOne(id);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        model.addAttribute("user", user);
         return "user";
     }
     
@@ -49,19 +58,19 @@ public class UserController {
     
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String regiristrationPage(Model model) {
-    	model.addAttribute("newUser", new UserRegistrationForm());
-    	return "registration";
+        model.addAttribute("newUser", new NewUserForm());
+        return "new_user_form";
     }
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String processAndSaveNewUser(@ModelAttribute("newUser") UserRegistrationForm newUser) {
+    public String processAndSaveNewUser(@ModelAttribute("newUser") NewUserForm newUser) {
         
-    	User user = new User();
+        User user = new User();
         user.setEmail(newUser.getEmail());
         user.setUsername(newUser.getUsername());
         user.setPassword(newUser.getPassword());
-      
-    	userService.save(user);
+        
+        userService.save(user);
         return "redirect:/user/" + user.getUsername();
     }
     
