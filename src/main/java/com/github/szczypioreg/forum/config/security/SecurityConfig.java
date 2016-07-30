@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,12 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private static final String AUTHORIZES_BY_USERNAME_QUERY =
         "select users.username, concat('ROLE_', roles.name) from users, roles, rolesofusers "
-                + "where users.username=? and users.id=forum.rolesofusers.id and rolesofusers.id=roles.id";
+                + "where users.username=? and users.id=forum.rolesofusers.iduser and rolesofusers.idrole=roles.id";
     
-    private static final String[] PAGES_ONLY_FOR_AUTHORIZED_USERS = { "/user/**" };
+    private static final String[] PAGES_ONLY_FOR_AUTHORIZED_USERS = { "/user/**",
+                                                                      "/topic/new" };
     
     private static final String[] LIST_OF_PAGES_ONLY_FOR_ADMINS = { "/admin/**",
-                                                                    "/users/**" };
+                                                                    "/users/**",
+                                                                    "/section/new" };
     
     private static final String[] LIST_OF_AUTHORIZED_ROLES = { "USER",
                                                                "ADMIN" };
