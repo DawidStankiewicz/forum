@@ -12,9 +12,13 @@
                     <div class="col s2">
                         <img th:src="@{/resources/img/} + ${user.idProfilePicture} + '.png'" class="responsive-img" />
                     </div>
-                    <div class="col s10">
+                    <div class="col s5">
                         <span class="card-title" th:text="${user.username}"></span>
                         <p th:text="${user.email}"></p>
+                    </div>
+                    <div class="col s5">
+                        <p>Roles:</p>
+                        <p th:each="role : ${user.roles}" th:text="${role.name}">
                     </div>
                 </div>
             </div>
