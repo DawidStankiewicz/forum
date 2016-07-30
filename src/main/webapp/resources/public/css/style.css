@@ -8,6 +8,11 @@ footer {
 	flex: 1 0 auto;
 }
 
-body > .container {
+nav {
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+body>.container {
 	padding-top: 50px;
 }
