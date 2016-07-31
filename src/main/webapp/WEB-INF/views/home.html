@@ -18,8 +18,8 @@
                                 <h4 th:text="#{sections}">Sections</h4>
                             </div>
                             <div class="col s6">
-                                <a sec:authorize="hasAnyRole('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/new}" th:text="'[' + #{new.section} + ']'"
-                                    class="right"></a>
+                                <a sec:authorize="hasAnyRole('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}"
+                                    class="right waves-effect waves-light btn"></a>
                             </div>
                         </div>
                         <div class="divider"></div>
