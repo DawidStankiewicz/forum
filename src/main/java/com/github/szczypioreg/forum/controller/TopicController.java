@@ -3,8 +3,6 @@
  */
 package com.github.szczypioreg.forum.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.github.szczypioreg.forum.controller.form.NewPostForm;
 import com.github.szczypioreg.forum.controller.form.NewTopicForm;
 import com.github.szczypioreg.forum.domain.Post;
-import com.github.szczypioreg.forum.domain.Section;
 import com.github.szczypioreg.forum.domain.Topic;
 import com.github.szczypioreg.forum.service.PostService;
 import com.github.szczypioreg.forum.service.SectionService;
@@ -46,14 +44,27 @@ public class TopicController {
     public String getTopicById(@PathVariable int idTopic, Model model) {
         model.addAttribute("topic", topicService.findOne(idTopic));
         model.addAttribute("posts", postService.findByTopic(idTopic));
-        model.addAttribute("reply", new Post());
+        model.addAttribute("newPost", new NewPostForm());
         return "topic";
     }
     
     @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.POST)
-    public String addPost(@ModelAttribute("reply") String content, Authentication authentication,
-            @PathVariable int idTopic, Model model) {
-        postService.save(content, authentication.getName(), idTopic);
+    public String addPost(@Valid @ModelAttribute("newPost") NewPostForm newPost,
+            BindingResult result, Authentication authentication, @PathVariable int idTopic,
+            Model model) {
+        
+        if (result.hasErrors()) {
+            model.addAttribute("topic", topicService.findOne(idTopic));
+            model.addAttribute("posts", postService.findByTopic(idTopic));
+            return "topic";
+        }
+        
+        Post post = new Post();
+        post.setContent(newPost.getContent());
+        post.setTopic(topicService.findOne(idTopic));
+        post.setUser(userService.findByUsername(authentication.getName()));
+        postService.save(post);
+        
         model.asMap().clear();
         return "redirect:/topic/" + idTopic;
     }

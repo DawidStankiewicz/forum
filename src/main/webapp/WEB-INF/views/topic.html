@@ -53,10 +53,10 @@
 
             <div class="row" th:if="${#authentication.name} eq ${post.user.username}">
                 <div class="col s10 right">
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/delete/} + ${topic.idTopic}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/delete/} + ${post.idPost}">
                         <i class="material-icons white black-text">delete</i>
                     </a>
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/edit/} + ${topic.idTopic}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/edit/} + ${post.idPost}">
                         <i class="material-icons white black-text">mode_edit</i>
                     </a>
                 </div>
@@ -67,11 +67,12 @@
 
         <div class="row " sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
-                <form th:action="@{/topic/} + ${topic.idTopic}" method="POST">
+                <form th:action="@{/topic/} + ${topic.idTopic}" method="POST" th:object="${newPost}">
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="reply" name="reply" class="materialize-textarea"></textarea>
-                            <label for="reply">Your reply</label>
+                            <textarea th:field="*{content}" id="content" name="content" class="materialize-textarea"></textarea>
+                            <label for="content">Your reply</label>
+                            <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="red-text">Invalid content!</p>
                         </div>
                     </div>
                     <div class="row">

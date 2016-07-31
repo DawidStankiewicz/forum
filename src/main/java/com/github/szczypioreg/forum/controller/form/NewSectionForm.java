@@ -3,8 +3,12 @@
  */
 package com.github.szczypioreg.forum.controller.form;
 
+import javax.validation.constraints.Size;
+
+
 public class NewSectionForm {
     
+    @Size(min = 3, max = 50, message="{Size.Section.name.validation}")
     private String name;
     
     public NewSectionForm() {}

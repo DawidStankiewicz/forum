@@ -3,9 +3,12 @@
  */
 package com.github.szczypioreg.forum.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +42,13 @@ public class SectionController {
     }
     
     @RequestMapping(value = "/section/new", method = RequestMethod.POST)
-    public String processAndAddNewSection(@ModelAttribute("newSection") NewSectionForm newSection,
-            Model model) {
+    public String processAndAddNewSection(
+            @Valid @ModelAttribute("newSection") NewSectionForm newSection, BindingResult result) {
+        
+        if (result.hasErrors()) {
+            return "new_section_form";
+        }
+        
         Section section = new Section();
         section.setName(newSection.getName());
         section = sectionService.save(section);
