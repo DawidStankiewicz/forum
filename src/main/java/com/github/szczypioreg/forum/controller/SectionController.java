@@ -6,6 +6,7 @@ package com.github.szczypioreg.forum.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,14 +14,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.controller.form.NewSectionForm;
+import com.github.szczypioreg.forum.domain.Role;
 import com.github.szczypioreg.forum.domain.Section;
+import com.github.szczypioreg.forum.domain.User;
+import com.github.szczypioreg.forum.service.RoleService;
 import com.github.szczypioreg.forum.service.SectionService;
 import com.github.szczypioreg.forum.service.TopicService;
+import com.github.szczypioreg.forum.service.UserService;
 
 
 @Controller
+@RequestMapping("/section/")
 public class SectionController {
     
     @Autowired
@@ -29,20 +36,26 @@ public class SectionController {
     @Autowired
     private TopicService topicService;
     
-    @RequestMapping("/section/{id}")
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private RoleService roleService;
+    
+    @RequestMapping("{id}")
     public String getTopicsFromSection(@PathVariable int id, Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("topics", topicService.findBySection(id));
         return "section";
     }
     
-    @RequestMapping(value = "/section/new", method = RequestMethod.GET)
+    @RequestMapping(value = "new", method = RequestMethod.GET)
     public String getNewSectionForm(Model model) {
         model.addAttribute("newSection", new NewSectionForm());
         return "new_section_form";
     }
     
-    @RequestMapping(value = "/section/new", method = RequestMethod.POST)
+    @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewSection(
             @Valid @ModelAttribute("newSection") NewSectionForm newSection, BindingResult result) {
         
@@ -54,6 +67,20 @@ public class SectionController {
         section.setName(newSection.getName());
         section = sectionService.save(section);
         return "redirect:/section/" + section.getIdSection();
+    }
+    
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable int id, Authentication authentication,
+            RedirectAttributes model) {
+        User user = userService.findByUsername(authentication.getName());
+        Role adminRole = roleService.findByName("ADMIN");
+        if (!user.getRoles().contains(adminRole)) {
+            return "redirect:/section/" + id;
+        }
+        sectionService.delete(id);
+        
+        model.addFlashAttribute("message", "section.successfully.deleted");
+        return "redirect:/home";
     }
     
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
@@ -14,9 +14,12 @@
                 <div class="row">
                     <div class="col s12">
                         <h3 th:text="#{page.section.topics.in.section} + ' ' + ${section.name}">Topics in section</h3>
+                        <a sec:authorize="hasAnyRole('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/delete/} + ${section.idSection}"
+                            th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
                         <a th:href="@{/topic/new}" th:text="#{page.section.new.topic}" class="right waves-effect waves-light btn"></a>
                     </div>
                 </div>
+                <div class="divider"></div>
                 <div class="row" th:each="topic : ${topics}">
                     <div class="col s12">
                         <div class="section">
