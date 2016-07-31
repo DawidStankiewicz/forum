@@ -31,6 +31,7 @@ public class SectionController {
     
     @RequestMapping("/section/{id}")
     public String getTopicsFromSection(@PathVariable int id, Model model) {
+        model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("topics", topicService.findBySection(id));
         return "section";
     }
