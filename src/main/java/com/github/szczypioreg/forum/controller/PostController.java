@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.domain.Post;
 import com.github.szczypioreg.forum.service.PostService;
@@ -22,12 +23,16 @@ public class PostController {
     private PostService postService;
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") int id, Authentication authentication) {
+    public String delete(@PathVariable int id, Authentication authentication,
+            RedirectAttributes model) {
         Post post = postService.findOne(id);
-        if (post.getUser().getUsername().equals(authentication.getName())) {
-            postService.delete(id);
-            return "redirect: /forum/topic/" + post.getTopic().getIdTopic();
+        if (!authentication.getName().equals(post.getUser().getUsername())) {
+            return "redirect:/";
         }
-        return "redirect: /forum/";
+        
+        postService.delete(post);
+        
+        model.addFlashAttribute("message", "post.successfully.deleted");
+        return "redirect:/topic/" + post.getTopic().getIdTopic();
     }
 }

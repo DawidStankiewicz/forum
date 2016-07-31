@@ -6,7 +6,11 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <div class="container">
+
+        <div th:replace="fragments/messages :: messages"></div>
+
         <h5 th:text="${topic.title}" style="padding-bottom: 40px;"></h5>
+
         <div class="row z-depth-1">
             <div class="row">
                 <div class="col s2  center">

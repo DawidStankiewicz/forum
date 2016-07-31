@@ -6,6 +6,7 @@ package com.github.szczypioreg.forum.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.controller.form.NewPostForm;
 import com.github.szczypioreg.forum.controller.form.NewTopicForm;
@@ -26,6 +28,7 @@ import com.github.szczypioreg.forum.service.UserService;
 
 
 @Controller
+@RequestMapping("/topic/")
 public class TopicController {
     
     @Autowired
@@ -40,7 +43,10 @@ public class TopicController {
     @Autowired
     private UserService userService;
     
-    @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.GET)
+    @Autowired
+    private MessageSource messageSource;
+    
+    @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
     public String getTopicById(@PathVariable int idTopic, Model model) {
         model.addAttribute("topic", topicService.findOne(idTopic));
         model.addAttribute("posts", postService.findByTopic(idTopic));
@@ -48,7 +54,7 @@ public class TopicController {
         return "topic";
     }
     
-    @RequestMapping(value = "/topic/{idTopic}", method = RequestMethod.POST)
+    @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
     public String addPost(@Valid @ModelAttribute("newPost") NewPostForm newPost,
             BindingResult result, Authentication authentication, @PathVariable int idTopic,
             Model model) {
@@ -69,14 +75,14 @@ public class TopicController {
         return "redirect:/topic/" + idTopic;
     }
     
-    @RequestMapping(value = "/topic/new", method = RequestMethod.GET)
+    @RequestMapping(value = "new", method = RequestMethod.GET)
     public String getNewTopictForm(Model model) {
         model.addAttribute("newTopic", new NewTopicForm());
         model.addAttribute("sections", sectionService.findAll());
         return "new_topic_form";
     }
     
-    @RequestMapping(value = "/topic/new", method = RequestMethod.POST)
+    @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
             BindingResult result, Authentication authentication, Model model) {
         
@@ -93,6 +99,20 @@ public class TopicController {
         topicService.save(topic);
         
         return "redirect:/topic/" + topic.getIdTopic();
+    }
+    
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable int id, Authentication authentication,
+            RedirectAttributes model) {
+        Topic topic = topicService.findOne(id);
+        if (!authentication.getName().equals(topic.getUser().getUsername())) {
+            return "redirect:/topic/" + id;
+        }
+        
+        topicService.delete(topic);
+        
+        model.addFlashAttribute("message", "topic.successfully.deleted");
+        return "redirect:/section/" + topic.getSection().getIdSection();
     }
     
 }
