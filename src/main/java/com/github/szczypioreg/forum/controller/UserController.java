@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.controller.form.NewUserForm;
 import com.github.szczypioreg.forum.domain.User;
@@ -66,7 +67,7 @@ public class UserController {
     
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processAndSaveNewUser(@Valid @ModelAttribute("newUser") NewUserForm newUser,
-            BindingResult result) {
+            BindingResult result, RedirectAttributes model) {
         
         if (result.hasErrors()) {
             return "new_user_form";
@@ -78,7 +79,9 @@ public class UserController {
         user.setPassword(newUser.getPassword());
         
         userService.save(user);
-        return "redirect:/user/" + user.getUsername();
+        
+        model.addFlashAttribute("message", "user.successfully.added");
+        return "redirect:/login";
     }
     
     @RequestMapping(value = "/logout")

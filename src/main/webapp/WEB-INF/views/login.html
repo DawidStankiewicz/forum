@@ -3,9 +3,13 @@
 <head th:replace="fragments/head :: head"></head>
 <body onload="document.f.username.focus()">
     <div class="col s4">
-        <a th:href="@{../forum/}" class="waves-effect waves-light btn-large"><i class="material-icons left">arrow_back</i>Forum</a>
+        <a th:href="@{../forum/}" class="waves-effect waves-light btn-large">
+            <i class="material-icons left">arrow_back</i>Forum
+        </a>
     </div>
     <div class="container">
+
+        <div th:replace="fragments/messages :: messages"></div>
 
         <div class="row" style="padding-top: 10%">
             <div class="col s4">
@@ -20,13 +24,15 @@
 
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="username" name='username' type="text" class="validate"> <label for="username">Username</label>
+                                            <input id="username" name='username' type="text" class="validate">
+                                            <label for="username">Username</label>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="password" name='password' type="password" class="validate"> <label for="password">Password</label>
+                                            <input id="password" name='password' type="password" class="validate">
+                                            <label for="password">Password</label>
                                         </div>
                                     </div>
                                     <!-- TODO
