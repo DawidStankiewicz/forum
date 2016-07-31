@@ -21,7 +21,7 @@
 
                 </div>
                 <div class="col s10">
-                    <p th:text="${topic.date}"></p>
+                    <p th:text="${#calendars.format(topic.date, 'H:m dd MMMM yyyy')}"></p>
                     <p th:text="${topic.content}"></p>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
 
 
-        <div class="row z-depth-1" th:each="post : ${posts}">
+        <div class="row z-depth-1" th:each="post : ${posts}" th:id="${post.idPost}">
             <div class="col s2  center">
                 <h5 th:text="${post.user.username}"></h5>
                 <div class="col s12">
@@ -50,7 +50,8 @@
 
 
             <div class="col s10">
-                <p th:text="${post.date} + ' id: ' + ${post.idPost} "></p>
+                <p
+                    th:text="${#calendars.format(post.date, 'H:m:s')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.date, 'dd MMMM yyyy')} + ' ID: ' + ${post.idPost} "></p>
                 <p th:text="${post.content}"></p>
             </div>
 
