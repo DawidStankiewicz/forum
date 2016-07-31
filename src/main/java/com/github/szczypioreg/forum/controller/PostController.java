@@ -26,7 +26,8 @@ public class PostController {
     public String delete(@PathVariable int id, Authentication authentication,
             RedirectAttributes model) {
         Post post = postService.findOne(id);
-        if (!authentication.getName().equals(post.getUser().getUsername())) {
+        if (post == null || authentication == null || authentication.getName() == null
+                || !authentication.getName().equals(post.getUser().getUsername())) {
             return "redirect:/";
         }
         

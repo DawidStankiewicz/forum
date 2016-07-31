@@ -34,7 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 + "where users.username=? and users.id=forum.rolesofusers.iduser and rolesofusers.idrole=roles.id";
     
     private static final String[] PAGES_ONLY_FOR_AUTHORIZED_USERS = { "/user/**",
-                                                                      "/topic/new" };
+                                                                      "/topic/new/**",
+                                                                      "/topic/delete/**",
+                                                                      "/section/delete/**",
+                                                                      "/section/new/**",
+                                                                      "/post/**" };
     
     private static final String[] LIST_OF_PAGES_ONLY_FOR_ADMINS = { "/admin/**",
                                                                     "/users/**",

@@ -105,6 +105,10 @@ public class TopicController {
     public String delete(@PathVariable int id, Authentication authentication,
             RedirectAttributes model) {
         Topic topic = topicService.findOne(id);
+        
+        if (topic == null) {
+            return "redirect:/";
+        }
         if (!authentication.getName().equals(topic.getUser().getUsername())) {
             return "redirect:/topic/" + id;
         }
