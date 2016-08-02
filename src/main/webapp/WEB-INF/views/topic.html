@@ -1,7 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/head :: head">
-</head>
+<head th:replace="fragments/head :: head"></head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
@@ -22,7 +21,7 @@
                 </div>
                 <div class="col s10">
                     <p th:text="${#calendars.format(topic.date, 'H:m dd MMMM yyyy')}"></p>
-                    <p th:text="${topic.content}"></p>
+                    <p th:utext="${#strings.replace(topic.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
                 </div>
             </div>
 
@@ -52,7 +51,7 @@
             <div class="col s10">
                 <p
                     th:text="${#calendars.format(post.date, 'H:m:s')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.date, 'dd MMMM yyyy')} + ' ID: ' + ${post.idPost} "></p>
-                <p th:text="${post.content}"></p>
+                <p th:utext="${#strings.replace(post.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
             </div>
 
 

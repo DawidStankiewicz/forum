@@ -52,7 +52,8 @@ public class Topic implements Serializable {
     
     public Topic() {}
     
-    public Topic(Section section, User user, String title, String content, Date date, int views) {
+    public Topic(Section section, User user, String title, String content, Date date,
+            int views) {
         super();
         this.section = section;
         this.user = user;
