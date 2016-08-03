@@ -10,7 +10,10 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -35,8 +38,19 @@ public class JPAConfig {
         return emfb;
     }
     
+    @Bean(destroyMethod = "shutdown")
+    @Profile("development")
+    public DataSource embeddedDataSource() throws Exception {
+        System.out.println("DataSource in dev");
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).addScript(
+                "classpath:database/schema.sql").addScript("classpath:database/test-data.sql")
+                .build();
+    }
+    
     @Bean
+    @Profile("production")
     public DataSource getDataSource() throws Exception {
+        System.out.println("DataSource in prod");
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/forum");
@@ -44,7 +58,6 @@ public class JPAConfig {
         dataSource.setPassword("");
         return dataSource;
     }
-    
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
