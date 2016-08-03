@@ -20,7 +20,7 @@
                                 <div class="input-field col s12">
                                     <select class="browser-default" id="section" th:field="${newTopic.sectionId}">
                                         <option value="0" disabled selected>Choose section</option>
-                                        <option th:each="section : ${sections}" th:text="${section.name}" th:value="${section.idSection}"></option>
+                                        <option th:each="section : ${sections}" th:text="${section.name}" th:value="${section.id}"></option>
                                     </select>
                                     <p th:if="${#fields.hasErrors('sectionId')}" th:errors="*{sectionId}" class="red-text">Select section!</p>
                                 </div>
@@ -28,7 +28,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input th:field="*{title}" id="title" name='title' type="text" class="validate">
+                                    <input th:field="*{title}" id="title" name='title' type="text" class="validate" length="50" />
                                     <label for="title" th:text="#{title}"></label>
                                     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="red-text">Incorrect title!</p>
                                 </div>

@@ -19,7 +19,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:field="*{name}" id="name" name='name' type="text" class="validate">
+                                        <input th:field="*{name}" id="name" name='name' type="text" class="validate" length="50">
                                         <label for="name" th:text="#{section.name}"></label>
                                         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="red-text">Incorrect name!</p>
                                     </div>

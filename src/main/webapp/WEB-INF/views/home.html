@@ -89,8 +89,8 @@
                             <div class="col s12">
                                 <div class="section">
                                     <span th:text="${post.user.username} + ' ' + #{reply.to}"></span>
-                                    <a th:href="@{/topic/} + ${post.topic.idTopic}" th:text="${post.topic.title}"></a>
-                                    <span class="right" th:text="${#calendars.format(post.date, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
+                                    <a th:href="@{/topic/} + ${post.topic.id}" th:text="${post.topic.title}"></a>
+                                    <span class="right" th:text="${#calendars.format(post.creationDate, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
                                         th:text="${post.content}"></span>
                                 </div>
                                 <div class="divider"></div>
