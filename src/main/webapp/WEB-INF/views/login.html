@@ -21,7 +21,6 @@
                         <div class="col s12">
                             <form class="col s12" name='f' th:action='@{/login}' method="POST">
                                 <div class="row">
-
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <input id="username" name='username' type="text" class="validate">
@@ -54,6 +53,9 @@
             </div>
         </div>
     </div>
-    <footer th:replace="fragments/footer :: footer"></footer>
+
+    <script type="text/javascript" th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js}"></script>
+
 </body>
 </html>
