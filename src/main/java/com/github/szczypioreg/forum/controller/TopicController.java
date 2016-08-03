@@ -94,7 +94,7 @@ public class TopicController {
         topic.setSection(sectionService.findOne(newTopic.getSectionId()));
         topicService.save(topic);
         
-        return "redirect:/topic/" + topic.getIdTopic();
+        return "redirect:/topic/" + topic.getId();
     }
     
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
@@ -112,7 +112,7 @@ public class TopicController {
         topicService.delete(topic);
         
         model.addFlashAttribute("message", "topic.successfully.deleted");
-        return "redirect:/section/" + topic.getSection().getIdSection();
+        return "redirect:/section/" + topic.getSection().getId();
     }
     
 }

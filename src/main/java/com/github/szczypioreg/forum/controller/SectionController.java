@@ -66,7 +66,7 @@ public class SectionController {
         Section section = new Section();
         section.setName(newSection.getName());
         section = sectionService.save(section);
-        return "redirect:/section/" + section.getIdSection();
+        return "redirect:/section/" + section.getId();
     }
     
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)

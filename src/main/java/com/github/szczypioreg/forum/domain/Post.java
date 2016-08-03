@@ -27,39 +27,47 @@ public class Post implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPost;
+    private int id;
     
     @ManyToOne
-    @JoinColumn(name = "idtopic")
+    @JoinColumn(name = "id_topic")
     private Topic topic;
     
     @ManyToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "id_user")
     private User user;
     
     @Column(name = "content")
     private String content;
     
-    @Column(name = "date", insertable = false, updatable = false)
+    @Column(name = "creation_date", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date creationDate;
+    
+    @Column(name = "last_update_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;
     
     public Post() {}
     
-    public Post(Topic topic, User user, String content, Date date) {
-        super();
+    public Post(Topic topic,
+                User user,
+                String content,
+                Date creationDate,
+                Date lastUpdateDate) {
         this.topic = topic;
         this.user = user;
         this.content = content;
-        this.date = date;
+        this.creationDate = creationDate;
+        this.lastUpdateDate = lastUpdateDate;
     }
     
-    public int getIdPost() {
-        return idPost;
+    public int getId() {
+        return id;
     }
     
-    public void setIdPost(int idPost) {
-        this.idPost = idPost;
+    public void setId(int idPost) {
+        this.id = idPost;
     }
     
     public Topic getTopic() {
@@ -86,12 +94,20 @@ public class Post implements Serializable {
         this.content = content;
     }
     
-    public Date getDate() {
-        return date;
+    public Date getCreationDate() {
+        return creationDate;
     }
     
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+    
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
     
     public static long getSerialversionuid() {
@@ -103,8 +119,9 @@ public class Post implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((content == null) ? 0 : content.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + idPost;
+        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+        result = prime * result + id;
+        result = prime * result + ((lastUpdateDate == null) ? 0 : lastUpdateDate.hashCode());
         result = prime * result + ((topic == null) ? 0 : topic.hashCode());
         result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
@@ -129,14 +146,21 @@ public class Post implements Serializable {
         } else if (!content.equals(other.content)) {
             return false;
         }
-        if (date == null) {
-            if (other.date != null) {
+        if (creationDate == null) {
+            if (other.creationDate != null) {
                 return false;
             }
-        } else if (!date.equals(other.date)) {
+        } else if (!creationDate.equals(other.creationDate)) {
             return false;
         }
-        if (idPost != other.idPost) {
+        if (id != other.id) {
+            return false;
+        }
+        if (lastUpdateDate == null) {
+            if (other.lastUpdateDate != null) {
+                return false;
+            }
+        } else if (!lastUpdateDate.equals(other.lastUpdateDate)) {
             return false;
         }
         if (topic == null) {
@@ -158,8 +182,9 @@ public class Post implements Serializable {
     
     @Override
     public String toString() {
-        return "Post [idPost=" + idPost + ", topic=" + topic + ", user=" + user + ", content="
-                + content + ", date=" + date + "]";
+        return "Post [id=" + id + ", topic=" + topic + ", user=" + user + ", content="
+                + content + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate
+                + "]";
     }
     
 }

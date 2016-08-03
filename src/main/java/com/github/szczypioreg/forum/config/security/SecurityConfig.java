@@ -27,11 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
     
     private static final String USERS_BY_USERNAME_QUERY =
-        "select username, password, active from users where username=?";
+        "select username, password, is_active from users where username=?";
     
     private static final String AUTHORIZES_BY_USERNAME_QUERY =
         "select users.username, concat('ROLE_', roles.name) from users, roles, rolesofusers "
-                + "where users.username=? and users.id=forum.rolesofusers.iduser and rolesofusers.idrole=roles.id";
+                + "where users.username=? and users.id=forum.rolesofusers.id_user and rolesofusers.id_role=roles.id";
     
     private static final String[] PAGES_ONLY_FOR_AUTHORIZED_USERS = { "/user/**",
                                                                       "/topic/new/**",
@@ -60,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
-        
     }
     
     @Override

@@ -22,25 +22,28 @@ public class Section implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idSection;
+    private int id;
     
     @Column(name = "name")
     private String name;
     
+    @Column(name = "description")
+    private String description;
+    
     public Section() {}
     
-    public Section(int idSection, String name) {
-        super();
-        this.idSection = idSection;
+    public Section(String name,
+                   String description) {
         this.name = name;
+        this.description = description;
     }
     
-    public int getIdSection() {
-        return idSection;
+    public int getId() {
+        return id;
     }
     
-    public void setIdSection(int idSection) {
-        this.idSection = idSection;
+    public void setId(int idSection) {
+        this.id = idSection;
     }
     
     public String getName() {
@@ -51,11 +54,24 @@ public class Section implements Serializable {
         this.name = name;
     }
     
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + idSection;
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + id;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -72,7 +88,14 @@ public class Section implements Serializable {
             return false;
         }
         Section other = (Section) obj;
-        if (idSection != other.idSection) {
+        if (description == null) {
+            if (other.description != null) {
+                return false;
+            }
+        } else if (!description.equals(other.description)) {
+            return false;
+        }
+        if (id != other.id) {
             return false;
         }
         if (name == null) {
@@ -87,7 +110,8 @@ public class Section implements Serializable {
     
     @Override
     public String toString() {
-        return "Section [idSection=" + idSection + ", name=" + name + "]";
+        return "Section [id=" + id + ", name=" + name + ", description=" + description
+                + "]";
     }
     
 }

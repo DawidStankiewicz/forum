@@ -27,15 +27,14 @@ public class Topic implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTopic;
-    
+    private int id;
     @ManyToOne
-    @JoinColumn(name = "idsection")
-    private Section section;
-    
-    @ManyToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "id_user")
     private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_section")
+    private Section section;
     
     @Column(name = "title")
     private String title;
@@ -43,40 +42,45 @@ public class Topic implements Serializable {
     @Column(name = "content")
     private String content;
     
-    @Column(name = "date", insertable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-    
     @Column(name = "views")
     private int views;
     
+    @Column(name = "creation_date", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
+    
+    @Column(name = "last_update_date")
+    private Date lastUpdateDate;
+    
+    @Column(name = "is_closed")
+    private boolean closed;
+    
     public Topic() {}
     
-    public Topic(Section section, User user, String title, String content, Date date,
-            int views) {
-        super();
-        this.section = section;
+    public Topic(User user,
+                 Section section,
+                 String title,
+                 String content,
+                 int views,
+                 Date creationDate,
+                 Date lastUpdateDate,
+                 boolean closed) {
         this.user = user;
+        this.section = section;
         this.title = title;
         this.content = content;
-        this.date = date;
         this.views = views;
+        this.creationDate = creationDate;
+        this.lastUpdateDate = lastUpdateDate;
+        this.closed = closed;
     }
     
-    public int getIdTopic() {
-        return idTopic;
+    public int getId() {
+        return id;
     }
     
-    public void setIdTopic(int idTopic) {
-        this.idTopic = idTopic;
-    }
-    
-    public Section getSection() {
-        return section;
-    }
-    
-    public void setSection(Section section) {
-        this.section = section;
+    public void setId(int id) {
+        this.id = id;
     }
     
     public User getUser() {
@@ -85,6 +89,14 @@ public class Topic implements Serializable {
     
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    public Section getSection() {
+        return section;
+    }
+    
+    public void setSection(Section section) {
+        this.section = section;
     }
     
     public String getTitle() {
@@ -103,20 +115,36 @@ public class Topic implements Serializable {
         this.content = content;
     }
     
-    public Date getDate() {
-        return date;
-    }
-    
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
     public int getViews() {
         return views;
     }
     
     public void setViews(int views) {
         this.views = views;
+    }
+    
+    public Date getCreationDate() {
+        return creationDate;
+    }
+    
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+    
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+    
+    public boolean isClosed() {
+        return closed;
+    }
+    
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
     
     public static long getSerialversionuid() {
@@ -127,9 +155,11 @@ public class Topic implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + (closed ? 1231 : 1237);
         result = prime * result + ((content == null) ? 0 : content.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + idTopic;
+        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+        result = prime * result + id;
+        result = prime * result + ((lastUpdateDate == null) ? 0 : lastUpdateDate.hashCode());
         result = prime * result + ((section == null) ? 0 : section.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -149,6 +179,9 @@ public class Topic implements Serializable {
             return false;
         }
         Topic other = (Topic) obj;
+        if (closed != other.closed) {
+            return false;
+        }
         if (content == null) {
             if (other.content != null) {
                 return false;
@@ -156,14 +189,21 @@ public class Topic implements Serializable {
         } else if (!content.equals(other.content)) {
             return false;
         }
-        if (date == null) {
-            if (other.date != null) {
+        if (creationDate == null) {
+            if (other.creationDate != null) {
                 return false;
             }
-        } else if (!date.equals(other.date)) {
+        } else if (!creationDate.equals(other.creationDate)) {
             return false;
         }
-        if (idTopic != other.idTopic) {
+        if (id != other.id) {
+            return false;
+        }
+        if (lastUpdateDate == null) {
+            if (other.lastUpdateDate != null) {
+                return false;
+            }
+        } else if (!lastUpdateDate.equals(other.lastUpdateDate)) {
             return false;
         }
         if (section == null) {
@@ -195,8 +235,9 @@ public class Topic implements Serializable {
     
     @Override
     public String toString() {
-        return "Topic [idTopic=" + idTopic + ", section=" + section + ", user=" + user + ", title="
-                + title + ", content=" + content + ", date=" + date + ", views=" + views + "]";
+        return "Topic [id=" + id + ", user=" + user + ", section=" + section + ", title="
+                + title + ", content=" + content + ", views=" + views + ", creationDate="
+                + creationDate + ", lastUpdateDate=" + lastUpdateDate + ", closed=" + closed + "]";
     }
     
 }

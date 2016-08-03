@@ -38,7 +38,7 @@ public class LoginPageTest extends ConfigTest {
     @Test
     public void testLogin() throws Exception {
         
-        this.mockMvc.perform(post("/login").param("username", "Admin").param("password", "admin")
+        this.mockMvc.perform(post("/login").param("username", "admin").param("password", "12345678Aa")
                 .with(csrf())).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/"))
                 .andExpect(authenticated());
     }

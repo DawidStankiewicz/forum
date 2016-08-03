@@ -31,7 +31,7 @@
                         <div class="row" th:each="section : ${sections}">
                             <div class="col s12">
                                 <div class="section">
-                                    <a th:href="@{/section/} + ${section.idSection}" th:text="${section.name}"></a>
+                                    <a th:href="@{/section/} + ${section.id}" th:text="${section.name}"></a>
                                 </div>
                                 <div class="divider"></div>
                             </div>
@@ -58,8 +58,8 @@
                         <div class="row" th:each="topic : ${topics}">
                             <div class="col s12">
                                 <div class="section">
-                                    <a th:href="@{/topic/} + ${topic.idTopic}" th:text="${topic.user.username} + ': ' + ${topic.title}"></a>
-                                    <span class="right" th:text="${#calendars.format(topic.date, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
+                                    <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.user.username} + ': ' + ${topic.title}"></a>
+                                    <span class="right" th:text="${#calendars.format(topic.creationDate, 'dd MMMM yyyy H:m')}"></span> <span class="truncate"
                                         th:text="${topic.content}"></span>
                                 </div>
                                 <div class="divider"></div>

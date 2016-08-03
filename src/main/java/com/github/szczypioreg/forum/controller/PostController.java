@@ -34,6 +34,6 @@ public class PostController {
         postService.delete(post);
         
         model.addFlashAttribute("message", "post.successfully.deleted");
-        return "redirect:/topic/" + post.getTopic().getIdTopic();
+        return "redirect:/topic/" + post.getTopic().getId();
     }
 }

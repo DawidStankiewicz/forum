@@ -18,24 +18,28 @@ public class Role {
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idRole;
+    private int id;
     
     @Column(name = "name", unique = true)
     private String name;
     
+    @Column(name = "description")
+    private String description;
+    
     public Role() {}
     
-    public Role(String name) {
-        super();
+    public Role(String name,
+                String description) {
         this.name = name;
+        this.description = description;
     }
     
-    public int getIdRole() {
-        return idRole;
+    public int getId() {
+        return id;
     }
     
-    public void setIdRole(int idRole) {
-        this.idRole = idRole;
+    public void setId(int idRole) {
+        this.id = idRole;
     }
     
     public String getName() {
@@ -46,11 +50,20 @@ public class Role {
         this.name = name;
     }
     
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + idRole;
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + id;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -67,7 +80,14 @@ public class Role {
             return false;
         }
         Role other = (Role) obj;
-        if (idRole != other.idRole) {
+        if (description == null) {
+            if (other.description != null) {
+                return false;
+            }
+        } else if (!description.equals(other.description)) {
+            return false;
+        }
+        if (id != other.id) {
             return false;
         }
         if (name == null) {
@@ -82,7 +102,7 @@ public class Role {
     
     @Override
     public String toString() {
-        return "Role [idRole=" + idRole + ", name=" + name + "]";
+        return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
     }
     
 }

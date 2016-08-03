@@ -20,17 +20,17 @@
 
                 </div>
                 <div class="col s10">
-                    <p th:text="${#calendars.format(topic.date, 'H:m dd MMMM yyyy')}"></p>
+                    <p th:text="${#calendars.format(topic.creationDate, 'H:m dd MMMM yyyy')}"></p>
                     <p th:utext="${#strings.replace(topic.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
                 </div>
             </div>
 
             <div class="row" th:if="${#authentication.name} eq ${topic.user.username}">
                 <div class="col s10 right">
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/delete/} + ${topic.idTopic}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/delete/} + ${topic.id}">
                         <i class="material-icons white black-text">delete</i>
                     </a>
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/edit/} + ${topic.idTopic}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/edit/} + ${topic.id}">
                         <i class="material-icons white black-text">mode_edit</i>
                     </a>
                 </div>
@@ -39,7 +39,7 @@
 
 
 
-        <div class="row z-depth-1" th:each="post : ${posts}" th:id="${post.idPost}">
+        <div class="row z-depth-1" th:each="post : ${posts}" th:id="${post.id}">
             <div class="col s2  center">
                 <h5 th:text="${post.user.username}"></h5>
                 <div class="col s12">
@@ -50,17 +50,17 @@
 
             <div class="col s10">
                 <p
-                    th:text="${#calendars.format(post.date, 'H:m:s')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.date, 'dd MMMM yyyy')} + ' ID: ' + ${post.idPost} "></p>
+                    th:text="${#calendars.format(post.date, 'H:m:s')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.date, 'dd MMMM yyyy')} + ' ID: ' + ${post.id} "></p>
                 <p th:utext="${#strings.replace(post.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
             </div>
 
 
             <div class="row" th:if="${#authentication.name} eq ${post.user.username}">
                 <div class="col s10 right">
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/delete/} + ${post.idPost}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/delete/} + ${post.id}">
                         <i class="material-icons white black-text">delete</i>
                     </a>
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/edit/} + ${post.idPost}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/edit/} + ${post.id}">
                         <i class="material-icons white black-text">mode_edit</i>
                     </a>
                 </div>
@@ -71,7 +71,7 @@
 
         <div class="row " sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
-                <form th:action="@{/topic/} + ${topic.idTopic}" method="POST" th:object="${newPost}">
+                <form th:action="@{/topic/} + ${topic.id}" method="POST" th:object="${newPost}">
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea th:field="*{content}" id="content" name="content" class="materialize-textarea"></textarea>
