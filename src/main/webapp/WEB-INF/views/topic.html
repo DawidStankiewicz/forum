@@ -23,7 +23,7 @@
                 <div class="col s2  center">
                     <h5 th:text="${topic.user.username}"></h5>
                     <div class="col s12">
-                        <img th:src="@{/resources/img/} + ${topic.user.idProfilePicture} + '.png'" class="responsive-img" />
+                        <img th:src="@{/resources/img/pp/} + ${topic.user.idProfilePicture} + '.jpg'" class="responsive-img" />
                     </div>
 
                 </div>
@@ -55,7 +55,7 @@
             <div class="col s2  center">
                 <h5 th:text="${post.user.username}"></h5>
                 <div class="col s12">
-                    <img th:src="@{/resources/img/} + ${post.user.idProfilePicture} + '.png'" class="responsive-img" />
+                    <img th:src="@{/resources/img/pp/} + ${post.user.idProfilePicture} + '.jpg'" class="responsive-img" />
                 </div>
             </div>
 
