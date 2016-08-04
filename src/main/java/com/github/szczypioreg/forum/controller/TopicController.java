@@ -44,7 +44,11 @@ public class TopicController {
     
     @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
     public String getTopicById(@PathVariable int idTopic, Model model) {
-        model.addAttribute("topic", topicService.findOne(idTopic));
+        Topic topic = topicService.findOne(idTopic);
+        topic.setViews(topic.getViews() + 1);
+        topicService.save(topic);
+        
+        model.addAttribute("topic", topic);
         model.addAttribute("posts", postService.findByTopic(idTopic));
         model.addAttribute("newPost", new NewPostForm());
         return "topic";
