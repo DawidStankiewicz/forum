@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.controller.form.NewUserForm;
+import com.github.szczypioreg.forum.controller.model.UserProfile;
 import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.exception.UserNotFoundException;
 import com.github.szczypioreg.forum.service.UserService;
+import com.github.szczypioreg.forum.service.model.UserProfileService;
 
 
 @Controller
@@ -32,25 +34,25 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    private UserProfileService userProfileService;
+    
     @RequestMapping(value = "/user/{username}")
     public String findUserByUsernameAndViewProfilePage(@PathVariable("username") String username,
             Model model) {
-        User user = userService.findByUsername(username);
-        if (user == null) {
+        UserProfile userProfile;
+        try {
+            userProfile = userProfileService.findOne(username);
+        } catch (NullPointerException e) {
             throw new UserNotFoundException();
         }
-        model.addAttribute("user", user);
+        model.addAttribute("userProfile", userProfile);
         return "user";
     }
     
     @RequestMapping(value = "/user/id/{id}")
     public String findUserByIdAndViewProfilePage(@PathVariable("id") int id, Model model) {
-        User user = userService.findOne(id);
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-        model.addAttribute("user", user);
-        return "user";
+        return "redirect:/user/" + userService.findOne(id).getUsername();
     }
     
     @RequestMapping(value = "/users")

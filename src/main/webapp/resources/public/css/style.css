@@ -16,3 +16,6 @@ nav {
 body>.container {
 	padding-top: 50px;
 }
+.bold {
+	font-weight: bold;
+}

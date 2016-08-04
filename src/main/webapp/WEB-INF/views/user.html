@@ -10,24 +10,100 @@
         <div th:replace="fragments/messages :: messages"></div>
 
         <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="col s2">
-                        <img th:src="@{/resources/img/} + ${user.idProfilePicture} + '.png'" class="responsive-img" />
+
+            <div class="row">
+
+
+                <!-- L -->
+
+                <div class="col s2">
+                    <div class="row">
+                        <div class="col s12">
+                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-1" />
+                        </div>
                     </div>
-                    <div class="col s5">
-                        <span class="card-title" th:text="${user.username}"></span>
-                        <p th:text="${user.email}"></p>
+                    <div class="row">
+                        <div class="col s12 right-align">
+                            <h6 th:text="'@' + ${userProfile.user.username}"></h6>
+                            <h6 th:text="${userProfile.user.name}" class="bold"></h6>
+                            <h6 th:text="${userProfile.user.lastName}" class="bold"></h6>
+                        </div>
                     </div>
-                    <div class="col s5">
-                        <p>Roles:</p>
-                        <p th:each="role : ${user.roles}" th:text="${role.name}">
+                </div>
+
+
+                <!-- M -->
+
+                <div class="col s8 ">
+
+                    <!-- INFROMATION -->
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row z-depth-1">
+                                <div class="col s6 right-align">
+                                    <p th:if="${userProfile.user.name != null}">Name</p>
+                                    <p th:if="${userProfile.user.LastName != null}">Last name</p>
+                                    <p th:if="${userProfile.user.sex != null}">Sex</p>
+                                    <p th:if="${userProfile.user.city != null}">City</p>
+                                    <p th:if="${userProfile.user.birthday != null}">Birthday</p>
+                                    <p th:if="${userProfile.user.registerDate != null}">Register date</p>
+                                    <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
+                                    <p th:if="${userProfile.user.biography != null}">Biography</p>
+
+                                </div>
+                                <div class="col s6">
+                                    <p th:text="${userProfile.user.name}"></p>
+                                    <p th:text="${userProfile.user.LastName}"></p>
+                                    <p th:text="${userProfile.user.sex}"></p>
+                                    <p th:text="${userProfile.user.city}"></p>
+                                    <p th:text="${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
+                                    <p th:text="${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                    <p th:text="${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                    <p th:text="${userProfile.user.biography}"></p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- TOPICS -->
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row z-depth-1">
+                                <div class="col s12">
+                                    <h5 class="center">User topics</h5>
+                                    <div class="divider"></div>
+                                    <div class="row" th:each="topic : ${userProfile.topics}">
+                                        <div class="col s6">
+                                            <span th:text="${#calendars.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
+                                            <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}" class="right"></a>
+                                        </div>
+                                        <div class="col s6">
+                                            <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.title}"></a>
+                                            <span th:text="'views: ' + ${topic.views}" class="right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- R -->
+
+                    <div class="col s2 ">
+
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-
-
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>
