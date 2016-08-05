@@ -110,8 +110,7 @@ public class Section implements Serializable {
     
     @Override
     public String toString() {
-        return "Section [id=" + id + ", name=" + name + ", description=" + description
-                + "]";
+        return "Section [id=" + id + ", name=" + name + ", description=" + description + "]";
     }
     
 }

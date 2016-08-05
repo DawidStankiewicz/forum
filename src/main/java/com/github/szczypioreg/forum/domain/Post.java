@@ -182,9 +182,8 @@ public class Post implements Serializable {
     
     @Override
     public String toString() {
-        return "Post [id=" + id + ", topic=" + topic + ", user=" + user + ", content="
-                + content + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate
-                + "]";
+        return "Post [id=" + id + ", topic=" + topic + ", user=" + user + ", content=" + content
+                + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate + "]";
     }
     
 }

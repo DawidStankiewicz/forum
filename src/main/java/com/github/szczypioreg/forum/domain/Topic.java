@@ -235,9 +235,9 @@ public class Topic implements Serializable {
     
     @Override
     public String toString() {
-        return "Topic [id=" + id + ", user=" + user + ", section=" + section + ", title="
-                + title + ", content=" + content + ", views=" + views + ", creationDate="
-                + creationDate + ", lastUpdateDate=" + lastUpdateDate + ", closed=" + closed + "]";
+        return "Topic [id=" + id + ", user=" + user + ", section=" + section + ", title=" + title
+                + ", content=" + content + ", views=" + views + ", creationDate=" + creationDate
+                + ", lastUpdateDate=" + lastUpdateDate + ", closed=" + closed + "]";
     }
     
 }
