@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.github.szczypioreg.forum.domain.type.Sex;
 
 
 @Entity
@@ -58,7 +62,8 @@ public class User implements Serializable {
     private int idBackgroundPicture;
     
     @Column(name = "sex")
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
     
     @Column(name = "birthday")
     private Date birthday;
@@ -104,7 +109,7 @@ public class User implements Serializable {
                 String lastName,
                 int idProfilePicture,
                 int idBackgroundPicture,
-                String sex,
+                Sex sex,
                 Date birthday,
                 String city,
                 String biography,
@@ -217,11 +222,11 @@ public class User implements Serializable {
         this.idBackgroundPicture = idBackgroundPicture;
     }
     
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
     
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
     
@@ -339,103 +344,143 @@ public class User implements Serializable {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         User other = (User) obj;
-        if (active != other.active)
+        if (active != other.active) {
             return false;
+        }
         if (biography == null) {
-            if (other.biography != null)
+            if (other.biography != null) {
                 return false;
-        } else if (!biography.equals(other.biography))
+            }
+        } else if (!biography.equals(other.biography)) {
             return false;
+        }
         if (birthday == null) {
-            if (other.birthday != null)
+            if (other.birthday != null) {
                 return false;
-        } else if (!birthday.equals(other.birthday))
+            }
+        } else if (!birthday.equals(other.birthday)) {
             return false;
+        }
         if (city == null) {
-            if (other.city != null)
+            if (other.city != null) {
                 return false;
-        } else if (!city.equals(other.city))
+            }
+        } else if (!city.equals(other.city)) {
             return false;
+        }
         if (closingDate == null) {
-            if (other.closingDate != null)
+            if (other.closingDate != null) {
                 return false;
-        } else if (!closingDate.equals(other.closingDate))
+            }
+        } else if (!closingDate.equals(other.closingDate)) {
             return false;
+        }
         if (email == null) {
-            if (other.email != null)
+            if (other.email != null) {
                 return false;
-        } else if (!email.equals(other.email))
+            }
+        } else if (!email.equals(other.email)) {
             return false;
-        if (emailVerifed != other.emailVerifed)
+        }
+        if (emailVerifed != other.emailVerifed) {
             return false;
+        }
         if (footer == null) {
-            if (other.footer != null)
+            if (other.footer != null) {
                 return false;
-        } else if (!footer.equals(other.footer))
+            }
+        } else if (!footer.equals(other.footer)) {
             return false;
-        if (id != other.id)
+        }
+        if (id != other.id) {
             return false;
-        if (idBackgroundPicture != other.idBackgroundPicture)
+        }
+        if (idBackgroundPicture != other.idBackgroundPicture) {
             return false;
-        if (idProfilePicture != other.idProfilePicture)
+        }
+        if (idProfilePicture != other.idProfilePicture) {
             return false;
+        }
         if (lastLoginDate == null) {
-            if (other.lastLoginDate != null)
+            if (other.lastLoginDate != null) {
                 return false;
-        } else if (!lastLoginDate.equals(other.lastLoginDate))
+            }
+        } else if (!lastLoginDate.equals(other.lastLoginDate)) {
             return false;
+        }
         if (lastName == null) {
-            if (other.lastName != null)
+            if (other.lastName != null) {
                 return false;
-        } else if (!lastName.equals(other.lastName))
+            }
+        } else if (!lastName.equals(other.lastName)) {
             return false;
+        }
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         if (password == null) {
-            if (other.password != null)
+            if (other.password != null) {
                 return false;
-        } else if (!password.equals(other.password))
+            }
+        } else if (!password.equals(other.password)) {
             return false;
+        }
         if (phone == null) {
-            if (other.phone != null)
+            if (other.phone != null) {
                 return false;
-        } else if (!phone.equals(other.phone))
+            }
+        } else if (!phone.equals(other.phone)) {
             return false;
+        }
         if (registerDate == null) {
-            if (other.registerDate != null)
+            if (other.registerDate != null) {
                 return false;
-        } else if (!registerDate.equals(other.registerDate))
+            }
+        } else if (!registerDate.equals(other.registerDate)) {
             return false;
+        }
         if (roles == null) {
-            if (other.roles != null)
+            if (other.roles != null) {
                 return false;
-        } else if (!roles.equals(other.roles))
+            }
+        } else if (!roles.equals(other.roles)) {
             return false;
+        }
         if (secondEmail == null) {
-            if (other.secondEmail != null)
+            if (other.secondEmail != null) {
                 return false;
-        } else if (!secondEmail.equals(other.secondEmail))
+            }
+        } else if (!secondEmail.equals(other.secondEmail)) {
             return false;
+        }
         if (sex == null) {
-            if (other.sex != null)
+            if (other.sex != null) {
                 return false;
-        } else if (!sex.equals(other.sex))
+            }
+        } else if (!sex.equals(other.sex)) {
             return false;
+        }
         if (username == null) {
-            if (other.username != null)
+            if (other.username != null) {
                 return false;
-        } else if (!username.equals(other.username))
+            }
+        } else if (!username.equals(other.username)) {
             return false;
+        }
         return true;
     }
     
