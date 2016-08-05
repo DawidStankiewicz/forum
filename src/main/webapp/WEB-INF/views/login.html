@@ -31,7 +31,7 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <input id="password" name='password' type="password" class="validate">
-                                            <label for="password">Password</label>
+                                            <label for="password" class="active">Password</label>
                                         </div>
                                     </div>
                                     <!-- TODO
@@ -56,6 +56,10 @@
 
     <script type="text/javascript" th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>
     <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js}"></script>
-
+    <script>
+					$(document).ready(function() {
+						Materialize.updateTextFields();
+					});
+				</script>
 </body>
 </html>
