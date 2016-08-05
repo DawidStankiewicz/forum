@@ -58,6 +58,7 @@ public class JPAConfig {
         dataSource.setPassword("");
         return dataSource;
     }
+    
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
