@@ -4,22 +4,18 @@
 </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
-
     <div class="container">
-
         <div th:replace="fragments/messages :: messages"></div>
 
         <div class="row">
-
             <div class="row">
 
-
-                <!-- L -->
+                <!-- LEFT -->
 
                 <div class="col s2">
                     <div class="row">
                         <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-1" />
+                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
                         </div>
                     </div>
                     <div class="row">
@@ -27,52 +23,78 @@
                             <h6 th:text="'@' + ${userProfile.user.username}"></h6>
                             <h6 th:text="${userProfile.user.name}" class="bold"></h6>
                             <h6 th:text="${userProfile.user.lastName}" class="bold"></h6>
+                            <a th:if="${#authentication.name} eq ${userProfile.user.username}" th:href="@{/myprofile/edit}">
+                                <i class="material-icons medium black-text">mode_edit</i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
 
-                <!-- M -->
+                <!-- MID -->
 
                 <div class="col s8 ">
 
                     <!-- INFROMATION -->
+
                     <div class="row">
                         <div class="col s12">
-                            <div class="row z-depth-1">
-                                <div class="col s6 right-align">
-                                    <p th:if="${userProfile.user.name != null}">Name</p>
-                                    <p th:if="${userProfile.user.LastName != null}">Last name</p>
-                                    <p th:if="${userProfile.user.sex != null}">Sex</p>
-                                    <p th:if="${userProfile.user.city != null}">City</p>
-                                    <p th:if="${userProfile.user.birthday != null}">Birthday</p>
-                                    <p th:if="${userProfile.user.registerDate != null}">Register date</p>
-                                    <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
-                                    <p th:if="${userProfile.user.biography != null}">Biography</p>
-
+                            <div class="row z-depth-2">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h5 class="center bold">INFORMATION</h5>
+                                    </div>
                                 </div>
-                                <div class="col s6">
-                                    <p th:text="${userProfile.user.name}"></p>
-                                    <p th:text="${userProfile.user.LastName}"></p>
-                                    <p th:text="${userProfile.user.sex}"></p>
-                                    <p th:text="${userProfile.user.city}"></p>
-                                    <p th:text="${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
-                                    <p th:text="${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                    <p th:text="${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                    <p th:text="${userProfile.user.biography}"></p>
+                                <div class="row">
+                                    <div class="col s6 right-align">
+                                        <p th:if="${userProfile.user.name != null}">Name</p>
+                                        <p th:if="${userProfile.user.LastName != null}">Last name</p>
+                                        <p th:if="${userProfile.user.sex != null}">Sex</p>
+                                        <p th:if="${userProfile.user.city != null}">City</p>
+                                        <p th:if="${userProfile.user.birthday != null}">Birthday</p>
+                                        <p th:if="${userProfile.user.registerDate != null}">Register date</p>
+                                        <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
+                                        <p th:if="${userProfile.user.footer != null}">Footer</p>
+                                        <p th:if="${userProfile.user.biography != null}">Biography</p>
+                                    </div>
+                                    <div class="col s6">
+                                        <p th:text="${userProfile.user.name}"></p>
+                                        <p th:text="${userProfile.user.LastName}"></p>
+                                        <p th:text="${userProfile.user.sex}"></p>
+                                        <p th:text="${userProfile.user.city}"></p>
+                                        <p th:text="${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
+                                        <p th:text="${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.footer}"></p>
+                                        <p th:text="${userProfile.user.biography}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
+
                     <!-- TOPICS -->
-                    <div class="row">
+
+                    <div class="row" th:if="${userProfile.topics.size() > 0}">
                         <div class="col s12">
-                            <div class="row z-depth-1">
+                            <div class="row z-depth-2">
                                 <div class="col s12">
-                                    <h5 class="center">User topics</h5>
-                                    <div class="divider"></div>
+                                    <div class="row">
+                                        <h5 class="center bold">TOPICS</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <span>Date</span> <span class="right">Section</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="col s6">
+                                            <span>Title</span> <span class="right">Views</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                    </div>
+
                                     <div class="row" th:each="topic : ${userProfile.topics}">
                                         <div class="col s6">
                                             <span th:text="${#calendars.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
@@ -80,7 +102,7 @@
                                         </div>
                                         <div class="col s6">
                                             <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.title}"></a>
-                                            <span th:text="'views: ' + ${topic.views}" class="right"></span>
+                                            <span th:text="${topic.views}" class="right"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -89,18 +111,68 @@
                     </div>
 
 
-                    <!-- R -->
+                    <!-- POSTS -->
 
-                    <div class="col s2 ">
+                    <div class="row" th:if="${userProfile.posts.size() > 0}">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12 z-depth-2">
 
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="row"></div>
+                                    <div class="row">
+                                        <h5 class="center bold">POSTS</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <span>Date</span> <span class="right">Topic</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="col s6">
+                                            <span>Content</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row" th:each="post : ${userProfile.posts}">
+                                        <div class="col s6 right-align">
+                                            <span th:text="${#calendars.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
+                                            <a th:href="@{/topic/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
+                                        </div>
+                                        <div class="col s6">
+                                            <a th:href="@{/topic/} + ${post.topic.id} + '#' + ${post.id}" th:text="${post.content}" class="truncate"></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
+                </div>
 
+
+                <!-- RIGHT -->
+
+                <div class="col s2">
+                    <div class="row">
+                        <div class="col s12">
+
+                            <!-- STATISTICS -->
+
+                            <div class="row">
+                                <div class="col s11 z-depth-2 right">
+                                    <h6 class="center bold">STATISTICS</h6>
+                                    <div class="divider"></div>
+                                    <div class="row">
+                                        <div class="col s6 center">
+                                            <p>Topics</p>
+                                            <p>Posts</p>
+                                        </div>
+                                        <div class="col s6 center">
+                                            <p th:text="${userProfile.topics.size()}"></p>
+                                            <p th:text="${userProfile.posts.size()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

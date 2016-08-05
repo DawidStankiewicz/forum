@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.szczypioreg.forum.controller.form.NewUserForm;
+import com.github.szczypioreg.forum.controller.form.UserEditForm;
 import com.github.szczypioreg.forum.controller.model.UserProfile;
 import com.github.szczypioreg.forum.domain.User;
 import com.github.szczypioreg.forum.exception.UserNotFoundException;
@@ -80,7 +81,7 @@ public class UserController {
         user.setUsername(newUser.getUsername());
         user.setPassword(newUser.getPassword());
         
-        userService.save(user);
+        userService.create(user);
         
         model.addFlashAttribute("message", "user.successfully.added");
         return "redirect:/login";
@@ -96,4 +97,61 @@ public class UserController {
         return "redirect:/login?logout=true";
     }
     
+    @RequestMapping(value = "/myprofile")
+    public String myProfile(Authentication auth, Model model) {
+        String username = auth.getName();
+        UserProfile userProfile;
+        try {
+            userProfile = userProfileService.findOne(username);
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException();
+        }
+        model.addAttribute("userProfile", userProfile);
+        return "user";
+    }
+    
+    @RequestMapping(value = "/myprofile/edit", method = RequestMethod.GET)
+    public String editMode(Authentication authentication, Model model) {
+        UserProfile userProfile;
+        String username = authentication.getName();
+        if (username == null) {
+            return "redirect:/";
+        }
+        try {
+            userProfile = userProfileService.findOne(username);
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException();
+        }
+        
+        model.addAttribute("userProfile", userProfile);
+        model.addAttribute("userEditForm", new UserEditForm());
+        return "user_edit_form";
+    }
+    
+    @RequestMapping(value = "/myprofile/edit", method = RequestMethod.POST)
+    public String processAndSaveChanges(@Valid @ModelAttribute UserEditForm userEditForm,
+            BindingResult bind, Authentication auth, RedirectAttributes redirectModel,
+            Model model) {
+        
+        String username = auth.getName();
+        if (bind.hasErrors()) {
+            model.addAttribute("userProfile", userProfileService.findOne(username));
+            return "user_edit_form";
+        }
+        User user = userService.findByUsername(username);
+        if (!user.getUsername().equals(auth.getName()) || user == null) {
+            return "redirect: /";
+        }
+        
+        user.setName(userEditForm.getName());
+        user.setLastName(userEditForm.getLastName());
+        user.setSex(userEditForm.getSex());
+        user.setCity(userEditForm.getCity());
+        user.setBirthday(userEditForm.getBirthday());
+        user.setBiography(userEditForm.getBiography());
+        userService.save(user);
+        
+        redirectModel.addFlashAttribute("message", "user.changes.successfully.saved");
+        return "redirect:/myprofile";
+    }
 }
