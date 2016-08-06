@@ -1,6 +1,7 @@
 package com.github.szczypioreg.forum.config;
 
-import javax.servlet.ServletRegistration;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -23,8 +24,9 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     }
     
     @Override
-    public void customizeRegistration(ServletRegistration.Dynamic registration) {
+    public void customizeRegistration(Dynamic registration) {
         registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        registration.setMultipartConfig(new MultipartConfigElement("tmp", 4194304, 8388608, 0));
     }
     
 }

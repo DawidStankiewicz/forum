@@ -5,28 +5,34 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <div class="container">
-
         <div th:replace="fragments/messages :: messages"></div>
 
         <div class="row z-depth-1" style="margin-bottom: 40px; padding: 10px;">
             <div class="col s12">
                 <h5>
                     <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}"></a>
-                    : :
-                    <span th:text="${topic.title}"></span>
+                    : : <span th:text="${topic.title}"></span>
                 </h5>
             </div>
         </div>
 
+
+
+        <!-- TOPIC  -->
+
         <div class="row z-depth-1">
             <div class="row">
+                <!-- L -->
                 <div class="col s2  center">
-                    <h5 th:text="${topic.user.username}"></h5>
-                    <div class="col s12">
-                        <img th:src="@{/resources/img/pp/} + ${topic.user.idProfilePicture} + '.jpg'" class="responsive-img" />
+                    <div class="row">
+                        <div class="col s11 right">
+                            <a th:href="@{/user/} + ${topic.user.username}" th:text="'@' + ${topic.user.username}"></a>
+                            <img th:src="@{/resources/img/pp/} + ${topic.user.idProfilePicture} + '.jpg'" class="responsive-img" />
+                        </div>
                     </div>
-
+                    <div class="col s12"></div>
                 </div>
+                <!-- R -->
                 <div class="col s10">
                     <div class="row">
                         <div class="col s11">
@@ -51,15 +57,20 @@
             </div>
         </div>
 
+
+
+        <!-- POSTS -->
+
         <div class="row z-depth-1" th:each="post : ${posts}" th:id="${post.id}">
+            <!-- L -->
             <div class="col s2  center">
-                <h5 th:text="${post.user.username}"></h5>
+                <a th:href="@{/user/} + ${post.user.username}" th:text="'@' + ${post.user.username}"></a>
                 <div class="col s12">
                     <img th:src="@{/resources/img/pp/} + ${post.user.idProfilePicture} + '.jpg'" class="responsive-img" />
                 </div>
             </div>
 
-
+            <!-- R -->
             <div class="col s10">
                 <div class="row">
                     <div class="col s11">
@@ -87,6 +98,8 @@
 
 
 
+        <!-- SECTION REPLY -->
+
         <div class="row " sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
                 <form th:action="@{/topic/} + ${topic.id}" method="POST" th:object="${newPost}">
@@ -107,12 +120,12 @@
                 </form>
             </div>
         </div>
-
         <div class="row z-depth-1" sec:authorize="!isAuthenticated()">
             <div class="col s12">
                 <h5 th:text="#{login.to.reply}"></h5>
             </div>
         </div>
+
     </div>
 
     <footer th:replace="fragments/footer :: footer"></footer>

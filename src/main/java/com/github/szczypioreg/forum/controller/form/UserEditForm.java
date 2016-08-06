@@ -3,10 +3,7 @@
  */
 package com.github.szczypioreg.forum.controller.form;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.validation.constraints.Pattern;
 
@@ -15,21 +12,20 @@ import com.github.szczypioreg.forum.domain.type.Sex;
 
 public class UserEditForm {
     
-    @Pattern(regexp = "(?=.*[a-zA-Z]).{0,50}", message = "{Pattern.User.name.validation}")
+    @Pattern(regexp = "^\\p{IsAlphabetic}*$", message = "{Pattern.User.name.validation}")
     private String name;
     
-    @Pattern(regexp = "(?=.*[a-zA-Z]).{0,50}", message = "{Pattern.User.name.validation}")
+    @Pattern(regexp = "^\\p{IsAlphabetic}*$", message = "{Pattern.User.name.validation}")
     private String lastName;
     
     private Sex sex;
     
     private String city;
     
-    private Date birthday;
+    private String birthday;
     
     private String biography;
     
-    @Pattern(regexp = "(?=.*[a-zA-Z]).{0,50}", message = "{Pattern.User.footer.validation}")
     private String footer;
     
     public UserEditForm() {}
@@ -66,13 +62,12 @@ public class UserEditForm {
         this.city = city;
     }
     
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
     
     public void setBirthday(String birthday) throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        this.birthday = format.parse(birthday);
+        this.birthday = birthday;
     }
     
     public String getBiography() {

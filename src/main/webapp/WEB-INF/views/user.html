@@ -47,20 +47,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col s6 right-align">
-                                        <p th:if="${userProfile.user.name != null}">Name</p>
-                                        <p th:if="${userProfile.user.LastName != null}">Last name</p>
-                                        <p th:if="${userProfile.user.sex != null}">Sex</p>
-                                        <p th:if="${userProfile.user.city != null}">City</p>
+                                        <p th:if="${!userProfile.user.name.isEmpty()}">Name</p>
+                                        <p th:if="${!userProfile.user.LastName.isEmpty()}">Last name</p>
+                                        <p th:if="${userProfile.user.sex.name() != 'N' }">Sex</p>
+                                        <p th:if="${!userProfile.user.city.isEmpty()}">City</p>
                                         <p th:if="${userProfile.user.birthday != null}">Birthday</p>
                                         <p th:if="${userProfile.user.registerDate != null}">Register date</p>
                                         <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
-                                        <p th:if="${userProfile.user.footer != null}">Footer</p>
-                                        <p th:if="${userProfile.user.biography != null}">Biography</p>
+                                        <p th:if="${!userProfile.user.footer.isEmpty()}">Footer</p>
+                                        <p th:if="${!userProfile.user.biography.isEmpty()}">Biography</p>
                                     </div>
                                     <div class="col s6">
                                         <p th:text="${userProfile.user.name}"></p>
                                         <p th:text="${userProfile.user.LastName}"></p>
-                                        <p th:text="${userProfile.user.sex}"></p>
+                                        <p th:if="${userProfile.user.sex.name() != 'N' }" th:text="${userProfile.user.sex}"></p>
                                         <p th:text="${userProfile.user.city}"></p>
                                         <p th:text="${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
                                         <p th:text="${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
