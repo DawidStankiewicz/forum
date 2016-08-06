@@ -46,7 +46,7 @@ public class ThymeleafConfig {
     @Bean
     @Autowired
     public SpringTemplateEngine templateEngine(MessageSource messageSource,
-            ITemplateResolver templateResolver) {
+                                               ITemplateResolver templateResolver) {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
         templateEngine.addDialect(new SpringSecurityDialect());

@@ -18,7 +18,8 @@ public interface RoleService {
     
     void save(Role role);
     
-    void save(String name, String description);
+    void save(String name,
+              String description);
     
     void delete(Role role);
     

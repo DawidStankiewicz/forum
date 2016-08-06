@@ -30,7 +30,7 @@ public class JPAConfig {
     
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter) {
+                                                                          JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
         emfb.setDataSource(dataSource);
         emfb.setJpaVendorAdapter(jpaVendorAdapter);
@@ -72,7 +72,8 @@ public class JPAConfig {
     
     @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManagerJPA(
-            EntityManagerFactory entityManagerFactory) throws NamingException {
+                                                            EntityManagerFactory entityManagerFactory)
+            throws NamingException {
         JpaTransactionManager txManager = new JpaTransactionManager(entityManagerFactory);
         return txManager;
     }

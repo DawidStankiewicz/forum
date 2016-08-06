@@ -82,7 +82,9 @@ public class PostServiceImpl implements PostService {
     }
     
     @Override
-    public void save(String content, String username, int idTopic) {
+    public void save(String content,
+                     String username,
+                     int idTopic) {
         Post post = new Post();
         post.setTopic(topicService.findOne(idTopic));
         post.setUser(userService.findByUsername(username));

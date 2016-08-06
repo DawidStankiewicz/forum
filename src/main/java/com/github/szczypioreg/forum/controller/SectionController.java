@@ -43,7 +43,8 @@ public class SectionController {
     private RoleService roleService;
     
     @RequestMapping("{id}")
-    public String getTopicsFromSection(@PathVariable int id, Model model) {
+    public String getTopicsFromSection(@PathVariable int id,
+                                       Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("topics", topicService.findBySection(id));
         return "section";
@@ -57,7 +58,8 @@ public class SectionController {
     
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewSection(
-            @Valid @ModelAttribute("newSection") NewSectionForm newSection, BindingResult result) {
+                                          @Valid @ModelAttribute("newSection") NewSectionForm newSection,
+                                          BindingResult result) {
         
         if (result.hasErrors()) {
             return "new_section_form";
@@ -70,8 +72,9 @@ public class SectionController {
     }
     
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable int id, Authentication authentication,
-            RedirectAttributes model) {
+    public String delete(@PathVariable int id,
+                         Authentication authentication,
+                         RedirectAttributes model) {
         User user = userService.findByUsername(authentication.getName());
         Role adminRole = roleService.findByName("ADMIN");
         if (!user.getRoles().contains(adminRole)) {

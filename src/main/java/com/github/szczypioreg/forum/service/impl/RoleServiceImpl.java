@@ -40,7 +40,8 @@ public class RoleServiceImpl implements RoleService {
     }
     
     @Override
-    public void save(String name, String description) {
+    public void save(String name,
+                     String description) {
         save(new Role(name, description));
     }
     

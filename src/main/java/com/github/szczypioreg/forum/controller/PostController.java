@@ -23,8 +23,9 @@ public class PostController {
     private PostService postService;
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable int id, Authentication authentication,
-            RedirectAttributes model) {
+    public String delete(@PathVariable int id,
+                         Authentication authentication,
+                         RedirectAttributes model) {
         Post post = postService.findOne(id);
         if (post == null || authentication == null || authentication.getName() == null
                 || !authentication.getName().equals(post.getUser().getUsername())) {

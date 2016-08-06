@@ -43,7 +43,8 @@ public class TopicController {
     private UserService userService;
     
     @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
-    public String getTopicById(@PathVariable int idTopic, Model model) {
+    public String getTopicById(@PathVariable int idTopic,
+                               Model model) {
         Topic topic = topicService.findOne(idTopic);
         topic.setViews(topic.getViews() + 1);
         topicService.save(topic);
@@ -56,8 +57,10 @@ public class TopicController {
     
     @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
     public String addPost(@Valid @ModelAttribute("newPost") NewPostForm newPost,
-            BindingResult result, Authentication authentication, @PathVariable int idTopic,
-            Model model) {
+                          BindingResult result,
+                          Authentication authentication,
+                          @PathVariable int idTopic,
+                          Model model) {
         
         if (result.hasErrors()) {
             model.addAttribute("topic", topicService.findOne(idTopic));
@@ -84,7 +87,9 @@ public class TopicController {
     
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
-            BindingResult result, Authentication authentication, Model model) {
+                                        BindingResult result,
+                                        Authentication authentication,
+                                        Model model) {
         
         if (result.hasErrors()) {
             model.addAttribute("sections", sectionService.findAll());
@@ -102,8 +107,9 @@ public class TopicController {
     }
     
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable int id, Authentication authentication,
-            RedirectAttributes model) {
+    public String delete(@PathVariable int id,
+                         Authentication authentication,
+                         RedirectAttributes model) {
         Topic topic = topicService.findOne(id);
         
         if (topic == null) {

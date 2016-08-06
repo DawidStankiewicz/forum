@@ -33,6 +33,8 @@ public interface PostService {
     
     void delete(Post post);
     
-    void save(String content, String username, int idTopic);
+    void save(String content,
+              String username,
+              int idTopic);
     
 }
