@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -28,6 +29,29 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.github.szczypioreg.forum.domain")
 public class JPAConfig {
     
+    @Value("${db.driver.name}")
+    private String driverName;
+    
+    @Value("${db.jdbc.url}")
+    private String jdbcUrl;
+    
+    @Value("${db.username}")
+    private String username;
+    
+    @Value("${db.password}")
+    private String password;
+    
+    @Bean
+    @Profile("production")
+    public DataSource getDataSource() throws Exception {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(driverName);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        return dataSource;
+    }
+    
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource,
                                                                           JpaVendorAdapter jpaVendorAdapter) {
@@ -45,18 +69,6 @@ public class JPAConfig {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).addScript(
                 "classpath:database/schema.sql").addScript("classpath:database/test-data.sql")
                 .build();
-    }
-    
-    @Bean
-    @Profile("production")
-    public DataSource getDataSource() throws Exception {
-        System.out.println("DataSource in prod");
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/forum");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        return dataSource;
     }
     
     @Bean
