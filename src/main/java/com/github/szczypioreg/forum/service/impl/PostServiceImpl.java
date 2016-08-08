@@ -41,14 +41,13 @@ public class PostServiceImpl implements PostService {
     }
     
     @Override
-    public List<Post> findRecent() {
-        return findRecent(10);
+    public Set<Post> findRecent() {
+        return postRepository.findTop5ByOrderByCreationDateDesc();
     }
     
     @Override
-    public List<Post> findRecent(int count) {
-        // TODO
-        return findAll();
+    public Set<Post> findAllByOrderByCreationDateDesc() {
+        return postRepository.findAllByOrderByCreationDateDesc();
     }
     
     @Override

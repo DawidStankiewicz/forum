@@ -18,4 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     
     Set<Post> findByTopic(Topic topic);
     
+    Set<Post> findAllByOrderByCreationDateDesc();
+    
+    Set<Post> findTop5ByOrderByCreationDateDesc();
 }

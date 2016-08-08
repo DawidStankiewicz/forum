@@ -3,7 +3,7 @@
  */
 package com.github.szczypioreg.forum.service.impl;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
     }
     
     @Override
-    public Set<Role> findAll() {
-        return (Set<Role>) roleRepository.findAll();
+    public List<Role> findAll() {
+        return roleRepository.findAll();
     }
     
     @Override

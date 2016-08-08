@@ -5,13 +5,14 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="container">
-
         <div th:replace="fragments/messages :: messages"></div>
-
         <div class="row">
             <div class="col s12">
 
-                <div class="row">
+
+                <!-- SECTIONS -->
+
+                <div class="row" id="sections">
                     <div class="col s12">
                         <div class="row">
                             <div class="col s6">
@@ -25,7 +26,6 @@
                         <div class="divider"></div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col s12">
                         <div class="row" th:each="section : ${sections}">
@@ -35,24 +35,23 @@
                                 </div>
                                 <div class="divider"></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <div class="row" th:if="${topics.size() > 0}">
-            <div class="col s12">
 
+        <!-- RECENT TOPICS -->
+
+        <div class="row" th:if="${topics.size() > 0}" id="recent-topics">
+            <div class="col s12">
                 <div class="row">
                     <div class="col s12">
                         <h4 th:text="#{recent.topics}">Recent topics</h4>
                         <div class="divider"></div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col s12">
                         <div class="row" th:each="topic : ${topics}">
@@ -64,25 +63,23 @@
                                 </div>
                                 <div class="divider"></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
 
-        <div class="row" th:if="${posts.size() > 0}">
-            <div class="col s12">
+        <!-- RECENT POSTS -->
 
+        <div class="row" th:if="${posts.size() > 0}" id="recent-posts">
+            <div class="col s12">
                 <div class="row">
                     <div class="col s12">
                         <h4 th:text="#{recent.posts}">Recent postss</h4>
                         <div class="divider"></div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col s12">
                         <div class="row" th:each="post : ${posts}">
@@ -95,14 +92,11 @@
                                 </div>
                                 <div class="divider"></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>

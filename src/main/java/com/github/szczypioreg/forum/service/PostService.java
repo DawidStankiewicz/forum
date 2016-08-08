@@ -17,9 +17,9 @@ public interface PostService {
     
     List<Post> findAll();
     
-    List<Post> findRecent();
+    Set<Post> findRecent();
     
-    List<Post> findRecent(int count);
+    Set<Post> findAllByOrderByCreationDateDesc();
     
     Set<Post> findByUser(User user);
     

@@ -3,7 +3,7 @@
  */
 package com.github.szczypioreg.forum.service;
 
-import java.util.Set;
+import java.util.List;
 
 import com.github.szczypioreg.forum.domain.Role;
 
@@ -14,7 +14,7 @@ public interface RoleService {
     
     Role findByName(String name);
     
-    Set<Role> findAll();
+    List<Role> findAll();
     
     void save(Role role);
     

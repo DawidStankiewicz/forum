@@ -37,23 +37,22 @@ public class TopicServiceImpl implements TopicService {
     }
     
     @Override
-    public List<Topic> findRecent() {
-        return findRecent(10);
+    public Set<Topic> findRecent() {
+        return topicRepository.findTop5ByOrderByCreationDateDesc();
     }
     
     @Override
-    public List<Topic> findRecent(int count) {
-        // TODO
-        return findAll();
+    public Set<Topic> findAllByOrderByCreationDateDesc() {
+        return topicRepository.findAllByOrderByCreationDateDesc();
     }
     
     @Override
-    public List<Topic> findBySection(Section section) {
+    public Set<Topic> findBySection(Section section) {
         return topicRepository.findBySection(section);
     }
     
     @Override
-    public List<Topic> findBySection(String sectionName) {
+    public Set<Topic> findBySection(String sectionName) {
         return findBySection(sectionService.findByName(sectionName));
     }
     
@@ -63,7 +62,7 @@ public class TopicServiceImpl implements TopicService {
     }
     
     @Override
-    public List<Topic> findBySection(int id) {
+    public Set<Topic> findBySection(int id) {
         return findBySection(sectionService.findOne(id));
     }
     

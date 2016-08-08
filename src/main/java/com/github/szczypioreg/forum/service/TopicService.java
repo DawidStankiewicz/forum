@@ -17,17 +17,17 @@ public interface TopicService {
     
     Topic findOne(int id);
     
-    List<Topic> findRecent();
+    Set<Topic> findRecent();
     
-    List<Topic> findRecent(int count);
+    Set<Topic> findAllByOrderByCreationDateDesc();
     
-    List<Topic> findBySection(Section section);
+    Set<Topic> findBySection(Section section);
     
-    List<Topic> findBySection(String sectionName);
+    Set<Topic> findBySection(String sectionName);
     
     Topic save(Topic topic);
     
-    List<Topic> findBySection(int id);
+    Set<Topic> findBySection(int id);
     
     Set<Topic> findByUser(User user);
     

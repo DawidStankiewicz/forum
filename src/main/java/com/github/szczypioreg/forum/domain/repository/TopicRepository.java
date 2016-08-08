@@ -3,7 +3,6 @@
  */
 package com.github.szczypioreg.forum.domain.repository;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,8 +14,13 @@ import com.github.szczypioreg.forum.domain.User;
 
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
     
-    List<Topic> findBySection(Section section);
+    Set<Topic> findBySection(Section section);
     
     Set<Topic> findByUser(User user);
+    
+    Set<Topic> findAllByOrderByCreationDateDesc();
+    
+    Set<Topic> findTop5ByOrderByCreationDateDesc();
+    
     
 }
