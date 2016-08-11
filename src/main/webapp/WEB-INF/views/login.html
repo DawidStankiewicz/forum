@@ -21,28 +21,34 @@
                         <div class="col s12">
                             <form class="col s12" name='f' th:action='@{/login}' method="POST">
                                 <div class="row">
+
+                                    <!-- USERNAME -->
+
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="username" name='username' type="text" class="validate">
+                                            <input id="username" name="username" type="text" class="validate">
                                             <label for="username">Username</label>
                                         </div>
                                     </div>
 
+                                    <!-- PASSWORD -->
+
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="password" name='password' type="password" class="validate">
+                                            <input id="password" name="password" type="password" class="validate">
                                             <label for="password" class="active">Password</label>
                                         </div>
                                     </div>
-                                    <!-- TODO
+
+                                    <!-- REMEMBER ME -->
+
                                     <div class="row">
                                         <p>
-                                            <input type="checkbox" name='remember-me'
-                                                class="filled-in" /> <label for="remember-me">Remember
-                                                me</label>
+                                            <input type="checkbox" name="remember-me" id="remember-me" />
+                                            <label for="remember-me">Remember me</label>
                                         </p>
                                     </div>
-                                     -->
+
                                     <input class="btn waves-effect waves-light" type="submit" name="action" value="Login" />
 
                                 </div>
