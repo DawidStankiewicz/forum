@@ -67,6 +67,7 @@ public class SectionController {
         
         Section section = new Section();
         section.setName(newSection.getName());
+        section.setDescription(newSection.getDescription());
         section = sectionService.save(section);
         return "redirect:/section/" + section.getId();
     }

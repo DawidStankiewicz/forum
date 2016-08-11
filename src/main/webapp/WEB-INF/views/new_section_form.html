@@ -27,6 +27,14 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
+                                        <textarea th:field="*{description}" id="description" name='description' class="materialize-textarea" length="150"></textarea>
+                                        <label for="description" th:text="#{section.description}"></label>
+                                        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="red-text">Incorrect description!</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
                                         <input class="btn waves-effect waves-light" type="submit" name="action" th:value="#{page.new_section_form.create}" />
 
                                     </div>
