@@ -19,7 +19,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:field="*{email}" id="email" name='email' type="email" class="validate">
+                                        <input th:field="*{email}" id="email" name='email' type="email" class="validate" />
                                         <label for="username">Email</label>
                                         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="red-text">Invalid email!</p>
                                     </div>
@@ -27,7 +27,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:field="*{username}" id="username" name='username' type="text" class="validate">
+                                        <input th:field="*{username}" id="username" name='username' type="text" class="validate" />
                                         <label for="username">Username</label>
                                         <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="red-text">Invalid username!</p>
                                     </div>
@@ -35,7 +35,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:field="*{password}" id="password" name='password' type="password" class="validate">
+                                        <input th:field="*{password}" id="password" name='password' type="password" class="validate" />
                                         <label for="password">Password</label>
                                         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="red-text">Invalid password!</p>
                                     </div>
