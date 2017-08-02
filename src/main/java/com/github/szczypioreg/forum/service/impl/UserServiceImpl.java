@@ -3,6 +3,7 @@
  */
 package com.github.szczypioreg.forum.service.impl;
 
+import com.github.szczypioreg.forum.exception.UserNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,11 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
     }
     
     @Override

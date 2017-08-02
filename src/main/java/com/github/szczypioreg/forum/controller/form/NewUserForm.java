@@ -20,7 +20,7 @@ public class NewUserForm {
     @Pattern(regexp = "[a-zA-Z0-9_\\-]*", message = "{Pattern.User.username.validation}")
     private String username;
     
-    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,64})",
+    @Pattern(regexp = "(.{8,64})",
              message = "{Pattern.User.password.validation}")
     private String password;
     
