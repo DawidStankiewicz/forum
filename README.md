@@ -1,5 +1,5 @@
 # **Project Forum**
-The web application in Java. As the title suggests it is a web forum. 
+Example of simple CRUD web application with Spring Framework and Thymeleaf. 
 
 
 ## Current functions
@@ -23,45 +23,13 @@ The web application in Java. As the title suggests it is a web forum.
 
 ## Database 
 ### Connection
-The connection settings are in the forum.properties file.
+The connection settings are in src/main/resources/application.properties
 
-    db.driver.name=com.mysql.jdbc.Driver
-    db.jdbc.url=jdbc:mysql://localhost:3306/forum
-    db.username=root
-    db.password=root
+    ## Database connection ##
+    spring.datasource.url=jdbc:mysql://localhost:3306/DB_NAME
+    spring.datasource.username=USERNAME
+    spring.datasource.password=PASSWORD
 
 ### Diagram
-![Sorry, error loading image of diagram. Diagram is in the file model.mwb at resource/database folder.](http://i.imgur.com/1W1xaBi.png)
+![Sorry, error loading image of diagram](http://i.imgur.com/1W1xaBi.png)
 
-
-## Maven dependencies
-
-### Spring Framework 
-Version: 4.3.1.RELEASE
-
-### Spring Security
-Version: 4.1.0.RELEASE
-
-### Spring Data 
-Version: 1.10.2.RELEASE
-
-### Thymeleaf
-Varsion: 3.0.0.RELEASE
-
-### Hibernate
-Version: 5.2.1.FINAL
-
-### JUnit
-Version: 4.12
-
-### MySql Connector
-Version: 5.1.39
-
-### jBCrypt
-Version: 0.3m
-
-### Java Servlet API
-Version: 3.1.0
-
--
-The information on this site may be updated with a delay.
