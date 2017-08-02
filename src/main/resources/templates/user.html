@@ -1,5 +1,6 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html th:lang="${#locale.language}"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
@@ -42,29 +43,29 @@
                             <div class="row z-depth-2">
                                 <div class="row">
                                     <div class="col s12">
-                                        <h5 class="center bold">INFORMATION</h5>
+                                        <h5 class="center bold">INFO</h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s6 right-align">
-                                        <p th:if="${!userProfile.user.name.isEmpty()}">Name</p>
-                                        <p th:if="${!userProfile.user.LastName.isEmpty()}">Last name</p>
-                                        <p th:if="${userProfile.user.sex.name() != 'N' }">Sex</p>
-                                        <p th:if="${!userProfile.user.city.isEmpty()}">City</p>
+                                        <p th:if="${userProfile.user.name != ''}">Name</p>
+                                        <p th:if="${userProfile.user.LastName != ''}">Last name</p>
+                                        <p th:if="${userProfile.user.sex != 'N' }">Sex</p>
+                                        <p th:if="${userProfile.user.city != ''}">City</p>
                                         <p th:if="${userProfile.user.birthday != null}">Birthday</p>
                                         <p th:if="${userProfile.user.registerDate != null}">Register date</p>
                                         <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
-                                        <p th:if="${!userProfile.user.footer.isEmpty()}">Footer</p>
-                                        <p th:if="${!userProfile.user.biography.isEmpty()}">Biography</p>
+                                        <p th:if="${userProfile.user.footer != ''}">Footer</p>
+                                        <p th:if="${userProfile.user.biography != ''}">Biography</p>
                                     </div>
                                     <div class="col s6">
                                         <p th:text="${userProfile.user.name}"></p>
                                         <p th:text="${userProfile.user.LastName}"></p>
-                                        <p th:if="${userProfile.user.sex.name() != 'N' }" th:text="${userProfile.user.sex}"></p>
+                                        <p th:if="${userProfile.user.sex != 'N' }" th:text="${userProfile.user.sex}"></p>
                                         <p th:text="${userProfile.user.city}"></p>
-                                        <p th:text="${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
-                                        <p th:text="${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.birthday} ? ${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
+                                        <p th:text="${userProfile.user.registerDate} ? ${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.lastLoginDate} ? ${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
                                         <p th:text="${userProfile.user.footer}"></p>
                                         <p th:text="${userProfile.user.biography}"></p>
                                     </div>

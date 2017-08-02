@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select class="browser-default" id="section" th:field="${newTopic.sectionId}">
-                                        <option value="0" disabled selected>Choose section</option>
+                                        <option value="0" disabled="disabled" selected>Choose section</option>
                                         <option th:each="section : ${sections}" th:text="${section.name}" th:value="${section.id}"></option>
                                     </select>
                                     <p th:if="${#fields.hasErrors('sectionId')}" th:errors="*{sectionId}" class="red-text">Select section!</p>

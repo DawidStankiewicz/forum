@@ -1,5 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 
 <head>
@@ -8,7 +10,7 @@
 
 <body>
     <nav th:fragment="navbar" class="nav-wrapper amber darken-4">
-        <a th:href=" @{~/forum}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
+        <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/registration}">Sign up</a></li>
