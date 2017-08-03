@@ -38,8 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             user.isActive(),
             true, true, true,
             grantedAuthorities);
-        System.out.println("ROLES OF LOGGED USER " + username);
-        userDetails.getAuthorities().stream().forEach(role -> System.out.println(role));
+
         return userDetails;
     }
 }

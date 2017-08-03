@@ -98,7 +98,7 @@
 
                                     <div class="row" th:each="topic : ${userProfile.topics}">
                                         <div class="col s6">
-                                            <span th:text="${#calendars.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
+                                            <span th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
                                             <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}" class="right"></a>
                                         </div>
                                         <div class="col s6">
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="row" th:each="post : ${userProfile.posts}">
                                         <div class="col s6 right-align">
-                                            <span th:text="${#calendars.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
+                                            <span th:text="${post.creationDate} ? ${#calendars.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
                                             <a th:href="@{/topic/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
                                         </div>
                                         <div class="col s6">
