@@ -5,10 +5,11 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 
 /**
  * Created by Dawid Stankiewicz on 03.08.2017.
@@ -20,13 +21,17 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 398881966654252337L;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
+    @Column(name = "user")
+    private int id;
+
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 
     @Basic
     @Column(length = 15)
-    private String  phone;
+    private String phone;
 
     @Basic
     @Column(length = 20)
@@ -40,6 +45,7 @@ public class UserInfo implements Serializable {
     private Date birthday;
 
     @Basic
+    @Column(nullable = false)
     private boolean male;
 
     @Basic
@@ -70,6 +76,19 @@ public class UserInfo implements Serializable {
     private int topics;
 
     public UserInfo() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.joinedDate = new Date();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -146,10 +165,6 @@ public class UserInfo implements Serializable {
 
     public Date getJoinedDate() {
         return joinedDate;
-    }
-
-    public void setJoinedDate(Date joinedDate) {
-        this.joinedDate = joinedDate;
     }
 
     public Date getLastLoginTime() {

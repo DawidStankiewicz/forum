@@ -6,6 +6,7 @@ package com.github.dawidstankiewicz.forum.entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 
 @Entity
@@ -27,25 +29,26 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 255)
+    @Column(length = 255, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 30)
+    @Column(length = 30, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 60)
+    @Column(length = 60, nullable = false)
     private String password;
 
     @Basic
     private boolean active;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "rolesOfUser",
         joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
     private Set<Role> roles;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private UserInfo info;
 
     public User() {
