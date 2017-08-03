@@ -1,9 +1,7 @@
 /**
- * Created by Dawid Stankiewicz on 17.07.2016
+ * Created by Dawid Stankiewicz on 22.07.2016
  */
-package com.github.dawidstankiewicz.forum.domain;
-
-import java.io.Serializable;
+package com.github.dawidstankiewicz.forum.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,26 +12,24 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "sections")
-public class Section implements Serializable {
-    
-    private static final long serialVersionUID = 4309596024036692836L;
+@Table(name = "roles")
+public class Role {
     
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
     
     @Column(name = "description")
     private String description;
     
-    public Section() {}
+    public Role() {}
     
-    public Section(String name,
-                   String description) {
+    public Role(String name,
+                String description) {
         this.name = name;
         this.description = description;
     }
@@ -42,8 +38,8 @@ public class Section implements Serializable {
         return id;
     }
     
-    public void setId(int idSection) {
-        this.id = idSection;
+    public void setId(int idRole) {
+        this.id = idRole;
     }
     
     public String getName() {
@@ -60,10 +56,6 @@ public class Section implements Serializable {
     
     public void setDescription(String description) {
         this.description = description;
-    }
-    
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
     
     @Override
@@ -87,7 +79,7 @@ public class Section implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Section other = (Section) obj;
+        Role other = (Role) obj;
         if (description == null) {
             if (other.description != null) {
                 return false;
@@ -110,7 +102,7 @@ public class Section implements Serializable {
     
     @Override
     public String toString() {
-        return "Section [id=" + id + ", name=" + name + ", description=" + description + "]";
+        return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
     }
     
 }

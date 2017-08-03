@@ -3,12 +3,12 @@
  */
 package com.github.dawidstankiewicz.forum.service;
 
-import com.github.dawidstankiewicz.forum.domain.Topic;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Topic;
+import com.github.dawidstankiewicz.forum.entity.User;
 import java.util.List;
 import java.util.Set;
 
-import com.github.dawidstankiewicz.forum.domain.Section;
+import com.github.dawidstankiewicz.forum.entity.Section;
 
 
 public interface TopicService {

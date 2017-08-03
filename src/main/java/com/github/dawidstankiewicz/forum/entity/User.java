@@ -1,7 +1,7 @@
 /**
  * Created by Dawid Stankiewicz on 3 Jul 2016
  */
-package com.github.dawidstankiewicz.forum.domain;
+package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.github.dawidstankiewicz.forum.domain.type.Sex;
+import com.github.dawidstankiewicz.forum.entity.type.Sex;
 
 
 @Entity

@@ -3,7 +3,7 @@
  */
 package com.github.dawidstankiewicz.forum.controller;
 
-import com.github.dawidstankiewicz.forum.domain.Topic;
+import com.github.dawidstankiewicz.forum.entity.Topic;
 import com.github.dawidstankiewicz.forum.service.SectionService;
 import javax.validation.Valid;
 
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.dawidstankiewicz.forum.controller.form.NewPostForm;
 import com.github.dawidstankiewicz.forum.controller.form.NewTopicForm;
-import com.github.dawidstankiewicz.forum.domain.Post;
+import com.github.dawidstankiewicz.forum.entity.Post;
 import com.github.dawidstankiewicz.forum.service.PostService;
 import com.github.dawidstankiewicz.forum.service.TopicService;
 import com.github.dawidstankiewicz.forum.service.UserService;

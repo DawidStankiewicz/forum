@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.dawidstankiewicz.forum.domain.Role;
-import com.github.dawidstankiewicz.forum.domain.repository.RoleRepository;
+import com.github.dawidstankiewicz.forum.entity.Role;
+import com.github.dawidstankiewicz.forum.entity.repository.RoleRepository;
 import com.github.dawidstankiewicz.forum.service.RoleService;
 
 

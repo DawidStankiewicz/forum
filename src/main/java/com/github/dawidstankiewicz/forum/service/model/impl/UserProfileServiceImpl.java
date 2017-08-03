@@ -4,7 +4,7 @@
 package com.github.dawidstankiewicz.forum.service.model.impl;
 
 import com.github.dawidstankiewicz.forum.controller.model.UserProfile;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.User;
 import com.github.dawidstankiewicz.forum.service.PostService;
 import com.github.dawidstankiewicz.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;

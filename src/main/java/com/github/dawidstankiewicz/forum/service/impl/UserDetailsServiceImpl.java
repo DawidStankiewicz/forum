@@ -1,7 +1,7 @@
 package com.github.dawidstankiewicz.forum.service.impl;
 
-import com.github.dawidstankiewicz.forum.domain.Role;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Role;
+import com.github.dawidstankiewicz.forum.entity.User;
 import com.github.dawidstankiewicz.forum.service.UserService;
 import java.util.HashSet;
 import java.util.Set;

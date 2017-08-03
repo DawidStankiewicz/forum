@@ -3,8 +3,8 @@
  */
 package com.github.dawidstankiewicz.forum.service.impl;
 
-import com.github.dawidstankiewicz.forum.domain.Role;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Role;
+import com.github.dawidstankiewicz.forum.entity.User;
 import com.github.dawidstankiewicz.forum.exception.IncorrectPasswordException;
 import com.github.dawidstankiewicz.forum.exception.UserNotFoundException;
 import java.text.DateFormat;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.dawidstankiewicz.forum.controller.form.UserEditForm;
-import com.github.dawidstankiewicz.forum.domain.repository.UserRepository;
+import com.github.dawidstankiewicz.forum.entity.repository.UserRepository;
 import com.github.dawidstankiewicz.forum.service.RoleService;
 import com.github.dawidstankiewicz.forum.service.UserService;
 

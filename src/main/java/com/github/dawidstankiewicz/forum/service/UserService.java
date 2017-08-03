@@ -4,7 +4,7 @@
 package com.github.dawidstankiewicz.forum.service;
 
 import com.github.dawidstankiewicz.forum.controller.form.UserEditForm;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.User;
 import java.util.List;
 
 

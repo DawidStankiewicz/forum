@@ -5,9 +5,9 @@ package com.github.dawidstankiewicz.forum.controller.model;
 
 import java.util.Set;
 
-import com.github.dawidstankiewicz.forum.domain.Post;
-import com.github.dawidstankiewicz.forum.domain.Topic;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Post;
+import com.github.dawidstankiewicz.forum.entity.Topic;
+import com.github.dawidstankiewicz.forum.entity.User;
 
 
 public class UserProfile {

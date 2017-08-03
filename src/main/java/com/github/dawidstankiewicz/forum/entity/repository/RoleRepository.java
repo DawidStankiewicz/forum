@@ -1,9 +1,9 @@
 /**
  * Created by Dawid Stankiewicz on 22.07.2016
  */
-package com.github.dawidstankiewicz.forum.domain.repository;
+package com.github.dawidstankiewicz.forum.entity.repository;
 
-import com.github.dawidstankiewicz.forum.domain.Role;
+import com.github.dawidstankiewicz.forum.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

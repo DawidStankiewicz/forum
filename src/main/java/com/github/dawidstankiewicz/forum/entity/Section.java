@@ -1,7 +1,9 @@
 /**
- * Created by Dawid Stankiewicz on 22.07.2016
+ * Created by Dawid Stankiewicz on 17.07.2016
  */
-package com.github.dawidstankiewicz.forum.domain;
+package com.github.dawidstankiewicz.forum.entity;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,24 +14,26 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "sections")
+public class Section implements Serializable {
+    
+    private static final long serialVersionUID = 4309596024036692836L;
     
     @Id
-    @Column(name = "id", unique = true)
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
     
     @Column(name = "description")
     private String description;
     
-    public Role() {}
+    public Section() {}
     
-    public Role(String name,
-                String description) {
+    public Section(String name,
+                   String description) {
         this.name = name;
         this.description = description;
     }
@@ -38,8 +42,8 @@ public class Role {
         return id;
     }
     
-    public void setId(int idRole) {
-        this.id = idRole;
+    public void setId(int idSection) {
+        this.id = idSection;
     }
     
     public String getName() {
@@ -56,6 +60,10 @@ public class Role {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
     
     @Override
@@ -79,7 +87,7 @@ public class Role {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Role other = (Role) obj;
+        Section other = (Section) obj;
         if (description == null) {
             if (other.description != null) {
                 return false;
@@ -102,7 +110,7 @@ public class Role {
     
     @Override
     public String toString() {
-        return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
+        return "Section [id=" + id + ", name=" + name + ", description=" + description + "]";
     }
     
 }

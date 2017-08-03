@@ -1,11 +1,11 @@
 /**
  * Created by Dawid Stankiewicz on 18.07.2016
  */
-package com.github.dawidstankiewicz.forum.domain.repository;
+package com.github.dawidstankiewicz.forum.entity.repository;
 
-import com.github.dawidstankiewicz.forum.domain.Section;
-import com.github.dawidstankiewicz.forum.domain.Topic;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Section;
+import com.github.dawidstankiewicz.forum.entity.Topic;
+import com.github.dawidstankiewicz.forum.entity.User;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;

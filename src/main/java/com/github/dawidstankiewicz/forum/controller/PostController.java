@@ -3,7 +3,7 @@
  */
 package com.github.dawidstankiewicz.forum.controller;
 
-import com.github.dawidstankiewicz.forum.domain.Post;
+import com.github.dawidstankiewicz.forum.entity.Post;
 import com.github.dawidstankiewicz.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

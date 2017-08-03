@@ -3,7 +3,7 @@
  */
 package com.github.dawidstankiewicz.forum.service;
 
-import com.github.dawidstankiewicz.forum.domain.Role;
+import com.github.dawidstankiewicz.forum.entity.Role;
 import java.util.List;
 
 

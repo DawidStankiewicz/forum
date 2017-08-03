@@ -5,7 +5,7 @@ package com.github.dawidstankiewicz.forum.service;
 
 import java.util.List;
 
-import com.github.dawidstankiewicz.forum.domain.Section;
+import com.github.dawidstankiewicz.forum.entity.Section;
 
 
 public interface SectionService {

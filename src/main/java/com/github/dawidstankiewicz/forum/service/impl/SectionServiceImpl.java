@@ -9,8 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.dawidstankiewicz.forum.domain.Section;
-import com.github.dawidstankiewicz.forum.domain.repository.SectionRepository;
+import com.github.dawidstankiewicz.forum.entity.Section;
+import com.github.dawidstankiewicz.forum.entity.repository.SectionRepository;
 
 
 @Service

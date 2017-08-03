@@ -7,7 +7,7 @@ import java.text.ParseException;
 
 import javax.validation.constraints.Pattern;
 
-import com.github.dawidstankiewicz.forum.domain.type.Sex;
+import com.github.dawidstankiewicz.forum.entity.type.Sex;
 
 
 public class UserEditForm {

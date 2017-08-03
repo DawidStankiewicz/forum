@@ -3,9 +3,9 @@
  */
 package com.github.dawidstankiewicz.forum.service.impl;
 
-import com.github.dawidstankiewicz.forum.domain.Topic;
-import com.github.dawidstankiewicz.forum.domain.User;
-import com.github.dawidstankiewicz.forum.domain.repository.PostRepository;
+import com.github.dawidstankiewicz.forum.entity.Topic;
+import com.github.dawidstankiewicz.forum.entity.User;
+import com.github.dawidstankiewicz.forum.entity.repository.PostRepository;
 import com.github.dawidstankiewicz.forum.service.PostService;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +13,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.dawidstankiewicz.forum.domain.Post;
+import com.github.dawidstankiewicz.forum.entity.Post;
 import com.github.dawidstankiewicz.forum.service.TopicService;
 import com.github.dawidstankiewicz.forum.service.UserService;
 

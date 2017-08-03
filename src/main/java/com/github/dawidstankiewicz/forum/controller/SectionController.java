@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.dawidstankiewicz.forum.controller.form.NewSectionForm;
-import com.github.dawidstankiewicz.forum.domain.Role;
-import com.github.dawidstankiewicz.forum.domain.Section;
-import com.github.dawidstankiewicz.forum.domain.User;
+import com.github.dawidstankiewicz.forum.entity.Role;
+import com.github.dawidstankiewicz.forum.entity.Section;
+import com.github.dawidstankiewicz.forum.entity.User;
 import com.github.dawidstankiewicz.forum.service.RoleService;
 import com.github.dawidstankiewicz.forum.service.TopicService;
 import com.github.dawidstankiewicz.forum.service.UserService;

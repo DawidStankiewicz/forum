@@ -1,7 +1,7 @@
 /**
  * Created by Dawid Stankiewicz on 17.07.2016
  */
-package com.github.dawidstankiewicz.forum.domain;
+package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Date;
