@@ -22,7 +22,7 @@
                                 <h4 th:text="#{sections}">Sections</h4>
                             </div>
                             <div class="col s6">
-                                <a sec:authorize="hasAnyRole('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}"
+                                <a sec:authorize="hasAnyAuthority('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}"
                                     class="right waves-effect waves-light btn"></a>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                 <div class="section">
                                     <a th:href="@{/topic/} + ${topic.id}">
                                         <span th:text="'@' + ${topic.user.username} + ': ' + ${topic.title}"></span> <span class="right"
-                                            th:text="${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
+                                            th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
                                             th:text="${topic.content}"></span>
                                     </a>
                                 </div>
@@ -94,7 +94,7 @@
                                 <div class="section">
                                     <a th:href="@{/topic/} + ${post.topic.id}">
                                         <span th:text="'@' + ${post.user.username} + ' ' + #{reply.to} + ' ' + ${post.topic.title}"></span> <span class="right"
-                                            th:text="${#calendars.format(post.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
+                                            th:text="${post.creationDate} ? ${#calendars.format(post.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
                                             th:text="${post.content}"></span>
                                     </a>
                                 </div>

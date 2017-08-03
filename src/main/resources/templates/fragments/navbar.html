@@ -16,7 +16,7 @@
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/registration}">Sign up</a></li>
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Sign in</a></li>
 
-            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/users}">Users</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>

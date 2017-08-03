@@ -38,7 +38,7 @@
                 <div class="col s10">
                     <div class="row">
                         <div class="col s11">
-                            <p th:text="${#calendars.format(topic.creationDate, 'HH:mm dd MMMM yyyy')}"></p>
+                            <p th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'HH:mm dd MMMM yyyy')}"></p>
                             <p th:utext="${#strings.replace(topic.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
                             <div class="divider"></div>
                         </div>
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col s11">
                         <p
-                            th:text="${#calendars.format(post.creationDate, 'HH:mm:ss')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.creationDate, 'dd MMMM yyyy')} + ' ID: ' + ${post.id} "></p>
+                            th:text="${post.creationDate} ? ${#calendars.format(post.creationDate, 'HH:mm:ss')} + ' ' + #{page.topic.on.day} + ' ' + ${#calendars.format(post.creationDate, 'dd MMMM yyyy')} + ' ID: ' + ${post.id} "></p>
                         <p th:utext="${#strings.replace(post.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
                         <div th:if="${post.user.footer != null}" class="divider"></div>
                     </div>
