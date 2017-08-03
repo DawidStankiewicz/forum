@@ -3,33 +3,28 @@
  */
 package com.github.dawidstankiewicz.forum.service;
 
-import com.github.dawidstankiewicz.forum.controller.form.UserEditForm;
 import com.github.dawidstankiewicz.forum.entity.User;
 import java.util.List;
 
 
 public interface UserService {
-    
+
     List<User> findAll();
-    
+
     User findOne(int id);
-    
+
     User findByUsername(String username);
-    
+
     User findByEmail(String email);
-    
+
     User save(User user);
-    
+
     void create(User user);
-    
+
     void remove(int id);
-    
+
     void remove(User user);
-    
+
     void remove(User user,
-                String password);
-    
-    void save(User user,
-              UserEditForm userEditForm);
-    
+        String password);
 }

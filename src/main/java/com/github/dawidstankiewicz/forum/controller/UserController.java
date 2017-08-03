@@ -4,9 +4,9 @@
 package com.github.dawidstankiewicz.forum.controller;
 
 import com.github.dawidstankiewicz.forum.controller.form.NewUserForm;
+import com.github.dawidstankiewicz.forum.controller.form.UserEditForm;
 import com.github.dawidstankiewicz.forum.controller.model.UserProfile;
 import com.github.dawidstankiewicz.forum.entity.User;
-import com.github.dawidstankiewicz.forum.controller.form.UserEditForm;
 import com.github.dawidstankiewicz.forum.exception.UserNotFoundException;
 import com.github.dawidstankiewicz.forum.service.UserService;
 import com.github.dawidstankiewicz.forum.service.model.UserProfileService;
@@ -171,28 +171,6 @@ public class UserController {
         return "user_edit_form";
     }
 
-    @RequestMapping(value = "/myprofile/edit", method = RequestMethod.POST)
-    public String processAndSaveChanges(@Valid @ModelAttribute UserEditForm userEditForm,
-        BindingResult bind,
-        Authentication authentication,
-        RedirectAttributes redirectModel,
-        Model model) {
-
-        String username = authentication.getName();
-        if (bind.hasErrors()) {
-            model.addAttribute("userProfile", userProfileService.findOne(username));
-            return "user_edit_form";
-        }
-        User user = userService.findByUsername(username);
-        if (!user.getUsername().equals(authentication.getName()) || user == null) {
-            return "redirect:/";
-        }
-        userService.save(user, userEditForm);
-
-        redirectModel.addFlashAttribute("message", "user.changes.successfully.saved");
-        return "redirect:/myprofile";
-    }
-
     @RequestMapping(value = "/myprofile/edit/picture", method = RequestMethod.POST)
     public String processAndSaveProfilePicture(@RequestPart MultipartFile profilePicture,
         HttpServletRequest request,
@@ -209,7 +187,6 @@ public class UserController {
             String path =
                 request.getSession().getServletContext().getRealPath("/resources/public/img/pp/");
             profilePicture.transferTo(new File(path + user.getId() + ".jpg"));
-            user.setIdProfilePicture(user.getId());
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }

@@ -16,14 +16,14 @@
                 <div class="col s2">
                     <div class="row">
                         <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
+                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.id} + '.jpg'" class="responsive-img z-depth-2" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12 right-align">
                             <h6 th:text="'@' + ${userProfile.user.username}"></h6>
-                            <h6 th:text="${userProfile.user.name}" class="bold"></h6>
-                            <h6 th:text="${userProfile.user.lastName}" class="bold"></h6>
+                            <h6 th:text="${userProfile.user.info.name}" class="bold"></h6>
+                            <h6 th:text="${userProfile.user.info.lastName}" class="bold"></h6>
                             <a th:if="${#authentication.name} eq ${userProfile.user.username}" th:href="@{/myprofile/edit}">
                                 <i class="material-icons medium black-text">mode_edit</i>
                             </a>
@@ -48,26 +48,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col s6 right-align">
-                                        <p th:if="${userProfile.user.name != ''}">Name</p>
-                                        <p th:if="${userProfile.user.LastName != ''}">Last name</p>
-                                        <p th:if="${userProfile.user.sex != 'N' }">Sex</p>
-                                        <p th:if="${userProfile.user.city != ''}">City</p>
-                                        <p th:if="${userProfile.user.birthday != null}">Birthday</p>
-                                        <p th:if="${userProfile.user.registerDate != null}">Register date</p>
-                                        <p th:if="${userProfile.user.lastLoginDate != null}">Last login</p>
-                                        <p th:if="${userProfile.user.footer != ''}">Footer</p>
-                                        <p th:if="${userProfile.user.biography != ''}">Biography</p>
+                                        <p th:if="${userProfile.user.info.name != ''}">Name</p>
+                                        <p th:if="${userProfile.user.info.LastName != ''}">Last name</p>
+                                        <p th:if="${userProfile.user.info.male}">Sex</p>
+                                        <p th:if="${userProfile.user.info.city != ''}">City</p>
+                                        <p th:if="${userProfile.user.info.birthday != null}">Birthday</p>
+                                        <p th:if="${userProfile.user.info.joinedDate != null}">Register date</p>
+                                        <p th:if="${userProfile.user.info.lastLoginTime != null}">Last login</p>
+                                        <p th:if="${userProfile.user.info.footer != ''}">Footer</p>
+                                        <p th:if="${userProfile.user.info.aboutMe != ''}">Biography</p>
                                     </div>
                                     <div class="col s6">
-                                        <p th:text="${userProfile.user.name}"></p>
-                                        <p th:text="${userProfile.user.LastName}"></p>
-                                        <p th:if="${userProfile.user.sex != 'N' }" th:text="${userProfile.user.sex}"></p>
-                                        <p th:text="${userProfile.user.city}"></p>
-                                        <p th:text="${userProfile.user.birthday} ? ${#calendars.format(userProfile.user.birthday, 'dd MMMM yyyy')}"></p>
-                                        <p th:text="${userProfile.user.registerDate} ? ${#calendars.format(userProfile.user.registerDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${userProfile.user.lastLoginDate} ? ${#calendars.format(userProfile.user.lastLoginDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${userProfile.user.footer}"></p>
-                                        <p th:text="${userProfile.user.biography}"></p>
+                                        <p th:text="${userProfile.user.info.name}"></p>
+                                        <p th:text="${userProfile.user.info.LastName}"></p>
+                                        <p th:text='${userProfile.user.info.male} ? #{male} : #{female}'></p>
+                                        <p th:text="${userProfile.user.info.city}"></p>
+                                        <p th:text="${userProfile.user.info.birthday} ? ${#calendars.format(userProfile.user.info.birthday, 'dd MMMM yyyy')}"></p>
+                                        <p th:text="${userProfile.user.info.joinedDate} ? ${#calendars.format(userProfile.user.info.joinedDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.info.lastLoginTime} ? ${#calendars.format(userProfile.user.info.lastLoginTime, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.info.footer}"></p>
+                                        <p th:text="${userProfile.user.info.aboutMe}"></p>
                                     </div>
                                 </div>
                             </div>
