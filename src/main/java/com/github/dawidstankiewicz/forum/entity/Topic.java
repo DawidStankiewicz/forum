@@ -5,7 +5,7 @@ package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,144 +13,123 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 
 @Entity
-@Table(name = "topics")
 public class Topic implements Serializable {
-    
+
     private static final long serialVersionUID = -1722083052479276312L;
-    
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "id_user")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private User user;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_section")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Section section;
-    
-    @Column(name = "title")
+
+    @Column(length = 50)
     private String title;
-    
-    @Column(name = "content")
+
+    @Column(length = 32766)
     private String content;
-    
-    @Column(name = "views")
+
+    @Column
     private int views;
-    
-    @Column(name = "creation_date", insertable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(updatable = false, nullable = false)
     private Date creationDate;
-    
-    @Column(name = "last_update_date")
+
+    @Column
     private Date lastUpdateDate;
-    
-    @Column(name = "is_closed")
+
+    @Column
     private boolean closed;
-    
-    public Topic() {}
-    
-    public Topic(User user,
-                 Section section,
-                 String title,
-                 String content,
-                 int views,
-                 Date creationDate,
-                 Date lastUpdateDate,
-                 boolean closed) {
-        this.user = user;
-        this.section = section;
-        this.title = title;
-        this.content = content;
-        this.views = views;
-        this.creationDate = creationDate;
-        this.lastUpdateDate = lastUpdateDate;
-        this.closed = closed;
+
+    public Topic() {
     }
-    
+
+    @PrePersist
+    protected void onCreate() {
+        this.creationDate = new Date();
+        this.lastUpdateDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdateDate = new Date();
+    }
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public User getUser() {
         return user;
     }
-    
+
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public Section getSection() {
         return section;
     }
-    
+
     public void setSection(Section section) {
         this.section = section;
     }
-    
+
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getContent() {
         return content;
     }
-    
+
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public int getViews() {
         return views;
     }
-    
+
     public void setViews(int views) {
         this.views = views;
     }
-    
+
     public Date getCreationDate() {
         return creationDate;
     }
-    
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-    
+
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
-    
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-    
+
     public boolean isClosed() {
         return closed;
     }
-    
+
     public void setClosed(boolean closed) {
         this.closed = closed;
     }
-    
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -166,7 +145,7 @@ public class Topic implements Serializable {
         result = prime * result + views;
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -232,12 +211,4 @@ public class Topic implements Serializable {
         }
         return true;
     }
-    
-    @Override
-    public String toString() {
-        return "Topic [id=" + id + ", user=" + user + ", section=" + section + ", title=" + title
-                + ", content=" + content + ", views=" + views + ", creationDate=" + creationDate
-                + ", lastUpdateDate=" + lastUpdateDate + ", closed=" + closed + "]";
-    }
-    
 }

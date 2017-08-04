@@ -2,7 +2,6 @@ package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,50 +28,43 @@ public class UserInfo implements Serializable {
     @JoinColumn(name = "user", referencedColumnName = "id")
     private User user;
 
-    @Basic
     @Column(length = 15)
     private String phone;
 
-    @Basic
     @Column(length = 20)
     private String name;
 
-    @Basic
     @Column(length = 30)
     private String lastName;
 
-    @Basic
+    @Column
     private Date birthday;
 
-    @Basic
     @Column(nullable = false)
     private boolean male;
 
-    @Basic
     @Column(length = 20)
     private String city;
 
-    @Basic
     @Column(length = 150)
     private String aboutMe;
 
-    @Basic
     @Column(length = 50)
     private String footer;
 
-    @Basic
+    @Column
     private Date joinedDate;
 
-    @Basic
+    @Column
     private Date lastLoginTime;
 
-    @Basic
+    @Column
     private boolean removed;
 
-    @Basic
+    @Column
     private int posts;
 
-    @Basic
+    @Column
     private int topics;
 
     public UserInfo() {

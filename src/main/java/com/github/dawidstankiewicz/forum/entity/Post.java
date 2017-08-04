@@ -5,7 +5,7 @@ package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,107 +13,98 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 
 @Entity
-@Table(name = "posts")
 public class Post implements Serializable {
-    
+
     private static final long serialVersionUID = 4235393151425571253L;
-    
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_topic")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Topic topic;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_user")
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private User user;
-    
-    @Column(name = "content")
+
+    @Column
     private String content;
-    
-    @Column(name = "creation_date", insertable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(updatable = false, nullable = false)
     private Date creationDate;
-    
-    @Column(name = "last_update_date")
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(nullable = false)
     private Date lastUpdateDate;
-    
-    public Post() {}
-    
-    public Post(Topic topic,
-                User user,
-                String content,
-                Date creationDate,
-                Date lastUpdateDate) {
-        this.topic = topic;
-        this.user = user;
-        this.content = content;
-        this.creationDate = creationDate;
-        this.lastUpdateDate = lastUpdateDate;
+
+    public Post() {
     }
-    
+
+    @PrePersist
+    protected void onCreate() {
+        this.creationDate = new Date();
+        this.lastUpdateDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdateDate = new Date();
+    }
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int idPost) {
         this.id = idPost;
     }
-    
+
     public Topic getTopic() {
         return topic;
     }
-    
+
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
-    
+
     public User getUser() {
         return user;
     }
-    
+
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public String getContent() {
         return content;
     }
-    
+
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public Date getCreationDate() {
         return creationDate;
     }
-    
+
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
-    
+
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
-    
+
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
-    
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -126,7 +117,7 @@ public class Post implements Serializable {
         result = prime * result + ((user == null) ? 0 : user.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -179,11 +170,4 @@ public class Post implements Serializable {
         }
         return true;
     }
-    
-    @Override
-    public String toString() {
-        return "Post [id=" + id + ", topic=" + topic + ", user=" + user + ", content=" + content
-                + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate + "]";
-    }
-    
 }

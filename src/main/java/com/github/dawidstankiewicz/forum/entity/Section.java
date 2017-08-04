@@ -4,7 +4,6 @@
 package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,56 +15,52 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sections")
 public class Section implements Serializable {
-    
+
     private static final long serialVersionUID = 4309596024036692836L;
-    
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @Column(name = "name")
+
+    @Column(length = 50)
     private String name;
-    
-    @Column(name = "description")
+
+    @Column(length = 150)
     private String description;
-    
-    public Section() {}
-    
+
+    public Section() {
+    }
+
     public Section(String name,
-                   String description) {
+        String description) {
         this.name = name;
         this.description = description;
     }
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int idSection) {
         this.id = idSection;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -75,7 +70,7 @@ public class Section implements Serializable {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -107,10 +102,4 @@ public class Section implements Serializable {
         }
         return true;
     }
-    
-    @Override
-    public String toString() {
-        return "Section [id=" + id + ", name=" + name + ", description=" + description + "]";
-    }
-    
 }

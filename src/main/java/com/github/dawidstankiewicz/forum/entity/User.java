@@ -5,7 +5,6 @@ package com.github.dawidstankiewicz.forum.entity;
 
 import java.io.Serializable;
 import java.util.Set;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +37,7 @@ public class User implements Serializable {
     @Column(length = 60, nullable = false)
     private String password;
 
-    @Basic
+    @Column
     private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
