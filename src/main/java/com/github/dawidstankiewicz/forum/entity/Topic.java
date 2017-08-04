@@ -37,7 +37,7 @@ public class Topic implements Serializable {
     @Column(length = 50)
     private String title;
 
-    @Column(length = 32766)
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column

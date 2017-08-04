@@ -34,7 +34,7 @@ public class Post implements Serializable {
     @JoinColumn
     private User user;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(updatable = false, nullable = false)
