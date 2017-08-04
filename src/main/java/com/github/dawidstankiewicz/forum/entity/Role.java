@@ -8,56 +8,54 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "roles")
 public class Role {
-    
+
     @Id
-    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @Column(name = "name", unique = true)
+
+    @Column(unique = true)
     private String name;
-    
-    @Column(name = "description")
+
+    @Column(length = 50)
     private String description;
-    
-    public Role() {}
-    
+
+    public Role() {
+    }
+
     public Role(String name,
-                String description) {
+        String description) {
         this.name = name;
         this.description = description;
     }
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int idRole) {
         this.id = idRole;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -67,7 +65,7 @@ public class Role {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -99,10 +97,5 @@ public class Role {
         }
         return true;
     }
-    
-    @Override
-    public String toString() {
-        return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
-    }
-    
+
 }
