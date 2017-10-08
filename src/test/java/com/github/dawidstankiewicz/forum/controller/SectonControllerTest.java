@@ -7,13 +7,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.github.dawidstankiewicz.forum.controller.form.NewSectionForm;
-import com.github.dawidstankiewicz.forum.ConfigTest;
+import com.github.dawidstankiewicz.forum.IntegrationTestConfig;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 
-public class SectonControllerTest extends ConfigTest {
+public class SectonControllerTest extends IntegrationTestConfig {
 
     @Test
     @Transactional

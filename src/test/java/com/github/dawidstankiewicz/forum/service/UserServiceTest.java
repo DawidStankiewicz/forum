@@ -5,27 +5,14 @@ package com.github.dawidstankiewicz.forum.service;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.github.dawidstankiewicz.forum.ConfigTest;
-import com.github.dawidstankiewicz.forum.entity.User;
+import com.github.dawidstankiewicz.forum.IntegrationTestConfig;
 
 
-public class UserServiceTest extends ConfigTest {
+public class UserServiceTest extends IntegrationTestConfig {
     
     @Autowired
     UserService userService;
-    
-    @Test
-    @Transactional
-    public void testAddNewUser() {
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword("user");
-        user.setEmail("test@ema.il");
-        userService.create(user);
 
-    }
 }
