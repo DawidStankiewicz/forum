@@ -108,4 +108,8 @@ public class User implements Serializable {
     public void setInfo(UserInfo info) {
         this.info = info;
     }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
 }

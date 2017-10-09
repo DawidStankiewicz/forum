@@ -201,3 +201,6 @@ gradle-app.setting
 ### OTHER ###
 src/main/webapp/resources/public/img/*
 gource.sh
+src/main/resources/project-data/registration_flow.bpmn
+src/main/resources/project-data/uml.uxf
+greenmail-run.bat

@@ -19,12 +19,4 @@ public interface UserService {
 
     User save(User user);
 
-    void create(User user);
-
-    void remove(int id);
-
-    void remove(User user);
-
-    void remove(User user,
-        String password);
 }

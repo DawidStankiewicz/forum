@@ -32,6 +32,12 @@ public class Role {
         this.description = description;
     }
 
+    public static final Role USER() {
+        Role role = new Role("USER", "Role for normal user.");
+        role.setId(1);
+        return role;
+    }
+
     public int getId() {
         return id;
     }
@@ -83,9 +89,6 @@ public class Role {
                 return false;
             }
         } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (id != other.id) {
             return false;
         }
         if (name == null) {
