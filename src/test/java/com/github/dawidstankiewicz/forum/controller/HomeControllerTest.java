@@ -6,11 +6,11 @@ package com.github.dawidstankiewicz.forum.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.github.dawidstankiewicz.forum.IntegrationTestConfig;
+import com.github.dawidstankiewicz.forum.IntegrationsTestCase;
 import org.junit.Test;
 
 
-public class HomeControllerTest extends IntegrationTestConfig {
+public class HomeControllerTest extends IntegrationsTestCase {
 
 
     @Test

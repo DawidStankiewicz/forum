@@ -13,8 +13,8 @@
         <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-login-signup" class="modal-trigger">Sign up</a></li>
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-login-signup" class="modal-trigger">Sign in</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-login" class="modal-trigger">Sign up</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-create" class="modal-trigger">Sign in</a></li>
 
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
@@ -23,7 +23,8 @@
         </ul>
 
 
-        <div th:replace="fragments/user_form :: modal_user_form"></div>
+        <div th:replace="fragments/user_form :: modal_user_login_form"></div>
+        <div th:replace="fragments/user_form :: modal_user_create_form"></div>
     </nav>
 </body>
 </html>

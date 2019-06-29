@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
-public class LoginPageTest extends IntegrationTestConfig {
+public class LoginPageTest extends IntegrationsTestCase {
 
     @Before
     public void setup() {
@@ -25,7 +25,8 @@ public class LoginPageTest extends IntegrationTestConfig {
 
     @Test
     public void testLoginView() throws Exception {
-        mockMvc.perform(get("/login")).andExpect(view().name("login"));
+        mockMvc.perform(get("/login"))
+            .andExpect(view().name("login"));
     }
 
     @Test

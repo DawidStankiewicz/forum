@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 
-import com.github.dawidstankiewicz.forum.IntegrationTestConfig;
+import com.github.dawidstankiewicz.forum.IntegrationsTestCase;
 
 
-public class ExceptionHandlerTest extends IntegrationTestConfig {
+public class ExceptionHandlerTest extends IntegrationsTestCase {
     
     @Test
     public void notFoundErrorPage() throws Exception {

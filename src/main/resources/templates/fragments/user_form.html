@@ -6,159 +6,149 @@
 </head>
 <body>
 
-<div th:fragment="modal_user_form" id="modal-login-signup" class="modal">
+<div th:fragment="modal_user_login_form" id="modal-user-login" class="modal">
   <div class="modal-content black-text">
-    <div class="row">
 
-      <div class="col s12 l6">
-        <div class="col s12 l12 z-depth-2">
-          <h5 class="center">Sign in</h5>
+    <h5 class="center">Sign in</h5>
 
-          <form name='login' th:action='@{/login}' method="POST">
+    <form name='login' th:action='@{/login}' method="POST">
 
-            <!-- USERNAME -->
+      <!-- USERNAME -->
 
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="username-signin" name="username" type="text" class="validate"/>
-                <label for="username-signin">Username</label>
-              </div>
-            </div>
-
-            <!-- PASSWORD -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password-signin" name="password" type="password" class="validate"/>
-                <label for="password-signin" class="active">Password</label>
-              </div>
-            </div>
-
-            <!-- REMEMBER ME -->
-
-            <div class="row">
-              <p>
-                <input type="checkbox" name="remember-me" id="remember-me"/>
-                <label for="remember-me">Remember me</label>
-              </p>
-            </div>
-
-            <div class="row">
-              <div class="col s12">
-                <input class="btn waves-effect waves-light right" type="submit"
-                       name="action" value="Login"/>
-              </div>
-            </div>
-
-          </form>
-
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="username-signin" name="username" type="text" class="validate"/>
+          <label for="username-signin">Username</label>
         </div>
       </div>
 
-      <div class="col s12 l6">
-        <div class="col s12 z-depth-2">
+      <!-- PASSWORD -->
 
-          <h5 class="center">Create account</h5>
-          <div id="signup-first-form">
-
-            <!-- EMAIL -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email-signup" name="email" type="text" class="validate"/>
-                <label for="email-signup">E-mail</label>
-              </div>
-            </div>
-
-            <!-- PASSWORD -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password-signup" name="password-signup" type="password"
-                       class="validate"/>
-                <label for="password-signup" class="active">Password</label>
-              </div>
-            </div>
-
-            <!-- NEXT BUTTON -->
-
-            <div class="row">
-              <div class="col s12">
-                <button class="btn waves-effect waves-light right" id="next-signup-form">
-                  NEXT
-                  <i class="material-icons right" style="line-height: inherit;">send</i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div id="signup-second-form" style="display: none;">
-
-            <!-- USERNAME -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="username-signup" name="username-signup" type="text"
-                       class="validate"/>
-                <label for="username-signup" class="active">Username</label>
-              </div>
-            </div>
-
-            <!-- NAME -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="name-signup" name="name-signup" type="text"
-                       class="validate"/>
-                <label for="name-signup" class="active">Name</label>
-              </div>
-            </div>
-
-            <!-- LAST NAME -->
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="lastname-signup" name="lastname-signup" type="text"
-                       class="validate"/>
-                <label for="lastname-signup" class="active">Last name</label>
-              </div>
-            </div>
-
-            <!-- MALE -->
-
-            <div class="row">
-              <div class="col s12">
-                <p>
-                  <input name="male" value="true" type="radio" id="female" checked="checked"/>
-                  <label for="female">Female</label>
-                </p>
-                <p>
-                  <input name="male" value="false" type="radio" id="male"/>
-                  <label for="male">Male</label>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- CREATE ACCOUNT BUTTON -->
-
-          <div class="row">
-            <div class="col s12">
-              <button class="btn waves-effect waves-light right" id="submit-signup-form"
-                      style="display: none;">
-                SUBMIT<i class="material-icons right" style="line-height: inherit;">send</i>
-              </button>
-            </div>
-          </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password-signin" name="password" type="password" class="validate"/>
+          <label for="password-signin" class="active">Password</label>
         </div>
+      </div>
 
+      <!-- REMEMBER ME -->
+
+      <div class="row">
+        <p>
+          <input type="checkbox" name="remember-me" id="remember-me"/>
+          <label for="remember-me">Remember me</label>
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <input class="btn waves-effect waves-light right" type="submit"
+                 name="action" value="Login"/>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div th:fragment="modal_user_create_form" id="modal-user-create" class="modal">
+  <div class="modal-content black-text">
+
+    <h5 class="center">Create account</h5>
+    <div id="signup-first-form">
+
+      <!-- EMAIL -->
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email-signup" name="email" type="text" class="validate"/>
+          <label for="email-signup">E-mail</label>
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password-signup" name="password-signup" type="password"
+                 class="validate"/>
+          <label for="password-signup" class="active">Password</label>
+        </div>
+      </div>
+
+      <!-- NEXT BUTTON -->
+
+      <div class="row">
+        <div class="col s12">
+          <button class="btn waves-effect waves-light right" id="next-signup-form">
+            NEXT
+            <i class="material-icons right" style="line-height: inherit;">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="signup-second-form" style="display: none;">
+
+      <!-- USERNAME -->
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="username-signup" name="username-signup" type="text"
+                 class="validate"/>
+          <label for="username-signup" class="active">Username</label>
+        </div>
+      </div>
+
+      <!-- NAME -->
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="name-signup" name="name-signup" type="text"
+                 class="validate"/>
+          <label for="name-signup" class="active">Name</label>
+        </div>
+      </div>
+
+      <!-- LAST NAME -->
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="lastname-signup" name="lastname-signup" type="text"
+                 class="validate"/>
+          <label for="lastname-signup" class="active">Last name</label>
+        </div>
+      </div>
+
+      <!-- MALE -->
+
+      <div class="row">
+        <div class="col s12">
+          <p>
+            <input name="male" value="true" type="radio" id="female" checked="checked"/>
+            <label for="female">Female</label>
+          </p>
+          <p>
+            <input name="male" value="false" type="radio" id="male"/>
+            <label for="male">Male</label>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREATE ACCOUNT BUTTON -->
+
+    <div class="row">
+      <div class="col s12">
+        <button class="btn waves-effect waves-light right" id="submit-signup-form"
+                style="display: none;">
+          SUBMIT<i class="material-icons right" style="line-height: inherit;">send</i>
+        </button>
       </div>
     </div>
   </div>
-
-  <script type="text/javascript" th:src="@{/resources/js/signin-signup-modal.js}"></script>
 </div>
-
+</div>
 
 </body>
 </html>
