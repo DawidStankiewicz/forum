@@ -1,10 +1,26 @@
-let emailSignupField = $("#email-signup");
-let passwordSignupField = $("#password-signup");
-let usernameSignupField = $("#username-signup");
-let nameSignupField = $("#name-signup");
-let lastNameSignupField = $("#lastname-signup");
+const emailSignupField = $("#email-signup");
+const passwordSignupField = $("#password-signup");
+const usernameSignupField = $("#username-signup");
+const nameSignupField = $("#name-signup");
+const lastNameSignupField = $("#lastname-signup");
+const genderSignupField = $('#modal-user-create input[name=gender]:checked');
+
+const registrationForm = {
+  email: "",
+  password: "",
+  username: "",
+  name: "",
+  lastName: "",
+  birthDay: "",
+  gender: "",
+};
 
 $(document).ready(function () {
+  configureModal();
+  initMaterializeSelect();
+});
+
+function configureModal() {
   $('.modal').modal({
         dismissible: true,
         inDuration: 200,
@@ -13,23 +29,48 @@ $(document).ready(function () {
         endingTop: '10%'
       }
   );
+}
 
+function initMaterializeSelect() {
   $('select').material_select();
+}
 
-  $('.datepicker').pickadate({
-    selectMonths: true,
-    format: 'dd-mm-yyyy',
-    formatSubmit: 'yyyy-mm-dd',
-    selectYears: 120,
-    min: [1900, 1, 1],
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false
-  });
+$("#submit-signup-form").click(onSignupSubmit);
 
-  console.log("modal ready");
-});
+function onSignupSubmit() {
+  if (!validateSignupData()) {
+    return;
+  }
+
+  registrationForm.username = usernameSignupField.val();
+  registrationForm.email = emailSignupField.val();
+  registrationForm.password = passwordSignupField.val();
+  registrationForm.name = nameSignupField.val();
+  registrationForm.lastName = lastNameSignupField.val();
+  registrationForm.gender = genderSignupField.val();
+
+  sendRegistrationForm();
+}
+
+function validateSignupData() {
+  if (!isEmailValid()) {
+    alert("Please enter correct email!");
+    return false;
+  }
+  if (!isPasswordValid()) {
+    alert("Please enter correct password (8 characters required)!");
+    return false;
+  }
+  if (!isUsernameValid()) {
+    alert("Please enter correct username!");
+    return false;
+  }
+  if (!isNameAndLastNameValid()) {
+    alert("Please enter correct name and last name!");
+    return false;
+  }
+  return true;
+}
 
 function isEmailValid() {
   let email = emailSignupField.val();
@@ -44,27 +85,12 @@ function isPasswordValid() {
   return passwordRegex.test(password);
 }
 
-function showNextFields() {
-  $("#signup-first-form").hide(300);
-  $("#next-signup-form").hide(100);
+function isUsernameValid() {
+  let username = usernameSignupField.val();
+  let usernameRegex = new RegExp("[a-zA-Z0-9_\\-]*");
 
-  $("#signup-second-form").show(300);
-  $("#submit-signup-form").show(300);
-
+  return usernameRegex.test(username);
 }
-
-$("#next-signup-form").click(function () {
-
-  if (!isEmailValid()) {
-    alert("Invalid email: " + passwordSignupField.val());
-  } else if (!isPasswordValid()) {
-    alert("Please enter correct password (8 characters required)!");
-  } else {
-    showNextFields();
-    registrationForm.email = emailSignupField.val();
-    registrationForm.password = passwordSignupField.val();
-  }
-})
 
 function isNameAndLastNameValid() {
   let name = nameSignupField.val();
@@ -79,65 +105,29 @@ function isNameAndLastNameValid() {
   return true;
 }
 
-function isUsernameValid() {
-  let username = usernameSignupField.val();
-  let usernameRegex = new RegExp("[a-zA-Z0-9_\\-]*");
-
-  return usernameRegex.test(username);
-}
-
-function isMaleChecked() {
-  if ($("#female").is(":checked")) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
 function sendRegistrationForm() {
   let url = "/api/users?_csrf=" + $('input[name=_csrf]').val();
-  let s = JSON.stringify(registrationForm);
-  let data = s;
+  let data = JSON.stringify(registrationForm);
 
   $.ajax({
-    type: "POST",
     url: url,
+    type: "POST",
     data: data,
-    success: function (data) {
-      console.log("success: " + data.status);
-    },
-    error: function (err) {
-      console.log("error " + err.status + " ms: " + err);
-    },
-    dataType: "json",
-    contentType: "application/json;charset=utf-8"
-  });
-  console.log("sent");
+    contentType: "application/json; charset=utf-8",
+    dataType: "text"
+  })
+  .done(function () {
+    console.log('User created');
+    closeModal();
+    alert("User created successfully! "
+        + "Please verify your email to activate your account");
+  })
+  .fail(function(err) {
+    console.log('Error during create user');
+    console.log(err)
+  })
 }
 
-$("#submit-signup-form").click(function () {
-  if (!isUsernameValid()) {
-    alert("Invalid username!");
-  } else {
-    registrationForm.username = usernameSignupField.val();
-  }
-  if (!isNameAndLastNameValid()) {
-    alert("Invalid name or last name!");
-  } else {
-    registrationForm.name = nameSignupField.val();
-    registrationForm.lastName = lastNameSignupField.val();
-    registrationForm.male = isMaleChecked();
-
-    sendRegistrationForm();
-  }
-})
-
-var registrationForm = {
-  email: "",
-  password: "",
-  username: "",
-  name: "",
-  lastName: "",
-  birthDay: "",
-  male: false
-};
+function closeModal() {
+  $('#modal-user-create').modal('close');
+}
