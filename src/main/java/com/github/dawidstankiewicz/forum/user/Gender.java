@@ -1,6 +1,6 @@
 package com.github.dawidstankiewicz.forum.user;
 
-import com.github.dawidstankiewicz.forum.ForumException;
+import com.github.dawidstankiewicz.forum.exception.ForumException;
 
 public enum Gender {
     MALE(0),

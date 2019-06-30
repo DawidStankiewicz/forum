@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
-import com.github.dawidstankiewicz.forum.ForumException;
-import com.github.dawidstankiewicz.forum.ForumException.ErrorCode;
+import com.github.dawidstankiewicz.forum.exception.ForumException;
+import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
 import org.junit.Test;
 
-public class UserEntityTests extends UnitsTestCase {
+public class UserEntityTest extends UnitsTestCase {
 
     @Test
     public void testCreateUserWithGender() {

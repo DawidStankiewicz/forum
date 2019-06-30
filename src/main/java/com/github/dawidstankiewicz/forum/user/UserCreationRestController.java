@@ -1,5 +1,7 @@
 package com.github.dawidstankiewicz.forum.user;
 
+import com.github.dawidstankiewicz.forum.exception.ForumApiException;
+import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +28,17 @@ public class UserCreationRestController {
     public ResponseEntity create(@Valid @RequestBody UserCreationForm userCreationForm,
         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            LOGGER.info(" bad request err for fields: {}", bindingResult.getSuppressedFields().length );
-            // TODO global handler exception
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            LOGGER.error("Create binding error");
+            throw new ForumApiException(ErrorCode.INVALID_USER_FORM, HttpStatus.BAD_REQUEST,
+                "/api/users");
         }
         LOGGER.info("CREATE NEW USER: {}", userCreationForm.getUsername());
         userCreationServiceFacade.create(userCreationForm.getNewUserEntity());
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @ExceptionHandler(Error.class)
+    public void handleException() {
+
     }
 }

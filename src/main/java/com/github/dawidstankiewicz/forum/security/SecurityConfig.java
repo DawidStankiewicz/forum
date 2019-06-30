@@ -1,10 +1,10 @@
-/**
- * Created by Dawid Stankiewicz on 10.07.2016
- */
 package com.github.dawidstankiewicz.forum.security;
 
+import static com.github.dawidstankiewicz.forum.security.AccessRules.ADMINS_ROLES;
+import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_ADMINS;
+import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_AUTHORIZED_USERS;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 
@@ -20,58 +21,62 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] FOR_AUTHORIZED_USERS = {"/user/**",
-        "/topic/new/**",
-        "/topic/delete/**",
-        "/section/delete/**",
-        "/section/new/**",
-        "/post/**",
-        "/myprofile/**"};
-    private static final String[] FOR_ADMINS = {"/admin/**",
-        "/users/**",
-        "/section/new"};
-    private static final String[] AUTHORIZED_ROLES = {"USER",
-        "ADMIN"};
-    private static final String[] ADMINS_ROLES = {"HEAD_ADMIN",
-        "ADMIN"};
-
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CsrfTokenRepository csrfTokenRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-            .antMatchers(FOR_AUTHORIZED_USERS).authenticated()
-            .antMatchers(FOR_ADMINS).hasAnyAuthority(ADMINS_ROLES)
-            .and()
-
-            .formLogin()
-            .loginPage("/login")
-            .permitAll()
-            .and()
-
-            .logout()
-            .permitAll()
-            .and()
-
-            .rememberMe()
-            .tokenValiditySeconds(2419200)
-            .key("forum-key");
-
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-        http.addFilterBefore(filter, CsrfFilter.class);
+        configureAccessRules(http);
+        configureLoginForm(http);
+        configureLogout(http);
+        configureRememberMe(http);
+        configureCsrf(http);
+        configureEncodingFilter(http);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .userDetailsService(userDetailsService)
+        auth.userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder);
     }
 
+    private void configureAccessRules(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers(FOR_AUTHORIZED_USERS).authenticated()
+            .antMatchers(FOR_ADMINS).hasAnyAuthority(ADMINS_ROLES);
+    }
+
+    private void configureLoginForm(HttpSecurity http) throws Exception {
+        http.formLogin()
+            .loginPage("/login")
+            .permitAll();
+    }
+
+    private void configureLogout(HttpSecurity http) throws Exception {
+        http.logout()
+            .permitAll();
+    }
+
+    private void configureRememberMe(HttpSecurity http) throws Exception {
+        http.rememberMe()
+            .tokenValiditySeconds(2419200)
+            .key("forum-key");
+    }
+
+    private void configureCsrf(HttpSecurity http) throws Exception {
+        http.csrf()
+            .csrfTokenRepository(csrfTokenRepository);
+    }
+
+    private void configureEncodingFilter(HttpSecurity http) {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+
+        http.addFilterBefore(filter, CsrfFilter.class);
+    }
 }

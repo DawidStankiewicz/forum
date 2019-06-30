@@ -1,6 +1,3 @@
-/**
- * Created by Dawid Stankiewicz on 02.08.2016
- */
 package com.github.dawidstankiewicz.forum.user;
 
 import static org.junit.Assert.assertEquals;
