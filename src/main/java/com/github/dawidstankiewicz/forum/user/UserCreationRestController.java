@@ -22,7 +22,7 @@ public class UserCreationRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserCreationRestController.class);
 
     @Autowired
-    private UserCreationServiceFacade userCreationServiceFacade;
+    private UserCreationService userCreationService;
 
     @PostMapping("/users")
     public ResponseEntity create(@Valid @RequestBody UserCreationForm userCreationForm,
@@ -33,7 +33,7 @@ public class UserCreationRestController {
                 "/api/users");
         }
         LOGGER.info("CREATE NEW USER: {}", userCreationForm.getUsername());
-        userCreationServiceFacade.create(userCreationForm.getNewUserEntity());
+        userCreationService.create(userCreationForm.getNewUserEntity());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

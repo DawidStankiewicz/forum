@@ -1,19 +1,12 @@
 package com.github.dawidstankiewicz.forum.user;
 
-import com.github.dawidstankiewicz.forum.user.User;
-import com.github.dawidstankiewicz.forum.user.UserCreationServiceFacade;
 import com.github.dawidstankiewicz.forum.user.activation.ActivationService;
-import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by Dawid Stankiewicz on 04.08.2017.
- */
-
 @Service
-public class UserCreationServiceFacadeImpl implements UserCreationServiceFacade {
+public class UserCreationServiceImpl implements UserCreationService {
 
     @Autowired
     private UserService userService;
@@ -26,11 +19,18 @@ public class UserCreationServiceFacadeImpl implements UserCreationServiceFacade 
 
     @Override
     public void create(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(false);
-        userService.save(user);
-
+        userService.save(prepareUser(user));
         activationService.sendActivationCode(user);
+    }
+
+    private User prepareUser(User user) {
+        user.setPassword(getEncodedPassword(user.getPassword()));
+        user.setActive(false);
+        return user;
+    }
+
+    private String getEncodedPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
 }
