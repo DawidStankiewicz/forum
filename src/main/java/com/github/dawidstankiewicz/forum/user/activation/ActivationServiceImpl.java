@@ -1,70 +1,54 @@
 package com.github.dawidstankiewicz.forum.user.activation;
 
+import com.github.dawidstankiewicz.forum.exception.ForumException;
+import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
 import com.github.dawidstankiewicz.forum.user.Role;
-import com.github.dawidstankiewicz.forum.user.email.EmailMessage;
-import com.github.dawidstankiewicz.forum.user.email.SenderService;
 import com.github.dawidstankiewicz.forum.user.User;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
-/**
- * Created by Dawid Stankiewicz on 10.08.2017.
- */
 
 @Service
 public class ActivationServiceImpl implements ActivationService {
 
     @Autowired
-    private SenderService senderService;
-
-    @Autowired
-    private TemplateEngine templateEngine;
-
-    @Autowired
-    private ActivationCodeService activationCodeService;
+    private ActivationCodeRepository activationCodeRepository;
 
     @Autowired
     private UserService userService;
 
     @Override
-    public void sendActivationCode(User user) {
-        ActivationCode activationCode = new ActivationCode(user.getUsername());
-        activationCodeService.save(activationCode);
-
-        EmailMessage emailMessage = createEmailMessageWithActivationCode(activationCode,
-            user.getEmail());
-
-        senderService.sendEmail(emailMessage);
+    public void activate(String username, String activationCodeId) {
+        ActivationCode activationCode = findActivationCode(activationCodeId);
+        validateActivationCode(username, activationCode);
+        activateUser(activationCode);
+        deleteActivationCode(activationCodeId);
     }
 
-    @Override
-    public void activate(String username, String id) {
-        User user = userService.findByUsername(username);
-        ActivationCode activationCode = activationCodeService.findActivationCode(id);
-        if (!activationCode.getUsername().equals(username)) {
-            // todo throw new ApplicationException
+    private ActivationCode findActivationCode(String id) {
+        return activationCodeRepository.findOne(id);
+    }
+
+    private void validateActivationCode(String username, ActivationCode activationCode) {
+        if (isActivationRequestInvalid(activationCode, username)) {
+            throw new ForumException(ErrorCode.INVALID_ACTIVATION_REQUEST);
         }
-        user.setActive(true);
+    }
+
+    private boolean isActivationRequestInvalid(ActivationCode activationCode, String username) {
+        return activationCode == null || activationCode.getUser() == null ||
+            !activationCode.getUser().getUsername().equalsIgnoreCase(username);
+    }
+
+    private void activateUser(ActivationCode activationCode) {
+        User user = activationCode.getUser();
         user.setRole(Role.USER);
+        user.setActive(true);
         userService.save(user);
     }
 
-    private EmailMessage createEmailMessageWithActivationCode(ActivationCode activationCode,
-        String email) {
-        String subject = "forum: activation code";
-        String content = createMessageContent(activationCode);
-
-        return new EmailMessage(email, subject, content);
-    }
-
-    private String createMessageContent(ActivationCode activationCode) {
-        String template = "messages/activation_message";
-
-        Context context = new Context();
-        context.setVariable("activationCode", activationCode);
-        return templateEngine.process(template, context);
+    private void deleteActivationCode(String id) {
+        activationCodeRepository.delete(id);
     }
 }

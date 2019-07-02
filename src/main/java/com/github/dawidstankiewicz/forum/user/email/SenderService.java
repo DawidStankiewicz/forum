@@ -1,10 +1,9 @@
 package com.github.dawidstankiewicz.forum.user.email;
 
-/**
- * Created by Dawid Stankiewicz on 10.08.2017.
- */
+import com.github.dawidstankiewicz.forum.exception.ForumException;
+
 public interface SenderService {
 
-    void sendEmail(EmailMessage emailMessage);
+    void sendEmail(EmailMessage emailMessage) throws ForumException;
 
 }

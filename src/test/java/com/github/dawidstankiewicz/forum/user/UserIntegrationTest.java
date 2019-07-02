@@ -10,10 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.github.dawidstankiewicz.forum.IntegrationsTestCase;
+import com.github.dawidstankiewicz.forum.IntegrationTestCase;
 
 
-public class UserControllerTest extends IntegrationsTestCase {
+public class UserIntegrationTest extends IntegrationTestCase {
     
     @Test
     @Ignore

@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
-public class LoginPageTest extends IntegrationsTestCase {
+public class LoginPageTest extends IntegrationTestCase {
 
     @Before
     public void setup() {

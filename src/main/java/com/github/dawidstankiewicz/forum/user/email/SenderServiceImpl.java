@@ -1,5 +1,7 @@
 package com.github.dawidstankiewicz.forum.user.email;
 
+import com.github.dawidstankiewicz.forum.exception.ForumException;
+import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -10,9 +12,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by Dawid Stankiewicz on 10.08.2017.
- */
 
 @Service
 public class SenderServiceImpl implements SenderService {
@@ -24,25 +23,32 @@ public class SenderServiceImpl implements SenderService {
 
     @Override
     @Async
-    public void sendEmail(EmailMessage emailMessage) {
+    public void sendEmail(EmailMessage emailMessage) throws ForumException {
         try {
-            MimeMessage mail = javaMailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = getMimeMessage(emailMessage, mail);
-            javaMailSender.send(mail);
-        } catch (MessagingException e) {
-            // todo global exception handler
-            LOGGER.error("Email to " + emailMessage.getRecipient() + " has not been sent!");
+            tryParseAndSendEmail(emailMessage);
+        } catch (Exception e) {
+            handleException(e);
         }
-        LOGGER.info("Email to " + emailMessage.getRecipient() + " has been sent!");
     }
 
-    private MimeMessageHelper getMimeMessage(EmailMessage emailMessage,
+    public void tryParseAndSendEmail(EmailMessage emailMessage) throws MessagingException {
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        parseMessage(emailMessage, mail);
+        javaMailSender.send(mail);
+    }
+
+    private void parseMessage(EmailMessage emailMessage,
         MimeMessage mail) throws MessagingException {
         MimeMessageHelper messageHelper = new MimeMessageHelper(mail, true);
         messageHelper.setTo(emailMessage.getRecipient());
         messageHelper.setSubject(emailMessage.getSubject());
         boolean HTMLFormat = true;
         messageHelper.setText(emailMessage.getContent(), HTMLFormat);
-        return messageHelper;
+    }
+
+    private void handleException(Exception e) {
+        LOGGER.error("Mail Send Exception - smtp service unavailable");
+        e.printStackTrace();
+        throw new ForumException(ErrorCode.SENDER_SERVICE_ERROR);
     }
 }

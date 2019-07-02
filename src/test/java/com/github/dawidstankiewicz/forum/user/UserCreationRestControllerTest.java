@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.dawidstankiewicz.forum.IntegrationsTestCase;
+import com.github.dawidstankiewicz.forum.IntegrationTestCase;
 import com.github.dawidstankiewicz.forum.user.activation.ActivationCode;
-import com.github.dawidstankiewicz.forum.user.activation.ActivationCodeService;
+import com.github.dawidstankiewicz.forum.user.activation.ActivationCodeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -23,13 +23,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MvcResult;
 
 @Rollback
-public class UserCreationRestControllerTest extends IntegrationsTestCase {
+public class UserCreationRestControllerTest extends IntegrationTestCase {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private ActivationCodeService activationCodeService;
+    private ActivationCodeRepository activationCodeRepository;
 
     private MvcResult mvcResult;
     private String createdUserUsername = "test-1";
@@ -82,8 +82,7 @@ public class UserCreationRestControllerTest extends IntegrationsTestCase {
 
     @Test
     public void testSaveActivationCode() {
-        ActivationCode activationCode = activationCodeService
-            .findActivationCodeByUsername(createdUserUsername);
+        ActivationCode activationCode = activationCodeRepository.findAll().iterator().next();
         int expectedActivationCodeLength = 64;
         int actualActivationCodeLength = activationCode.getId().length();
 

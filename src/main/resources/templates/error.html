@@ -1,0 +1,28 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+  <div th:if="${exception != null and !(exception instanceof T(String))}">
+    <h1><span th:text="${exception.status != null}"></span> - <span
+        th:if="${exception.message != null}" th:text="${exception.message}">Error</span></h1>
+
+    <p th:if="${timestamp}" th:text="${timestamp}"></p>
+    <p th:if="${exception.errorCode}" th:text="${exception.errorCode}"></p>
+    <p th:if="${url}" th:text="${url}"></p>
+  </div>
+  <div th:if="${exception != null and (exception instanceof T(String))}">
+    <p th:text="${exception}"></p>
+    <p th:if="${timestamp}" th:text="${timestamp}"></p>
+  </div>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

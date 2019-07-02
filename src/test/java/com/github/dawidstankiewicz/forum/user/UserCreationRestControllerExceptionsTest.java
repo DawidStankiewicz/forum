@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import com.github.dawidstankiewicz.forum.exception.ForumApiExceptionResponse;
 import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -23,6 +22,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
 
 @Rollback
 @RunWith(SpringRunner.class)

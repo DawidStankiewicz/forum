@@ -39,17 +39,17 @@
 <body>
 <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ff6f00">
   <tr>
-    <td height="50" align="center"><p>Hello <span th:text="${activationCode.username}"></span>!</p>
+    <td height="50" align="center"><p>Hello <span th:text="${activationCode.user.username}"></span>!</p>
     </td>
   </tr>
   <tr bgcolor="ffffff">
     <td height="100" align="center"><h1><a
-        th:href="@{http://localhost:8080/users/{username}/activation?id={id} (username=${activationCode.username},id=${activationCode.id})}">click
+        th:href="@{http://localhost:8080/users/{username}/activation?id={id} (username=${activationCode.user.username},id=${activationCode.id})}">click
       here to activate your account</a></h1></td>
   </tr>
   <tr bgcolor="ffffff">
     <td height="100" align="center"><a
-        th:text="@{http://localhost:8080/users/{username}/activation?id={id} (username=${activationCode.username},id=${activationCode.id})}">link</a>
+        th:text="@{http://localhost:8080/users/{username}/activation?id={id} (username=${activationCode.user.username},id=${activationCode.id})}">link</a>
     </td>
   </tr>
 </table>

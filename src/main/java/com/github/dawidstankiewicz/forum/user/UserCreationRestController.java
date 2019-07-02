@@ -36,9 +36,4 @@ public class UserCreationRestController {
         userCreationService.create(userCreationForm.getNewUserEntity());
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
-    @ExceptionHandler(Error.class)
-    public void handleException() {
-
-    }
 }

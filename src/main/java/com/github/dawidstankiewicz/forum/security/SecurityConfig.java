@@ -3,6 +3,7 @@ package com.github.dawidstankiewicz.forum.security;
 import static com.github.dawidstankiewicz.forum.security.AccessRules.ADMINS_ROLES;
 import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_ADMINS;
 import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_AUTHORIZED_USERS;
+import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_EVERYONE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private void configureAccessRules(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers(FOR_AUTHORIZED_USERS).authenticated()
-            .antMatchers(FOR_ADMINS).hasAnyAuthority(ADMINS_ROLES);
+            .antMatchers(FOR_ADMINS).hasAnyAuthority(ADMINS_ROLES)
+            .antMatchers(FOR_EVERYONE).permitAll();
     }
 
     private void configureLoginForm(HttpSecurity http) throws Exception {

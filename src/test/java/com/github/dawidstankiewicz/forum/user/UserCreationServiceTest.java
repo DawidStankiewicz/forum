@@ -4,7 +4,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
-import com.github.dawidstankiewicz.forum.user.activation.ActivationService;
+import com.github.dawidstankiewicz.forum.user.activation.ActivationSenderService;
 import org.junit.Test;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserCreationServiceTest extends UnitsTestCase {
     private UserService userService;
 
     @MockBean
-    private ActivationService activationService;
+    private ActivationSenderService activationSenderService;
 
     @MockBean
     private PasswordEncoder passwordEncoder;
@@ -40,7 +40,7 @@ public class UserCreationServiceTest extends UnitsTestCase {
         callCreateNewUser();
 
         verify(
-            activationService,
+            activationSenderService,
             VerificationModeFactory.times(1))
             .sendActivationCode(any(User.class));
     }

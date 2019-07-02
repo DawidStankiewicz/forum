@@ -1,6 +1,6 @@
 package com.github.dawidstankiewicz.forum.user;
 
-import com.github.dawidstankiewicz.forum.user.activation.ActivationService;
+import com.github.dawidstankiewicz.forum.user.activation.ActivationSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class UserCreationServiceImpl implements UserCreationService {
     private UserService userService;
 
     @Autowired
-    private ActivationService activationService;
+    private ActivationSenderService activationSenderService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -20,7 +20,7 @@ public class UserCreationServiceImpl implements UserCreationService {
     @Override
     public void create(User user) {
         userService.save(prepareUser(user));
-        activationService.sendActivationCode(user);
+        activationSenderService.sendActivationCode(user);
     }
 
     private User prepareUser(User user) {

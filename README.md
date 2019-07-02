@@ -1,5 +1,6 @@
 # **Project Forum**
-Example of simple CRUD web application with Spring Framework and Thymeleaf. 
+Simple forum created using Spring Framework and Thymeleaf.
+Example of simple CRUD web application. 
 
 
 ## Current functions
@@ -21,15 +22,34 @@ Example of simple CRUD web application with Spring Framework and Thymeleaf.
 - Creating new section at [/section/new](http://localhost:8080/forum/section/new).
 - Displaying list of all users at [/users](http://localhost:8080/forum//users)
 
-## Database 
-### Connection
-The connection settings are in src/main/resources/application.properties
+## Configuration
+Example application properties are in the `application.example.properties` file.
+Befroe build Forum or run tests you have to create `application.properties` files.
 
-    ## Database connection ##
-    spring.datasource.url=jdbc:mysql://localhost:3306/DB_NAME
-    spring.datasource.username=USERNAME
-    spring.datasource.password=PASSWORD
+```properties
+## Database connection ##
+spring.datasource.url=jdbc:mysql://localhost:3306/forum
+spring.datasource.username=forum
+spring.datasource.password=password
 
-### Diagram
-![Sorry, error loading image of diagram](http://i.imgur.com/1W1xaBi.png)
+## Hibernate ##
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+## Thymeleaf ##
+spring.thymeleaf.cache=false
+spring.messages.basename=messages/messages
+
+## Static resources ##
+spring.mvc.static-path-pattern=/resources/**
+
+## Email ##
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.transport.protocol=stmp
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=### EMAIL ###
+spring.mail.password=### PASSWORD ### 
+spring.mail.smtp.auth=true
+```

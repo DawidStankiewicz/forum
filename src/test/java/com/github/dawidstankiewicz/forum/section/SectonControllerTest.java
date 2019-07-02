@@ -6,13 +6,13 @@ package com.github.dawidstankiewicz.forum.section;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.github.dawidstankiewicz.forum.IntegrationsTestCase;
+import com.github.dawidstankiewicz.forum.IntegrationTestCase;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 
-public class SectonControllerTest extends IntegrationsTestCase {
+public class SectonControllerTest extends IntegrationTestCase {
 
     @Test
     @Transactional
