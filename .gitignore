@@ -204,3 +204,6 @@ gource.sh
 src/main/resources/project-data/registration_flow.bpmn
 src/main/resources/project-data/uml.uxf
 greenmail-run.bat
+
+### Forum ###
+application.properties
