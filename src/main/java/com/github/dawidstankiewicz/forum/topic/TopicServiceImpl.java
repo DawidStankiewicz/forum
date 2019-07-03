@@ -1,6 +1,3 @@
-/**
- * Created by Dawid Stankiewicz on 18.07.2016
- */
 package com.github.dawidstankiewicz.forum.topic;
 
 import com.github.dawidstankiewicz.forum.user.User;
@@ -30,7 +27,8 @@ public class TopicServiceImpl implements TopicService {
     
     @Override
     public Topic findOne(int id) {
-        return topicRepository.findOne(id);
+        // todo fix Optional
+        return topicRepository.findById(id).get();
     }
     
     @Override

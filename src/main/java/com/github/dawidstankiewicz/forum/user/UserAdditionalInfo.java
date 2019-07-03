@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
+@ToString(exclude = "user")
+@EqualsAndHashCode(exclude = "user")
 public class UserAdditionalInfo implements Serializable {
 
     private static final long serialVersionUID = 398881966654252337L;

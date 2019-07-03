@@ -13,6 +13,7 @@ import com.github.dawidstankiewicz.forum.user.Role;
 import com.github.dawidstankiewicz.forum.user.User;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import java.util.Date;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.verification.VerificationModeFactory;
@@ -46,7 +47,7 @@ public class ActivationServiceTest extends UnitsTestCase {
         activationCode.setTimestamp(new Date());
         activationCode.setUser(user);
 
-        when(repository.findOne("XXX")).thenReturn(activationCode);
+        when(repository.findById("XXX")).thenReturn(Optional.of(activationCode));
     }
 
     @Test
@@ -68,7 +69,7 @@ public class ActivationServiceTest extends UnitsTestCase {
         verify(
             repository,
             VerificationModeFactory.times(1))
-            .delete(activationCode.getId());
+            .delete(activationCode);
     }
 
     @Test

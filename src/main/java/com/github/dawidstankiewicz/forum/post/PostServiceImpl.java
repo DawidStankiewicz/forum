@@ -29,7 +29,8 @@ public class PostServiceImpl implements PostService {
     
     @Override
     public Post findOne(int id) {
-        return postRepository.findOne(id);
+        // todo fix optional
+        return postRepository.findById(id).get();
     }
     
     @Override

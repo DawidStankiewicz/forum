@@ -1,7 +1,9 @@
 package com.github.dawidstankiewicz.forum.user.activation;
 
-import static org.mockito.Matchers.any;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
 import com.github.dawidstankiewicz.forum.user.User;
@@ -37,6 +39,15 @@ public class ActivationSenderServiceTest extends UnitsTestCase {
         user.setUsername("test");
         user.setEmail("test@forum.com");
         user.setPassword("password");
+
+        ActivationCode activationCode = new ActivationCode("XXX");
+        activationCode.setUser(user);
+
+        EmailMessage emailMessage = new EmailMessage("x", "y", "z");
+
+        when(repository.save(any(ActivationCode.class))).thenReturn(activationCode);
+        when(activationMessageGenerator.generate(any(ActivationCode.class)))
+            .thenReturn(emailMessage);
 
         service.sendActivationCode(user);
     }

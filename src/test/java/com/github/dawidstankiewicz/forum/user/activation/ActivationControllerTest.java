@@ -1,14 +1,14 @@
 package com.github.dawidstankiewicz.forum.user.activation;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.github.dawidstankiewicz.forum.IntegrationTestCase;
 import com.github.dawidstankiewicz.forum.user.User;
 import com.github.dawidstankiewicz.forum.user.UserRepository;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +90,7 @@ public class ActivationControllerTest extends IntegrationTestCase {
             .perform(get(URL)
                 .param("id", activationCode.getId()));
 
-        assertNull(activationCodeRepository.findOne(activationCode.getId()));
+        assertEquals(Optional.empty(), activationCodeRepository.findById(activationCode.getId()));
     }
 
 }

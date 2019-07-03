@@ -8,6 +8,7 @@ import com.github.dawidstankiewicz.forum.UnitsTestCase;
 import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +55,7 @@ public class UserServiceTest extends UnitsTestCase {
 
         verify(userRepository,
             VerificationModeFactory.times(1))
-            .findOne(123);
+            .findById(123);
         assertEquals(mockedUser.getUsername(), resultUser.getUsername());
     }
 
@@ -106,7 +107,7 @@ public class UserServiceTest extends UnitsTestCase {
 
     private void setupMockedRepository() {
         when(userRepository.findAll()).thenReturn(mockedUsers);
-        when(userRepository.findOne(123)).thenReturn(mockedUser);
+        when(userRepository.findById(123)).thenReturn(Optional.of(mockedUser));
         when(userRepository.findByUsername("test")).thenReturn(mockedUser);
     }
 

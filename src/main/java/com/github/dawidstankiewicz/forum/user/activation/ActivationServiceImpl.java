@@ -23,11 +23,12 @@ public class ActivationServiceImpl implements ActivationService {
         ActivationCode activationCode = findActivationCode(activationCodeId);
         validateActivationCode(username, activationCode);
         activateUser(activationCode);
-        deleteActivationCode(activationCodeId);
+        deleteActivationCode(activationCode);
     }
 
     private ActivationCode findActivationCode(String id) {
-        return activationCodeRepository.findOne(id);
+        return activationCodeRepository.findById(id)
+            .orElseThrow(() -> new ForumException(ErrorCode.INVALID_ACTIVATION_REQUEST));
     }
 
     private void validateActivationCode(String username, ActivationCode activationCode) {
@@ -37,7 +38,7 @@ public class ActivationServiceImpl implements ActivationService {
     }
 
     private boolean isActivationRequestInvalid(ActivationCode activationCode, String username) {
-        return activationCode == null || activationCode.getUser() == null ||
+        return activationCode.getUser() == null ||
             !activationCode.getUser().getUsername().equalsIgnoreCase(username);
     }
 
@@ -48,7 +49,7 @@ public class ActivationServiceImpl implements ActivationService {
         userService.save(user);
     }
 
-    private void deleteActivationCode(String id) {
-        activationCodeRepository.delete(id);
+    private void deleteActivationCode(ActivationCode activationCode) {
+        activationCodeRepository.delete(activationCode);
     }
 }
