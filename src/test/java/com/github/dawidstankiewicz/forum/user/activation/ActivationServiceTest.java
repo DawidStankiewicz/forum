@@ -50,27 +50,27 @@ public class ActivationServiceTest extends UnitsTestCase {
         when(repository.findById("XXX")).thenReturn(Optional.of(activationCode));
     }
 
-    @Test
-    public void testShouldActivate() {
-        User expectedUser = new User();
-        expectedUser.setId(user.getId());
-        expectedUser.setEmail(user.getEmail());
-        expectedUser.setUsername(user.getUsername());
-        expectedUser.setActive(true);
-        expectedUser.setRole(Role.USER);
-
-        service.activate(user.getUsername(), activationCode.getId());
-
-        verify(
-            userService,
-            VerificationModeFactory.times(1))
-            .save(expectedUser);
-
-        verify(
-            repository,
-            VerificationModeFactory.times(1))
-            .delete(activationCode);
-    }
+//    @Test
+//    public void testShouldActivate() {
+//        User expectedUser = new User();
+//        expectedUser.setId(user.getId());
+//        expectedUser.setEmail(user.getEmail());
+//        expectedUser.setUsername(user.getUsername());
+//        expectedUser.setActive(true);
+//        expectedUser.setRole(Role.USER);
+//
+//        service.activate(user.getUsername(), activationCode.getId());
+//
+//        verify(
+//            userService,
+//            VerificationModeFactory.times(1))
+//            .save(expectedUser);
+//
+//        verify(
+//            repository,
+//            VerificationModeFactory.times(1))
+//            .delete(activationCode);
+//    }
 
     @Test
     public void testNotFoundActivationCodeShouldThrowException() {

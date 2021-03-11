@@ -1,9 +1,10 @@
 package com.github.dawidstankiewicz.forum.user.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class EmailMessage {
 

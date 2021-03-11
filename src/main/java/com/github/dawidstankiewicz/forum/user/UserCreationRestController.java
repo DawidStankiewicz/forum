@@ -2,7 +2,6 @@ package com.github.dawidstankiewicz.forum.user;
 
 import com.github.dawidstankiewicz.forum.exception.ForumApiException;
 import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,9 @@ public class UserCreationRestController {
     private UserCreationService userCreationService;
 
     @PostMapping("/users")
-    public ResponseEntity create(@Valid @RequestBody UserCreationForm userCreationForm,
+    public ResponseEntity create(
+//            @Valid
+                                     @RequestBody UserCreationForm userCreationForm,
         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             LOGGER.error("Create binding error");

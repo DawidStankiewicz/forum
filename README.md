@@ -1,5 +1,5 @@
 # **Project Forum**
-Simple forum created using Spring Framework and Thymeleaf.
+Simple forum created using Spring Boot framework and Thymeleaf.
 Example of simple CRUD web application. 
 
 
@@ -53,3 +53,10 @@ spring.mail.username=### EMAIL ###
 spring.mail.password=### PASSWORD ### 
 spring.mail.smtp.auth=true
 ```
+
+## Setup
+
+1. run mysql database - you can use docker compose with file `docker-compose.yml`
+1. in directory `scr/main/resources` copy file `application.example.properties` to `application.properties` - change settings if you need
+1. run spring application with your IDE or with maven
+1. application should start, but there is still a lot of things to fix

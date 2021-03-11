@@ -1,24 +1,22 @@
 package com.github.dawidstankiewicz.forum.user;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "users")
 @Data
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 893284018826505486L;
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,20 +35,20 @@ public class User implements Serializable {
 
     private boolean removed;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
-    private Gender gender;
+//    private Gender gender;
 
-    private Role role = Role.UNDEFINED;
+//    private Role role = Role.UNDEFINED;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private UserAdditionalInfo info;
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    private UserAdditionalInfo info;
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
     }
 }

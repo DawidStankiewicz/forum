@@ -1,19 +1,18 @@
 package com.github.dawidstankiewicz.forum.user;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@Entity
+import javax.persistence.*;
+import java.util.Date;
+
+//@Entity
+//@Table(name = "user_info")
 @Data
 @ToString(exclude = "user")
 @EqualsAndHashCode(exclude = "user")
-public class UserAdditionalInfo implements Serializable {
-
-    private static final long serialVersionUID = 398881966654252337L;
+public class UserAdditionalInfo {
 
     @Id
     @Column(name = "user")

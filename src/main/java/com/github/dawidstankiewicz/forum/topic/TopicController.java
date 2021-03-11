@@ -4,7 +4,6 @@
 package com.github.dawidstankiewicz.forum.topic;
 
 import com.github.dawidstankiewicz.forum.section.SectionService;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -53,7 +52,9 @@ public class TopicController {
     }
     
     @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
-    public String addPost(@Valid @ModelAttribute("newPost") NewPostForm newPost,
+    public String addPost(
+//            @Valid
+                              @ModelAttribute("newPost") NewPostForm newPost,
                           BindingResult result,
                           Authentication authentication,
                           @PathVariable int idTopic,
@@ -83,7 +84,9 @@ public class TopicController {
     }
     
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
+    public String processAndAddNewTopic(
+//            @Valid
+                                            @ModelAttribute("newTopic") NewTopicForm newTopic,
                                         BindingResult result,
                                         Authentication authentication,
                                         Model model) {

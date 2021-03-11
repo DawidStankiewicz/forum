@@ -3,7 +3,6 @@
  */
 package com.github.dawidstankiewicz.forum.section;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -51,7 +50,8 @@ public class SectionController {
     
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewSection(
-                                          @Valid @ModelAttribute("newSection") NewSectionForm newSection,
+//                                          @Valid
+                                          @ModelAttribute("newSection") NewSectionForm newSection,
                                           BindingResult result) {
         
         if (result.hasErrors()) {

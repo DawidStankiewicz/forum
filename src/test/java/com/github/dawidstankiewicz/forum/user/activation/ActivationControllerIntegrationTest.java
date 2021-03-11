@@ -5,13 +5,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.github.dawidstankiewicz.forum.ControllerUnitTest;
+import com.github.dawidstankiewicz.forum.ControllerIntegrationTest;
 import org.junit.Test;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-public class ActivationControllerUnitTest extends ControllerUnitTest {
+public class ActivationControllerIntegrationTest extends ControllerIntegrationTest {
 
     @Autowired
     private ActivationController controller;
