@@ -1,8 +1,6 @@
-/**
- * Created by Dawid Stankiewicz on 23.07.2016
- */
 package com.github.dawidstankiewicz.forum.post;
 
+import com.github.dawidstankiewicz.forum.model.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,7 @@ public class PostController {
                          RedirectAttributes model) {
         Post post = postService.findOne(id);
         if (post == null || authentication == null || authentication.getName() == null
-                || !authentication.getName().equals(post.getUser().getUsername())) {
+                || !authentication.getName().equals(post.getUser().getEmail())) {
             return "redirect:/";
         }
         

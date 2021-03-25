@@ -1,5 +1,7 @@
 package com.github.dawidstankiewicz.forum.user;
 
+import com.github.dawidstankiewicz.forum.model.entity.User;
+import com.github.dawidstankiewicz.forum.model.entity.UserProfile;
 import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
 import java.io.File;
 import java.io.IOException;
@@ -26,19 +28,19 @@ public class UserController {
 
     @Autowired
     private UserProfileService userProfileService;
-
-    @RequestMapping(value = "/user/{username}")
-    public String findUserByUsernameAndViewProfilePage(@PathVariable String username,
-        Model model) {
-        UserProfile userProfile;
-        try {
-            userProfile = userProfileService.findOne(username);
-        } catch (NullPointerException e) {
-            throw new UserNotFoundException();
-        }
-        model.addAttribute("userProfile", userProfile);
-        return "user";
-    }
+//
+//    @RequestMapping(value = "/user/{username}")
+//    public String findUserByUsernameAndViewProfilePage(@PathVariable String username,
+//        Model model) {
+//        UserProfile userProfile;
+//        try {
+//            userProfile = userProfileService.findOne(username);
+//        } catch (NullPointerException e) {
+//            throw new UserNotFoundException();
+//        }
+//        model.addAttribute("userProfile", userProfile);
+//        return "user";
+//    }
 
     @RequestMapping(value = "/users")
     public String listOfAllUser(Model model) {

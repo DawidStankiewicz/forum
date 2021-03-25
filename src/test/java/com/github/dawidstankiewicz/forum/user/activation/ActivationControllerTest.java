@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.github.dawidstankiewicz.forum.IntegrationTestCase;
-import com.github.dawidstankiewicz.forum.user.User;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.UserRepository;
 import java.util.Optional;
 import org.junit.Before;

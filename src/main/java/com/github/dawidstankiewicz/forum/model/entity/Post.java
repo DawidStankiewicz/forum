@@ -1,25 +1,21 @@
-package com.github.dawidstankiewicz.forum.topic;
+package com.github.dawidstankiewicz.forum.model.entity;
 
-import com.github.dawidstankiewicz.forum.section.Section;
-import com.github.dawidstankiewicz.forum.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "topics")
+@Table(name = "posts")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Topic {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,29 +23,22 @@ public class Topic {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private User user;
+    private Topic topic;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private Section section;
+    private User user;
 
-    @Column(length = 50)
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 100000)
     private String content;
 
-    @Column
-    private int views;
+    private ContentType contentType;
 
     @Column(updatable = false, nullable = false)
     private LocalDateTime creationDate;
 
-    @Column
-    private LocalDateTime lastUpdateDate;
-
-    @Column
-    private boolean closed;
+    @Column(nullable = false)
+    private LocalDateTime modificationDate;
 
     @PrePersist
     protected void onCreate() {
@@ -58,7 +47,13 @@ public class Topic {
 
     @PreUpdate
     protected void onUpdate() {
-        this.lastUpdateDate = LocalDateTime.now();
+        this.modificationDate = LocalDateTime.now();
     }
 
+    public enum ContentType {
+        TEXT,
+        MARKDOWN,
+        HTML
+    }
 }
+

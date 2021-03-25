@@ -1,16 +1,15 @@
 package com.github.dawidstankiewicz.forum.exception;
 
-import static org.junit.Assert.assertEquals;
-
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
-import com.github.dawidstankiewicz.forum.exception.ForumException.ErrorCode;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ForumExceptionTest extends UnitsTestCase {
 
     @Test
     public void testShouldGetMessageBasedOnErrorCode() {
-        ForumException exception = new ForumException(ErrorCode.INTERNAL_ERROR);
+        ForumException exception = new ForumException();
         assertEquals("Internal server error", exception.getMessage());
     }
 

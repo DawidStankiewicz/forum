@@ -1,0 +1,26 @@
+package com.github.dawidstankiewicz.forum.model.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "scheduled_emails")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmailMessage {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String recipient;
+    private String subject;
+    private String content;
+    private boolean sent;
+    private LocalDateTime scheduledSentDate;
+    private LocalDateTime sentDate;
+
+}

@@ -1,37 +1,70 @@
-/**
- * Created by Dawid Stankiewicz on 17.07.2016
- */
 package com.github.dawidstankiewicz.forum.topic;
 
-import com.github.dawidstankiewicz.forum.user.User;
+import com.github.dawidstankiewicz.forum.model.entity.Topic;
+import com.github.dawidstankiewicz.forum.section.SectionService;
+import com.github.dawidstankiewicz.forum.model.entity.User;
+
 import java.util.List;
 import java.util.Set;
 
-import com.github.dawidstankiewicz.forum.section.Section;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.dawidstankiewicz.forum.model.entity.Section;
 
 
-public interface TopicService {
+@Service
+public class TopicService {
     
-    List<Topic> findAll();
+    @Autowired
+    private TopicRepository topicRepository;
     
-    Topic findOne(int id);
+    @Autowired
+    private SectionService sectionService;
     
-    Set<Topic> findRecent();
+    public List<Topic> findAll() {
+        return topicRepository.findAll();
+    }
     
-    Set<Topic> findAllByOrderByCreationDateDesc();
+    public Topic findOne(int id) {
+        // todo fix Optional
+        return topicRepository.findById(id).get();
+    }
     
-    Set<Topic> findBySection(Section section);
+    public Set<Topic> findRecent() {
+        return topicRepository.findTop5ByOrderByCreationDateDesc();
+    }
+
+    public Set<Topic> findAllByOrderByCreationDateDesc() {
+        return topicRepository.findAllByOrderByCreationDateDesc();
+    }
+
+    public Set<Topic> findBySection(Section section) {
+        return topicRepository.findBySection(section);
+    }
+
+    public Set<Topic> findBySection(String sectionName) {
+        return findBySection(sectionService.findByName(sectionName));
+    }
+
+    public Topic save(Topic topic) {
+        return topicRepository.save(topic);
+    }
     
-    Set<Topic> findBySection(String sectionName);
+    public Set<Topic> findBySection(int id) {
+        return findBySection(sectionService.findOne(id));
+    }
+
+    public Set<Topic> findByUser(User user) {
+        return topicRepository.findByUser(user);
+    }
+
+    public void delete(int id) {
+        delete(findOne(id));
+    }
     
-    Topic save(Topic topic);
-    
-    Set<Topic> findBySection(int id);
-    
-    Set<Topic> findByUser(User user);
-    
-    void delete(int id);
-    
-    void delete(Topic topic);
+    public void delete(Topic topic) {
+        topicRepository.delete(topic);
+    }
     
 }

@@ -22,11 +22,11 @@ public class GlobalExceptionHandlerController {
         return "errors/404";
     }
 
-    @ExceptionHandler(ForumApiException.class)
-    public ResponseEntity<?> handleForumApiException(ForumApiException exception) {
-        ForumApiExceptionResponse exceptionResponse = new ForumApiExceptionResponse(exception);
-        LOGGER.error("Global Exception Handler {}", exceptionResponse);
-        return new ResponseEntity(exceptionResponse, exception.getStatus());
-    }
+//    @ExceptionHandler(ForumApiException.class)
+//    public ResponseEntity<?> handleForumApiException(ForumApiException exception) {
+//        ForumApiExceptionResponse exceptionResponse = new ForumApiExceptionResponse(exception);
+//        LOGGER.error("Global Exception Handler {}", exceptionResponse);
+//        return new ResponseEntity(exceptionResponse, exception.getStatus());
+//    }
 
 }

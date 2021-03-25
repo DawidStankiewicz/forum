@@ -1,8 +1,7 @@
-package com.github.dawidstankiewicz.forum.user;
+package com.github.dawidstankiewicz.forum.model.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +24,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(length = 60, nullable = false)
@@ -39,13 +38,15 @@ public class User {
 
     private LocalDateTime lastLoginTime;
 
-//    private Gender gender;
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-//    private Role role = Role.UNDEFINED;
-
-//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private UserAdditionalInfo info;
+    @OneToOne(mappedBy = "user")
+    private UserProfile info;
 
     @PrePersist
     protected void onCreate() {

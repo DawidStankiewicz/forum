@@ -1,5 +1,6 @@
 package com.github.dawidstankiewicz.forum.user.email;
 
+import com.github.dawidstankiewicz.forum.model.entity.EmailMessage;
 import com.github.dawidstankiewicz.forum.user.activation.ActivationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thymeleaf.TemplateEngine;
@@ -15,7 +16,8 @@ public abstract class ActivationMessageGenerator {
         String emailAddress = activationCode.getUser().getEmail();
         String content = createMessageContent(activationCode);
 
-        EmailMessage emailMessage = new EmailMessage(emailAddress, SUBJECT, content);
+        EmailMessage emailMessage = EmailMessage.builder().build();
+        //todo
         return emailMessage;
     }
 

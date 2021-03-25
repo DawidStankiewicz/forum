@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.activation.ActivationSenderService;
 import org.junit.Test;
 import org.mockito.internal.verification.VerificationModeFactory;
@@ -14,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserCreationServiceTest extends UnitsTestCase {
 
     @Autowired
-    private UserCreationService service;
+    private UserRegistrationService service;
 
     @MockBean
     private UserService userService;

@@ -1,23 +1,21 @@
-package com.github.dawidstankiewicz.forum.post;
+package com.github.dawidstankiewicz.forum.model.entity;
 
-import com.github.dawidstankiewicz.forum.topic.Topic;
-import com.github.dawidstankiewicz.forum.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 
 
 @Entity
-@Table(name = "posts")
+@Table(name = "topics")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Topic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,20 +23,26 @@ public class Post {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private Topic topic;
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private User user;
+    private Section section;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @Column(length = 50)
+    private String title;
+
+    @Column
+    private int views;
 
     @Column(updatable = false, nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime lastUpdateDate;
+
+    @Column
+    private boolean closed;
 
     @PrePersist
     protected void onCreate() {

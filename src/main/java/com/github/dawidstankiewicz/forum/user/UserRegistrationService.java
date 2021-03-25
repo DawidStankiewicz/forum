@@ -1,12 +1,13 @@
 package com.github.dawidstankiewicz.forum.user;
 
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.activation.ActivationSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserCreationServiceImpl implements UserCreationService {
+public class UserRegistrationService {
 
     @Autowired
     private UserService userService;
@@ -17,7 +18,6 @@ public class UserCreationServiceImpl implements UserCreationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
     public void create(User user) {
         userService.save(prepareUser(user));
         activationSenderService.sendActivationCode(user);

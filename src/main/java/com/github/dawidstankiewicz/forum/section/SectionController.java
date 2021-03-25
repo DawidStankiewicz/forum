@@ -1,9 +1,10 @@
-/**
- * Created by Dawid Stankiewicz on 19.07.2016
- */
 package com.github.dawidstankiewicz.forum.section;
 
 
+import com.github.dawidstankiewicz.forum.model.entity.Section;
+import com.github.dawidstankiewicz.forum.model.dto.NewSectionForm;
+import com.github.dawidstankiewicz.forum.topic.TopicService;
+import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.github.dawidstankiewicz.forum.user.Role;
-import com.github.dawidstankiewicz.forum.user.User;
-import com.github.dawidstankiewicz.forum.topic.TopicService;
-import com.github.dawidstankiewicz.forum.user.UserService;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 
 
 @Controller

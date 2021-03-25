@@ -1,6 +1,7 @@
 package com.github.dawidstankiewicz.forum.user.activation;
 
-import com.github.dawidstankiewicz.forum.user.User;
+import com.github.dawidstankiewicz.forum.model.entity.User;
+
 import java.util.Date;
 import javax.persistence.*;
 

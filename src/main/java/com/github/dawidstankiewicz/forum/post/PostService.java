@@ -1,40 +1,78 @@
-/**
- * Created by Dawid Stankiewicz on 17.07.2016
- */
 package com.github.dawidstankiewicz.forum.post;
 
-import com.github.dawidstankiewicz.forum.topic.Topic;
-import com.github.dawidstankiewicz.forum.user.User;
+import com.github.dawidstankiewicz.forum.model.entity.Post;
+import com.github.dawidstankiewicz.forum.model.entity.Topic;
+import com.github.dawidstankiewicz.forum.topic.TopicService;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import java.util.List;
 import java.util.Set;
 
-import com.github.dawidstankiewicz.forum.post.Post;
+import com.github.dawidstankiewicz.forum.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
-public interface PostService {
+@Service
+public class PostService {
     
-    Post findOne(int id);
+    @Autowired
+    private PostRepository postRepository;
     
-    List<Post> findAll();
+    @Autowired
+    private TopicService topicService;
     
-    Set<Post> findRecent();
+    @Autowired
+    private UserService userService;
     
-    Set<Post> findAllByOrderByCreationDateDesc();
+    public Post findOne(int id) {
+        // todo fix optional
+        return postRepository.findById(id).get();
+    }
     
-    Set<Post> findByUser(User user);
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
     
-    Set<Post> findByTopic(int idTopic);
+    public Set<Post> findRecent() {
+        return postRepository.findTop5ByOrderByCreationDateDesc();
+    }
     
-    Set<Post> findByTopic(Topic topic);
+    public Set<Post> findAllByOrderByCreationDateDesc() {
+        return postRepository.findAllByOrderByCreationDateDesc();
+    }
     
-    void save(Post post);
+    public Set<Post> findByUser(User user) {
+        return postRepository.findByUser(user);
+    }
     
-    void delete(int id);
+    public Set<Post> findByTopic(int idTopic) {
+        return findByTopic(topicService.findOne(idTopic));
+    }
     
-    void delete(Post post);
+    public Set<Post> findByTopic(Topic topic) {
+        return postRepository.findByTopic(topic);
+    }
     
-    void save(String content,
-              String username,
-              int idTopic);
+    public void save(Post post) {
+        postRepository.save(post);
+    }
+    
+    public void delete(int id) {
+        delete(findOne(id));
+    }
+    
+    public void delete(Post post) {
+        postRepository.delete(post);
+    }
+    
+    public void save(String content,
+                     String username,
+                     int idTopic) {
+        Post post = new Post();
+        post.setTopic(topicService.findOne(idTopic));
+        post.setUser(userService.findByUsername(username));
+        post.setContent(content);
+        save(post);
+    }
     
 }

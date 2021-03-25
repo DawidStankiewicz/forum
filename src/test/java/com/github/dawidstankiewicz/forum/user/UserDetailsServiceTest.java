@@ -3,17 +3,10 @@ package com.github.dawidstankiewicz.forum.user;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import com.github.dawidstankiewicz.forum.UnitsTestCase;
-import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class UserDetailsServiceTest
 //        extends UnitsTestCase

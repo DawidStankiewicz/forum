@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;

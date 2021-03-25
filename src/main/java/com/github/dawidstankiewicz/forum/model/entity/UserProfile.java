@@ -1,4 +1,4 @@
-package com.github.dawidstankiewicz.forum.user;
+package com.github.dawidstankiewicz.forum.model.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,20 +7,20 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.Date;
 
-//@Entity
-//@Table(name = "user_info")
+@Entity
+@Table(name = "user_profiles")
 @Data
 @ToString(exclude = "user")
 @EqualsAndHashCode(exclude = "user")
-public class UserAdditionalInfo {
+public class UserProfile {
 
     @Id
-    @Column(name = "user")
+    @Column(name = "id")
     private int id;
 
-    @MapsId
     @OneToOne
-    @JoinColumn(name = "user", referencedColumnName = "id")
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     @Column(length = 15)

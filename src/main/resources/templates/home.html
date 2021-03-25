@@ -76,6 +76,10 @@
             </div>
         </div>
 
+        <div class="row" th:if="${topics.size() == 0}">
+            <h4 th:text="#{recent.noTopics}">There are no topics yet.</h4>
+        </div>
+
 
         <!-- RECENT POSTS -->
 
