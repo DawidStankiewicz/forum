@@ -40,7 +40,7 @@ public class UserDetailsService {
         org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
             user.getUsername(),
             user.getPassword(),
-            user.isActive(),
+            user.isEnabled(),
             true, true, true,
             grantedAuthorities);
 

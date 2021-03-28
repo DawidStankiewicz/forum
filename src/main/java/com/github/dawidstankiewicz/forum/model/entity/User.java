@@ -27,10 +27,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(length = 60, nullable = false)
+    @Column(length = 60)
     private String password;
 
-    private boolean active;
+    private boolean enabled;
 
     private boolean removed;
 
@@ -47,9 +47,4 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private UserProfile info;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
 }

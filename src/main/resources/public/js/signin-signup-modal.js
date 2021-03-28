@@ -17,7 +17,7 @@ const registrationForm = {
 
 $(document).ready(function () {
   configureModal();
-  initMaterializeSelect();
+  // initMaterializeSelect();
 });
 
 function configureModal() {
@@ -31,9 +31,9 @@ function configureModal() {
   );
 }
 
-function initMaterializeSelect() {
-  $('select').material_select();
-}
+// function initMaterializeSelect() {
+//   $('select').material_select();
+// }
 
 $("#submit-signup-form").click(onSignupSubmit);
 

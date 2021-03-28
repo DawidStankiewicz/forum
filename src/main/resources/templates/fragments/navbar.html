@@ -13,8 +13,8 @@
         <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-login" class="modal-trigger">Sign up</a></li>
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-create" class="modal-trigger">Sign in</a></li>
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/hello}">Sign up</a></li>
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/hello}">Sign in</a></li>
 
             <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>

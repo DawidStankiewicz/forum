@@ -22,5 +22,10 @@ public class EmailMessage {
     private boolean sent;
     private LocalDateTime scheduledSentDate;
     private LocalDateTime sentDate;
+    private EmailMessageType type;
 
+    public enum EmailMessageType {
+        CONFIRMATION,
+        PASSWORD_RESET,
+    }
 }
