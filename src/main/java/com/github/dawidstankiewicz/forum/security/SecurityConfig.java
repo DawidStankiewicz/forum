@@ -23,7 +23,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private ForumUserDetailsService userDetailsService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

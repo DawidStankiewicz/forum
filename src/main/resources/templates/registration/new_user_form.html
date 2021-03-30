@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+
+    <div th:replace="fragments/messages :: messages"></div>
+
+    <div class="row" style="padding-top: 1rem">
+        <div class="col s12 m4 offset-m4">
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s12">
+                        <form class="col s12" name='f' th:action='@{/new-user}' th:object="${userRegistrationForm}"
+                              method="POST">
+                            <div class="row">
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input th:name="email" th:value="${email != null ? email : userRegistrationForm.email}" id="email" name='email' type="email"
+                                               class="validate" required/>
+                                        <label for="username" th:text="#{user.email}">Email</label>
+                                        <span class="helper-text" th:data-error="#{error.invalidEmail}"></span>
+                                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                           class="red-text"></p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input th:field="*{username}" id="username" name='username' type="text"
+                                               class="validate" required/>
+                                        <label for="username" th:text="#{user.username}">Username</label>
+                                        <span class="helper-text" th:data-error="#{error.invalidUsername}"></span>
+                                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                           class="red-text"></p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input th:field="*{password}" id="password" name='password' type="password"
+                                               class="validate" required/>
+                                        <label for="password" th:text="#{user.password}">Password</label>
+                                        <span class="helper-text" th:data-error="#{error.invalidPassword}"></span>
+                                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                           class="red-text">Invalid password!</p>
+                                    </div>
+                                </div>
+
+                                <input class="btn waves-effect waves-light s12" type="submit" name="action"
+                                       th:value="#{button.register}"/>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

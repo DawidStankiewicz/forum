@@ -2,6 +2,9 @@ package com.github.dawidstankiewicz.forum;
 
 public class Routes {
 
+    public static final String REGISTRATION_CONFIRMATION = "registration/confirmation_sent";
+    public static final String NEW_USER_FORM = "registration/new_user_form";
+
     private final static String REDIRECT = "redirect:";
 
     public static String loginPage() {

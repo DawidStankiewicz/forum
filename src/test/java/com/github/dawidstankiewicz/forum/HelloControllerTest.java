@@ -1,7 +1,6 @@
 package com.github.dawidstankiewicz.forum;
 
 import com.github.dawidstankiewicz.forum.model.entity.User;
-import com.github.dawidstankiewicz.forum.user.UserRegistrationForm;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

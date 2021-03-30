@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div th:replace="fragments/messages :: messages"></div>
+
+    <div class="row" style="padding-top: 1rem">
+        <div class="col s12 m6 offset-m3">
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s12">
+
+                        <h4 th:if="${username != null}">
+                            <span th:text="#{registration.niceToMeetYou}"></span> <span
+                                th:text="${username}"></span>!
+                        </h4>
+
+                        <p th:text="#{registration.emailConfirmationSent}"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

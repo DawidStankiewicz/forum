@@ -1,8 +1,10 @@
 package com.github.dawidstankiewicz.forum.user;
 
 import com.github.dawidstankiewicz.forum.email.EmailMessageService;
+import com.github.dawidstankiewicz.forum.model.dto.UserRegistrationForm;
 import com.github.dawidstankiewicz.forum.model.entity.EmailMessage;
 import com.github.dawidstankiewicz.forum.model.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,42 +12,18 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
+@Slf4j
 public class UserRegistrationService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    @Autowired private UserRepository userRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private EmailMessageService emailMessageService;
 
-    public void create(User user) {
-//        userService.save(prepareUser(user));
-    }
-
-    private User prepareUser(User user) {
-        user.setPassword(getEncodedPassword(user.getPassword()));
-        user.setEnabled(false);
-        return user;
-    }
-
-    private String getEncodedPassword(String password) {
-        return passwordEncoder.encode(password);
-    }
-
-    public void registerEmailAndSendConfirmationMessage(String email) {
-        String confirmationCode = scheduleConfirmationMessage(email);
-        saveNewUser(email, confirmationCode);
-    }
-
-    private void saveNewUser(String email, String confirmationCode) {
-        User newUser = User.builder()
-                .email(email)
-                .createdAt(LocalDateTime.now())
-                .enabled(false)
-                .build();
-        userRepository.save(newUser);
+    public User registerUser(UserRegistrationForm form) {
+        log.info("Register new user {}, {}", form.getEmail(), form.getUsername());
+        String confirmationCode = scheduleConfirmationMessage(form.getEmail());
+        User newUser = buildUser(form, confirmationCode);
+        return userRepository.save(newUser);
     }
 
     private String scheduleConfirmationMessage(String email) {
@@ -57,5 +35,16 @@ public class UserRegistrationService {
                 .build();
         emailMessageService.scheduleMessage(confirmationMessage);
         return randomString;
+    }
+
+    private User buildUser(UserRegistrationForm form, String confirmationCode) {
+        return User.builder()
+                .email(form.getEmail())
+                .emailToken(confirmationCode)
+                .username(form.getUsername())
+                .createdAt(LocalDateTime.now())
+                .enabled(false)
+                .password(passwordEncoder.encode(form.getPassword()))
+                .build();
     }
 }

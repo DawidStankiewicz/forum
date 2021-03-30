@@ -24,7 +24,13 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    private String secondaryEmail;
+
+    @Column(unique = true)
+    private String emailToken;
+
+    @Column(nullable = false, unique = true, length = 60)
     private String username;
 
     @Column(length = 60)

@@ -23,8 +23,9 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="email" name="email" type="text" class="validate"/>
+                                        <input id="email" name="email" type="email" class="validate" required />
                                         <label for="email" th:text="#{hello.emailToContinue}">Email</label>
+                                        <span class="helper-text" th:data-error="#{error.invalidEmail}" data-success=""></span>
                                     </div>
                                 </div>
 

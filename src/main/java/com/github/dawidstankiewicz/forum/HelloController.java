@@ -1,7 +1,7 @@
 package com.github.dawidstankiewicz.forum;
 
 import com.github.dawidstankiewicz.forum.model.entity.User;
-import com.github.dawidstankiewicz.forum.user.UserRegistrationForm;
+import com.github.dawidstankiewicz.forum.model.dto.UserRegistrationForm;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class HelloController {
         model.addFlashAttribute("email", email);
 
         if (user == null) {
-            model.addAttribute("userRegistrationForm", new UserRegistrationForm());
+            model.addFlashAttribute("userRegistrationForm", new UserRegistrationForm());
             return Routes.redirectNewUserFormPage();
         }
         model.addFlashAttribute("username", user.getUsername());

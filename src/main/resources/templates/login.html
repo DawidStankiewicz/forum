@@ -26,11 +26,13 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:if="${email != null}" id="email" name="email" th:value="${email}" type="text"
-                                               class="validate"/>
-                                        <input th:if="${email == null}" id="email" name="email" type="text"
-                                               class="validate" autofocus/>
-                                        <label for="email" th:text="#{user.email}">Email</label>
+                                        <input th:if="${email != null}" id="username" name="username" th:value="${email}"
+                                               type="email"
+                                               class="validate" required/>
+                                        <input th:if="${email == null}" id="username" name="username" type="email"
+                                               class="validate" required autofocus/>
+                                        <label for="username" th:text="#{user.email}">Email</label>
+                                        <span class="helper-text" th:data-error="#{error.invalidEmail}" data-success=""></span>
                                     </div>
                                 </div>
 
@@ -38,8 +40,10 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input th:if="${email != null}" id="password" name="password" type="password" class="validate" autofocus/>
-                                        <input th:if="${email == null}" id="password" name="password" type="password" class="validate" />
+                                        <input th:if="${email != null}" id="password" name="password" type="password"
+                                               class="validate" required autofocus/>
+                                        <input th:if="${email == null}" id="password" name="password" type="password"
+                                               class="validate" required/>
                                         <label for="password" class="active" th:text="#{user.password}">Password</label>
                                     </div>
                                 </div>
