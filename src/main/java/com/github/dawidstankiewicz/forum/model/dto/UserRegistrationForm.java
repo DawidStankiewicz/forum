@@ -1,6 +1,7 @@
 package com.github.dawidstankiewicz.forum.model.dto;
 
 import com.github.dawidstankiewicz.forum.model.validator.UniqueEmail;
+import com.github.dawidstankiewicz.forum.model.validator.UniqueUsername;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +17,17 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserRegistrationForm {
 
-    //todo add full validation messages
-    @Email
-    @NotNull
+    @Email(message = "{Email.Invalid}")
+    @NotNull(message = "{Email.Empty}")
     @UniqueEmail
     private String email;
-    @NotNull
-    @Size(min = 8, max = 100)
+
+    @NotNull(message = "{Field.Required}")
+    @Size(min = 8, max = 100, message = "{Password.InvalidSize}")
     private String password;
-    @NotNull
-    @Size(min = 4, max = 60)
+
+    @NotNull(message = "{Field.Required}")
+    @Size(min = 4, max = 60, message = "{Username.InvalidSize}")
+    @UniqueUsername
     private String username;
 }
