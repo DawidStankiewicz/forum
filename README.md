@@ -54,9 +54,12 @@ spring.mail.password=### PASSWORD ###
 spring.mail.smtp.auth=true
 ```
 
-## Setup
+## Development Setup
 
 1. run mysql database - you can use docker compose with file `docker-compose.yml`
 1. in directory `scr/main/resources` copy file `application.example.properties` to `application.properties` - change settings if you need
-1. run spring application with your IDE or with maven
-1. application should start, but there is still a lot of things to fix
+1. run `npm i `
+1. run `npm run build`
+1. run spring application with your IDE or maven
+1. run `npm run watch`
+1. application should be running on `localhost:3000`
