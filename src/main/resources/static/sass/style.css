@@ -20,8 +20,3 @@ body>.container {
 .bold {
 	font-weight: bold;
 }
-
-input:required:invalid, input:focus:invalid {
-
-	-moz-box-shadow: none;
-}

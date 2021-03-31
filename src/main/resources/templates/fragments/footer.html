@@ -6,21 +6,17 @@
 </head>
 
 <body>
-    <footer th:fragment="footer" class="page-footer amber darken-4">
+    <footer th:fragment="footer" class="page-footer primary">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Project Forum</h5>
-                    <p class="grey-text text-lighten-4">It's Spring MVC application.</p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
                     <ul>
                         <li>
-                            <a class="grey-text text-lighten-3" th:href="@{https://github.com/Szczypioreg/forum}">Project Forum on GitHub</a>
-                        </li>
-                        <li>
-                            <a class="grey-text text-lighten-3" th:href="@{https://github.com/Szczypioreg}">My profile on GitHub</a>
+                            <a class="white-text" th:href="@{https://github.com/DawidStankiewicz/forum}" target="_blank">Project Forum on GitHub</a>
                         </li>
                     </ul>
                 </div>
@@ -28,10 +24,8 @@
         </div>
 
         <div class="footer-copyright">
-            <div class="container">&copy; 2016-2017 Dawid Stankiewicz</div>
+            <div class="container white-text center-align">&copy; 2016-2021 Dawid Stankiewicz</div>
         </div>
-
-        <script type="text/javascript" th:src="@{/resources/js/signin-signup-modal.js}"></script>
     </footer>
 </body>
 </html>
