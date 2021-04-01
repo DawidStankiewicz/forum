@@ -8,9 +8,9 @@ footer {
 	flex: 1 0 auto;
 }
 
-nav {
-	font-weight: 300;
-}
+/*nav {*/
+/*	font-weight: 300;*/
+/*}*/
 
 body>.container {
 	padding-top: 50px;

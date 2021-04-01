@@ -2,26 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-
 <head>
 </head>
 
 
 <body>
-    <nav th:fragment="navbar" class="nav-wrapper primary">
-        <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+<th:block th:fragment="navbar">
+    <!-- Admin Dropdown Structure -->
+    <ul sec:authorize="hasAuthority('ADMIN')"
+        id="navbar-admin-dropdown"
+        class="dropdown-content">
+        <li sec:authorize="hasAuthority('ADMIN')"><a th:text="#{navbar.adminDropdown.sections}"
+                                                     th:href="@{/a/sections}">Sections</a></li>
+        <li sec:authorize="hasAuthority('ADMIN')"><a th:text="#{navbar.adminDropdown.users}"
+                                                     th:href="@{/users}">Users</a></li>
+    </ul>
 
-            <li sec:authorize="!isAuthenticated()"><a th:href="@{/hello}">Sign up</a></li>
-            <li sec:authorize="!isAuthenticated()"><a th:href="@{/hello}">Sign in</a></li>
+    <nav
+         class="primary">
+        <div class="nav-wrapper">
+            <a th:href=" @{~/}"
+               class="brand-logo"
+               style="margin-left: 10px;"> Forum</a>
 
-            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-        </ul>
+            <ul id="nav-mobile"
+                class="right hide-on-med-and-down">
 
+                <li sec:authorize="!isAuthenticated()"><a th:text="#{navbar.login}"
+                                                          th:href="@{/hello}">Sign up</a></li>
+                <li sec:authorize="!isAuthenticated()"><a th:text="#{navbar.register}"
+                                                          th:href="@{/hello}">Sign in</a></li>
+
+
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
+                <!-- Admin Dropdown Trigger -->
+                <li sec:authorize="hasAuthority('ADMIN')"><a
+                        class="navbar-admin-dropdown-trigger"
+                        href="#!"
+                        data-target="navbar-admin-dropdown">
+                    <span th:text="#{navbar.adminDropdown.trigger}"></span>
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
     </nav>
+    <script>
+        $( document ).ready(function() {
+            $(".navbar-admin-dropdown-trigger").dropdown();
+        });
+    </script>
+</th:block>
+
 </body>
 </html>

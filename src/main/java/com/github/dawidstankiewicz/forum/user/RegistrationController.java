@@ -1,6 +1,6 @@
 package com.github.dawidstankiewicz.forum.user;
 
-import com.github.dawidstankiewicz.forum.Routes;
+import com.github.dawidstankiewicz.forum.config.Routes;
 import com.github.dawidstankiewicz.forum.model.dto.UserRegistrationForm;
 import com.github.dawidstankiewicz.forum.model.entity.User;
 import lombok.extern.slf4j.Slf4j;

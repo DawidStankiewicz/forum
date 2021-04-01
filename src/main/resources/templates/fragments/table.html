@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body>
+<table th:fragment="table (columnNames, values, items, actions)"
+       class="responsive-table">
+    <thead>
+    <tr>
+        <!--                <th th:replace="${columns}">Name</th>-->
+        <th th:each="column : ${columnNames}"
+            th:text="#{${column}}">
+        </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:each="value : ${values}"
+            th:text="${item[value]}"></td>
+
+        <td th:replace="${actions}">
+            <div></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

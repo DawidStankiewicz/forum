@@ -1,10 +1,12 @@
 package com.github.dawidstankiewicz.forum.section;
 
-import java.util.List;
-
 import com.github.dawidstankiewicz.forum.model.entity.Section;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -37,4 +39,7 @@ public class SectionService {
         sectionRepository.delete(section);
     }
 
+    public Page<Section> findSections(Pageable pageable) {
+        return sectionRepository.findAll(pageable);
+    }
 }

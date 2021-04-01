@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div th:replace="fragments/messages :: messages"></div>
+
+    <div class="row"
+         style="padding-top: 1rem">
+        <div class="col s12">
+            <div class="card-panel">
+                <!--                <table class="responsive-table">-->
+                <!--                    <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th>Id</th>-->
+                <!--                        <th>Name</th>-->
+                <!--                        <th>Description</th>-->
+                <!--                        <th>Actions</th>-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+
+                <!--                    <tbody>-->
+                <!--                    <tr th:each="section : ${sections}">-->
+                <!--                        <td th:text="${section.id}"></td>-->
+                <!--                        <td th:text="${section.name}"></td>-->
+                <!--                        <td th:text="${section.description}"></td>-->
+                <!--                    </tr>-->
+                <!--                    </tbody>-->
+                <!--                </table>-->
+                <!--                <table th:replace="fragments/table :: table (columns=~{ :: .table-columns}, items=${sections}, actions=~{ :: .table-actions})">-->
+                <table
+                        th:replace="fragments/table :: table (
+                        columnNames=${ { 'table.id', 'table.name', 'table.description', 'table.actions' } },
+                        values=${ { 'id', 'name', 'description'} },
+                        items=${sections},
+                        actions=~{ :: .table-actions})">
+                    <thead>
+
+<!--                    <tr class="table-columns">-->
+<!--                        <th>Id</th>-->
+<!--                        <th>Name</th>-->
+<!--                        <th>Description</th>-->
+<!--                        <th>Actions</th>-->
+<!--                    </tr>-->
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td class="table-actions">
+                            <div><a th:href="${item.id}">edit</a></div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

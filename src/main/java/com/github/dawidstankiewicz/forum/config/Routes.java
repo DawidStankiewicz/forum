@@ -1,11 +1,16 @@
-package com.github.dawidstankiewicz.forum;
+package com.github.dawidstankiewicz.forum.config;
 
 public class Routes {
+
+    private final static String REDIRECT = "redirect:";
 
     public static final String REGISTRATION_CONFIRMATION = "registration/confirmation_sent";
     public static final String NEW_USER_FORM = "registration/new_user_form";
 
-    private final static String REDIRECT = "redirect:";
+    private static final String ADMIN_PREFIX = "/a/";
+
+    public static final String ADMIN_SECTIONS_PANEL = ADMIN_PREFIX + "/sections";
+
 
     public static String loginPage() {
         return "/login";
@@ -21,5 +26,12 @@ public class Routes {
 
     private static String newUserFormPage() {
         return "/new-user";
+    }
+
+    public class Views {
+        private static final String ADMIN_PREFIX = "admin/";
+
+        public static final String ADMIN_SECTIONS_PANEL = ADMIN_PREFIX + "sections";
+
     }
 }
