@@ -31,7 +31,7 @@ gulp.task('copy-html', () =>
 );
 
 gulp.task('copy-scss', () =>
-    gulp.src(['src/main/resources/**/*.scss'])
+    gulp.src(['src/main/resources/**/*.css', 'src/main/resources/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([
             require('autoprefixer'),

@@ -5,27 +5,34 @@
 </head>
 
 <body>
-<table th:fragment="table (columnNames, values, items, actions)"
-       class="responsive-table">
-    <thead>
-    <tr>
-        <!--                <th th:replace="${columns}">Name</th>-->
-        <th th:each="column : ${columnNames}"
-            th:text="#{${column}}">
-        </th>
-    </tr>
-    </thead>
 
-    <tbody>
-    <tr th:each="item : ${items}">
-        <td th:each="value : ${values}"
-            th:text="${item[value]}"></td>
+<th:block th:fragment="table (columnNames, values, items, actions)">
+    <table
+            class="responsive-table">
+        <thead>
+        <tr>
+            <th th:each="column : ${columnNames}"
+                th:text="#{${column}}">
+            </th>
+        </tr>
+        </thead>
 
-        <td th:replace="${actions}">
-            <div></div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:each="value : ${values}"
+                th:text="${item[value]}"></td>
+
+            <td th:replace="${actions}">
+                <div></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <th:block th:replace="fragments/pagination :: pagination (${items})"></th:block>
+
+</th:block>
+
+
 </body>
 </html>

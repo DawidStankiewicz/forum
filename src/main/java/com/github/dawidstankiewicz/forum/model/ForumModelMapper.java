@@ -15,6 +15,8 @@ public class ForumModelMapper extends ModelMapper {
                 sections.getContent()
                         .stream()
                         .map(item -> map(item, destinationClass))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()),
+                sections.getPageable(),
+                sections.getTotalElements());
     }
 }

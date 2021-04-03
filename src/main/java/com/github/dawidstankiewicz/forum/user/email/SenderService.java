@@ -1,6 +1,5 @@
 package com.github.dawidstankiewicz.forum.user.email;
 
-import com.github.dawidstankiewicz.forum.exception.ForumException;
 import com.github.dawidstankiewicz.forum.model.entity.EmailMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,6 @@ public class SenderService {
     private void handleException(Exception e) {
         log.error("Mail Send Exception - smtp service unavailable");
         e.printStackTrace();
-        throw new ForumException();
+        throw new RuntimeException();
     }
 }

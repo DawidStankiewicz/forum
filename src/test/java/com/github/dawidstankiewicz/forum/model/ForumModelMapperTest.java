@@ -9,6 +9,8 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +30,15 @@ public class ForumModelMapperTest {
                 Section.builder().id(1).build(),
                 Section.builder().id(2).build()
         );
-        Page<Section> page = new PageImpl<>(sections);
+        Pageable pageable = PageRequest.of(0, 2);
+        int totalExpectedElements = 123;
+        Page<Section> page = new PageImpl<>(sections, pageable, totalExpectedElements);
         //when
         Page<SectionDto> result = mapper.mapPage(page, SectionDto.class);
         //then
-        assertEquals(sections.size(), result.getTotalElements());
+        assertEquals(sections.size(), result.getContent().size());
+        assertEquals(pageable, result.getPageable());
+        assertEquals(totalExpectedElements, result.getTotalElements());
         assertTrue(result.getContent().stream().anyMatch(dto -> dto.getId() == 1));
         assertTrue(result.getContent().stream().anyMatch(dto -> dto.getId() == 2));
     }

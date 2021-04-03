@@ -9,18 +9,7 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
 <div class="container">
-  <div th:if="${exception != null and !(exception instanceof T(String))}">
-    <h1><span th:text="${exception.status != null}"></span> - <span
-        th:if="${exception.message != null}" th:text="${exception.message}">Error</span></h1>
-
-    <p th:if="${timestamp}" th:text="${timestamp}"></p>
-    <p th:if="${exception.errorCode}" th:text="${exception.errorCode}"></p>
-    <p th:if="${url}" th:text="${url}"></p>
-  </div>
-  <div th:if="${exception != null and (exception instanceof T(String))}">
-    <p th:text="${exception}"></p>
-    <p th:if="${timestamp}" th:text="${timestamp}"></p>
-  </div>
+  <h3 th:text="#{error.errorPageTitle}"></h3>
 </div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
