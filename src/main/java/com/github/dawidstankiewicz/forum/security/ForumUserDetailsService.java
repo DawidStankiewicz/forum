@@ -2,7 +2,6 @@ package com.github.dawidstankiewicz.forum.security;
 
 import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.UserService;
-import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

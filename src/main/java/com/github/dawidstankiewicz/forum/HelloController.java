@@ -1,8 +1,8 @@
 package com.github.dawidstankiewicz.forum;
 
 import com.github.dawidstankiewicz.forum.config.Routes;
-import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.model.dto.UserRegistrationForm;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

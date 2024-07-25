@@ -1,13 +1,13 @@
 package com.github.dawidstankiewicz.forum.model.entity;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")

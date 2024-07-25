@@ -1,10 +1,10 @@
 package com.github.dawidstankiewicz.forum.topic;
 
+import com.github.dawidstankiewicz.forum.model.dto.NewPostForm;
+import com.github.dawidstankiewicz.forum.model.dto.NewTopicForm;
+import com.github.dawidstankiewicz.forum.model.entity.Post;
 import com.github.dawidstankiewicz.forum.model.entity.Section;
 import com.github.dawidstankiewicz.forum.model.entity.Topic;
-import com.github.dawidstankiewicz.forum.model.dto.NewPostForm;
-import com.github.dawidstankiewicz.forum.model.entity.Post;
-import com.github.dawidstankiewicz.forum.model.dto.NewTopicForm;
 import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.post.PostService;
 import com.github.dawidstankiewicz.forum.section.SectionService;

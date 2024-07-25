@@ -2,14 +2,14 @@ package com.github.dawidstankiewicz.forum.post;
 
 import com.github.dawidstankiewicz.forum.model.entity.Post;
 import com.github.dawidstankiewicz.forum.model.entity.Topic;
-import com.github.dawidstankiewicz.forum.topic.TopicService;
 import com.github.dawidstankiewicz.forum.model.entity.User;
-import java.util.List;
-import java.util.Set;
-
+import com.github.dawidstankiewicz.forum.topic.TopicService;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 
 @Service
