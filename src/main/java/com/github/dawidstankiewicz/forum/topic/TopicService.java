@@ -1,6 +1,9 @@
 package com.github.dawidstankiewicz.forum.topic;
 
+import com.github.dawidstankiewicz.forum.model.dto.NewTopicForm;
+import com.github.dawidstankiewicz.forum.model.entity.Post;
 import com.github.dawidstankiewicz.forum.model.entity.Topic;
+import com.github.dawidstankiewicz.forum.post.PostRepository;
 import com.github.dawidstankiewicz.forum.section.SectionService;
 import com.github.dawidstankiewicz.forum.model.entity.User;
 
@@ -18,6 +21,9 @@ public class TopicService {
     
     @Autowired
     private TopicRepository topicRepository;
+
+    @Autowired
+    private PostRepository postRepository;
     
     @Autowired
     private SectionService sectionService;
@@ -35,10 +41,6 @@ public class TopicService {
         return topicRepository.findTop5ByOrderByCreationDateDesc();
     }
 
-    public Set<Topic> findAllByOrderByCreationDateDesc() {
-        return topicRepository.findAllByOrderByCreationDateDesc();
-    }
-
     public Set<Topic> findBySection(Section section) {
         return topicRepository.findBySection(section);
     }
@@ -47,8 +49,19 @@ public class TopicService {
         return findBySection(sectionService.findByName(sectionName));
     }
 
-    public Topic save(Topic topic) {
-        return topicRepository.save(topic);
+    public Topic createNewTopic(NewTopicForm topicForm, User author, Section section) {
+        Topic topic = Topic.builder()
+                .section(section)
+                .user(author)
+                .title(topicForm.getTitle()).build();
+        topic = topicRepository.save(topic);
+        Post post = Post.builder()
+                .topic(topic)
+                .content(topicForm.getContent())
+                .user(author)
+                .build();
+        postRepository.save(post);
+        return topic;
     }
     
     public Set<Topic> findBySection(int id) {

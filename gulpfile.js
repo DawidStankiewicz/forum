@@ -7,17 +7,16 @@ const uglifycss = require('gulp-uglifycss');
 const terser = require('gulp-terser');
 const postcss = require('gulp-postcss');
 const purgecss = require('gulp-purgecss');
-var sass = require('gulp-sass');
-
-sass.compiler = require('node-sass');
+var sass = require('gulp-dart-sass');
 
 
 const production = environments.production;
 
 gulp.task('watch', () => {
-    browserSync.init({
-        port: 3333,
-        proxy: 'localhost:8080',
+    browserSync.init(null, {
+        port: 5000,
+        proxy: '127.0.0.1:8080/',
+        open: true
     });
 
     gulp.watch(['src/main/resources/**/*.html'], gulp.series('copy-html-and-reload'));

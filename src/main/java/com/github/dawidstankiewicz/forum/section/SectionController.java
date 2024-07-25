@@ -17,11 +17,11 @@ public class SectionController {
     @Autowired private TopicService topicService;
 
     @RequestMapping("{id}")
-    public String getTopicsFromSection(@PathVariable int id,
+    public String getSection(@PathVariable int id,
                                        Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("topics", topicService.findBySection(id));
-        return "section";
+        return "sections/section";
     }
 
 }

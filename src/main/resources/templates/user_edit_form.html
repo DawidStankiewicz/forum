@@ -15,7 +15,7 @@
                 <div class="col s2">
                     <div class="row">
                         <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
+<!--                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />-->
                         </div>
                     </div>
                     <div class="row">
@@ -135,7 +135,7 @@
                                                 <div class="row">
                                                     <div class="input-field col s12">
                                                         <input name="birthday" type="date"
-                                                            th:value="${userProfile.user.birthday} ? ${#calendars.format(userProfile.user.birthday, 'yyyy-mm-dd')}" class="datepicker"
+                                                            th:value="${userProfile.user.birthday} ? ${#temporals.format(userProfile.user.birthday, 'yyyy-mm-dd')}" class="datepicker"
                                                             id="birthday" />
                                                         <label for="birthday">Birthday</label>
                                                         <p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="red-text">error</p>

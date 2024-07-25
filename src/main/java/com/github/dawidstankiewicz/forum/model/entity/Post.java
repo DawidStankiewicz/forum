@@ -37,7 +37,7 @@ public class Post {
     @Column(updatable = false, nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime modificationDate;
 
     @PrePersist

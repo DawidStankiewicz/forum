@@ -30,34 +30,33 @@ public class SectionAdminController {
 
     @GetMapping
     public String getSectionsPage(Model model, Pageable pageable) {
-        log.info("Get sections page");
         Page<Section> sections = sectionService.findSections(pageable);
         Page<SectionDto> dtos = modelMapper.mapPage(sections, SectionDto.class);
         model.addAttribute("sections", dtos);
         return Routes.Views.ADMIN_SECTIONS_PANEL;
     }
 
-    @GetMapping(value = "/create")
+    @GetMapping(value = "/new")
     public String getNewSectionForm(Model model) {
         model.addAttribute("newSection", new NewSectionForm());
-        return "new_section_form";
+        return "sections/new_section_form";
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/new")
     public String processAndAddNewSection(
-            @Valid
-            @ModelAttribute("newSection") NewSectionForm newSection,
-            BindingResult result) {
-
+            @Valid @ModelAttribute("newSection") NewSectionForm newSection,
+            BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
-            return "new_section_form";
+            model.mergeAttributes(result.getModel());
+            return "sections/new_section_form";
         }
 
         Section section = new Section();
         section.setName(newSection.getName());
         section.setDescription(newSection.getDescription());
         section = sectionService.save(section);
-        return "redirect:/a/sections/" + section.getId();
+        return "redirect:/sections/" + section.getId();
     }
 
     @DeleteMapping(value = "/{id}/delete")
