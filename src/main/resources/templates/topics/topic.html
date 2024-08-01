@@ -42,16 +42,15 @@
                             <div class="divider"></div>
                         </div>
                     </div>
-                    <h6 th:if="${post.user.info != null && post.user.info.footer != null}" th:text="${topic.user.info.footer}" class="blue-grey-text lighten-3-text"></h6>
                 </div>
             </div>
 
             <div class="row" th:if="${#authentication.name} eq ${topic.user.username}">
                 <div class="col s10 right">
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/delete/} + ${topic.id}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topics/delete/} + ${topic.id}">
                         <i class="material-icons white black-text">delete</i>
                     </a>
-                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/edit/} + ${topic.id}">
+                    <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topics/edit/} + ${topic.id}">
                         <i class="material-icons white black-text">mode_edit</i>
                     </a>
                 </div>
@@ -77,7 +76,7 @@
                     <div class="col s11">
                         <p
                             th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'HH:mm:ss')} + ' ' + #{page.topic.on.day} + ' ' + ${#temporals.format(post.creationDate, 'dd MMMM yyyy')} + ' ID: ' + ${post.id} "></p>
-                        <p th:utext="${#strings.replace(post.content,T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
+                        <p style="white-space: pre-line" th:text="${post.content}"></p>
                         <div th:if="${post.user.info != null && post.user.info.footer != null}" class="divider"></div>
                     </div>
                 </div>
@@ -103,7 +102,7 @@
 
         <div class="row " sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
-                <form th:action="@{/topic/} + ${topic.id}" method="POST" th:object="${newPost}">
+                <form th:action="@{/topics/} + ${topic.id}" method="POST" th:object="${newPost}">
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea th:field="*{content}" id="content" name="content" class="materialize-textarea"></textarea>

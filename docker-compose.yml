@@ -13,6 +13,7 @@ services:
       MYSQL_DATABASE: forum
       MYSQL_USER: forum
       MYSQL_PASSWORD: password
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 #  forum:
 #    container_name: forum
 #    build:

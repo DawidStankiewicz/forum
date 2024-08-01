@@ -11,8 +11,8 @@ public class AccessRules {
 
     protected static final String[] FOR_AUTHORIZED_USERS = {
             "/user/**",
-            "/topic/new/**",
-            "/topic/delete/**",
+            "/topics/new/**",
+            "/topics/delete/**",
             "/section/delete/**",
             "/section/new/**",
             "/post/**",

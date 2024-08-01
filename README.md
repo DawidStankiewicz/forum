@@ -8,13 +8,13 @@ Example of simple CRUD web application.
 - Creating a user profile at [/registration](http://localhost:8080/forum/registration).
 - Displaying at the homepage: all existing sections, recent topics and recent posts.
 - Displaying all topics from section at [/section/{id}](http://localhost:8080/forum/section/1).
-- Displaying topic and posts at [/topic/{id}](http://localhost:8080/forum/topic/1).
+- Displaying topic and posts at [/topics/{id}](http://localhost:8080/forum/topics/1).
 
 ### Only for authorized user (ROLE_USER):
 - Displaying of user profiles at [/user/{username}](http://localhost:8080/forum/user/user) or [/user/id/{id}](http://localhost:8080/forum/user/id/1). Displaying your own profile at [/myprofile](http://localhost:8080/forum/myprofile).
 - Editing your profile at [/myprofile/edit](http://localhost:8080/forum/myprofile/edit).
 - Removal user profile at [/myprofile/delete](http://localhost:8080/forum/myprofile/delete). This operation requires a password confirmation.
-- Creating new topic at [/topic/new](http://localhost:8080/forum/topic/new).
+- Creating new topic at [/topics/new](http://localhost:8080/forum/topics/new).
 - Creating posts at topic page.
 - Removal own topics and posts by button at topic page.
 

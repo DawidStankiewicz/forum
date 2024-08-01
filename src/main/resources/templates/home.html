@@ -57,7 +57,7 @@
                     <div class="row" th:each="topic : ${topics}">
                         <div class="col s12">
                             <div class="section">
-                                <a th:href="@{/topic/} + ${topic.id}">
+                                <a th:href="@{/topics/} + ${topic.id}">
                                     <span th:text="'@' + ${topic.user.username} + ': ' + ${topic.title}"></span> <span
                                         class="right"
                                         th:text="${topic.creationDate} ? ${#temporals.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span>
@@ -92,7 +92,7 @@
                     <div class="row" th:each="post : ${posts}">
                         <div class="col s12">
                             <div class="section">
-                                <a th:href="@{/topic/} + ${post.topic.id}">
+                                <a th:href="@{/topics/} + ${post.topic.id}">
                                     <span th:text="'@' + ${post.user.username} + ' ' + #{reply.to} + ' ' + ${post.topic.title}"></span>
                                     <span class="right"
                                           th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'dd MMMM yyyy HH:mm')}"></span>

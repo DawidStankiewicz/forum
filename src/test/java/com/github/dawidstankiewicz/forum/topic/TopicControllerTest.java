@@ -74,7 +74,7 @@ public class TopicControllerTest {
         Section section = Section.builder().build();
         doReturn(section).when(sectionService).findOne(sectionId);
         doReturn(Topic.builder().id(1).build()).when(topicService).createNewTopic(any(), eq(user), eq(section));
-        String expectedRedirect = "redirect:/topic/1";
+        String expectedRedirect = "redirect:/topics/1";
         //when
         String result = controller.processAndAddNewTopic(sectionId, new NewTopicForm(), bindingResult, authentication, model);
         //then

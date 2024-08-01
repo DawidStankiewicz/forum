@@ -34,7 +34,7 @@
                                                           th:href="@{/hello}">Sign in</a></li>
 
 
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/topics/new}">New topic</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
                 <!-- Admin Dropdown Trigger -->
                 <li sec:authorize="hasAuthority('ADMIN')"><a

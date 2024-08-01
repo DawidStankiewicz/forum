@@ -73,7 +73,7 @@ public class TopicController {
         postService.save(post);
 
         model.asMap().clear();
-        return "redirect:/topic/" + idTopic;
+        return "redirect:/topics/" + idTopic;
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -99,7 +99,7 @@ public class TopicController {
         User user = userService.findByEmailOrExit(authentication.getName());
         Section section = sectionService.findOne(selectedSectionId);
         Topic topic = topicService.createNewTopic(newTopic, user, section);
-        return "redirect:/topic/" + topic.getId();
+        return "redirect:/topics/" + topic.getId();
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
@@ -112,7 +112,7 @@ public class TopicController {
             return "redirect:/";
         }
         if (!authentication.getName().equals(topic.getUser().getEmail())) {
-            return "redirect:/topic/" + id;
+            return "redirect:/topics/" + id;
         }
 
         topicService.delete(topic);

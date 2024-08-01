@@ -102,7 +102,7 @@
                                             <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}" class="right"></a>
                                         </div>
                                         <div class="col s6">
-                                            <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.title}"></a>
+                                            <a th:href="@{/topics/} + ${topic.id}" th:text="${topic.title}"></a>
                                             <span th:text="${topic.views}" class="right"></span>
                                         </div>
                                     </div>
@@ -135,10 +135,10 @@
                                     <div class="row" th:each="post : ${userProfile.posts}">
                                         <div class="col s6 right-align">
                                             <span th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
-                                            <a th:href="@{/topic/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
+                                            <a th:href="@{/topics/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
                                         </div>
                                         <div class="col s6">
-                                            <a th:href="@{/topic/} + ${post.topic.id} + '#' + ${post.id}" th:text="${post.content}" class="truncate"></a>
+                                            <a th:href="@{/topics/} + ${post.topic.id} + '#' + ${post.id}" th:text="${post.content}" class="truncate"></a>
                                         </div>
                                     </div>
                                 </div>
