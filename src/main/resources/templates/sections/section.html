@@ -2,26 +2,25 @@
 <html th:lang="${#locale.language}"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head th:replace="fragments/head-bootstrap :: head">
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="container">
+<div class="container min-vh-100">
     <div th:replace="fragments/messages :: messages"></div>
 
-    <div class="row"
-         style="padding-top: 1rem">
-        <div class="col s12">
+    <div class="row mt-4">
+        <div class="col">
             <!-- NAME -->
             <h1 th:text="${section.name}"></h1>
             <!-- DESC-->
             <p th:text="${section.description}"></p>
 
             <!-- CONTROLS -->
-            <div class="row">
+            <div class="mb-3">
                 <a th:href="@{/topics/new}" th:text="#{section.add.new.topic}"
-                   class="waves-effect waves-light btn"></a>
+                   class="btn btn-primary"></a>
             </div>
             <!-- TOPICS -->
             <div class="row topics-container">
@@ -34,6 +33,9 @@
                 </div>
             </div>
 
+            <th:block th:if="${topics.isEmpty()}">
+                <div class="alert alert-warning" th:text="#{section.noTopics}"></div>
+            </th:block>
 
         </div>
     </div>

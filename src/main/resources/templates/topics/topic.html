@@ -100,7 +100,7 @@
 
         <!-- SECTION REPLY -->
 
-        <div class="row " sec:authorize="isAuthenticated()">
+        <div class="row" sec:authorize="isAuthenticated()">
             <div class="col s10 z-depth-1 right">
                 <form th:action="@{/topics/} + ${topic.id}" method="POST" th:object="${newPost}">
                     <div class="row">
