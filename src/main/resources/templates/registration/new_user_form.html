@@ -1,111 +1,107 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="fragments/head :: head" >
-</head >
-<body >
-<nav th:replace="fragments/navbar :: navbar" ></nav >
-<div class="container" >
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-bootstrap :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
 
-    <div th:replace="fragments/messages :: messages" ></div >
+    <div th:replace="fragments/messages :: messages"></div>
 
-    <div class="row"
-         style="padding-top: 1rem" >
-        <div class="col s12 m6 offset-m3 l4 offset-l4" >
-            <div class="card-panel" >
-                <div class="row" >
-                    <div class="col s12" >
-                        <h5 class="center-align"
-                            th:text="#{registration.formTitle}" >Registration</h5 >
+    <div class="row justify-content-md-center my-5">
+        <div class="col-md-auto">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"
+                        th:text="#{registration.formTitle}">Registration</h5>
 
-                        <form class="col s12"
-                              name='f'
-                              th:action='@{/new-user}'
-                              th:object="${userRegistrationForm}"
-                              method="POST" >
-                            <div class="row" >
+                    <form name='f'
+                          th:action='@{/new-user}'
+                          th:object="${userRegistrationForm}"
+                          method="POST">
 
-                                <div class="row" >
-                                    <div class="input-field col s12" >
-                                        <input th:name="email"
-                                               th:value="${email != null ? email : userRegistrationForm.email}"
-                                               id="email"
-                                               name='email'
-                                               type="email"
-                                               class="validate"
-                                               required
-                                               autofocus
-                                        />
-                                        <label for="username"
-                                               th:text="#{user.email}" >Email
-                                        </label >
-                                        <span class="helper-text"
-                                              th:data-error="#{error.invalidEmail}" ></span >
-                                        <p th:if="${#fields.hasErrors('email')}"
-                                           th:errors="*{email}"
-                                           class="red-text" ></p >
-                                    </div >
-                                </div >
+                        <div class="mb-3">
+                            <label for="username"
+                                   class="form-label"
+                                   th:text="#{user.email}">Email
+                            </label>
+                            <input th:name="email"
+                                   th:value="${email != null ? email : userRegistrationForm.email}"
+                                   id="email"
+                                   name='email'
+                                   type="email"
+                                   class="form-control"
+                                   required
+                                   autofocus
+                            />
+                            <span class="helper-text"
+                                  th:data-error="#{error.invalidEmail}"></span>
+                            <p th:if="${#fields.hasErrors('email')}"
+                               th:errors="*{email}"
+                               class="red-text"></p>
+                        </div>
 
-                                <div class="row" >
-                                    <div class="input-field col s12" >
-                                        <input th:field="*{username}"
-                                               id="username"
-                                               name='username'
-                                               type="text"
-                                               class="validate"
-                                               required />
-                                        <label for="username"
-                                               th:text="#{user.username}" >Username
-                                        </label >
-                                        <span class="helper-text"
-                                              th:data-error="#{error.invalidUsername}" ></span >
-                                        <p th:if="${#fields.hasErrors('username')}"
-                                           th:errors="*{username}"
-                                           class="red-text" ></p >
-                                    </div >
-                                </div >
+                        <div class="mb-3">
+                            <label for="username"
+                                   class="form-label"
+                                   th:text="#{user.username}">Username
+                            </label>
+                            <input th:field="*{username}"
+                                   id="username"
+                                   name='username'
+                                   type="text"
+                                   class="form-control"
+                                   required/>
+                            <span class="helper-text"
+                                  th:data-error="#{error.invalidUsername}"></span>
+                            <p th:if="${#fields.hasErrors('username')}"
+                               th:errors="*{username}"
+                               class="red-text"></p>
+                        </div>
 
-                                <div class="row" >
-                                    <div class="input-field col s12" >
-                                        <input th:field="*{password}"
-                                               id="password"
-                                               name='password'
-                                               type="password"
-                                               class="validate"
-                                               required />
-                                        <label for="password"
-                                               th:text="#{user.password}" >Password
-                                        </label >
-                                        <span class="helper-text"
-                                              th:data-error="#{error.invalidPassword}" ></span >
-                                        <p th:if="${#fields.hasErrors('password')}"
-                                           th:errors="*{password}"
-                                           class="red-text" >Invalid password!</p >
-                                    </div >
-                                </div >
+                        <div class="mb-3">
+                            <div class="input-field col s12">
+                                <label for="password"
+                                       class="form-label"
+                                       th:text="#{user.password}">Password
+                                </label>
+                                <input th:field="*{password}"
+                                       id="password"
+                                       name='password'
+                                       type="password"
+                                       class="form-control"
+                                       required/>
+                                <span class="helper-text"
+                                      th:data-error="#{error.invalidPassword}"></span>
+                                <p th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}"
+                                   class="red-text">Invalid password!</p>
+                            </div>
+                        </div>
 
-                                <button class="btn waves-effect waves-light right"
-                                        type="submit"
-                                        name="action"
-                                        th:text="#{button.register}" >
-                                </button >
+                        <div class="d-grid">
 
-                            </div >
-                        </form >
-                    </div >
-                </div >
-            </div >
-            <p class="center-align" >
+                            <button class="btn btn-primary"
+                                    type="submit"
+                                    name="action"
+                                    th:text="#{button.register}">
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <p class="text-center">
                 <span th:text="#{registration.loginInstead.question}"
-                      class="grey-text" ></span >
+                      class="grey-text"></span>
                 <a th:href="@{/login}"
-                   th:text="#{registration.loginInstead.url}" ></a >
-            </p >
-        </div >
-    </div >
+                   th:text="#{registration.loginInstead.url}"></a>
+            </p>
+        </div>
+    </div>
 
-</div >
-<footer th:replace="fragments/footer :: footer" ></footer >
-</body >
-</html >
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

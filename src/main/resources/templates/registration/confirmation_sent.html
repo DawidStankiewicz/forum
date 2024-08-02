@@ -1,29 +1,28 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html th:lang="${#locale.language}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head th:replace="fragments/head :: head">
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-bootstrap :: head">
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
     <div th:replace="fragments/messages :: messages"></div>
 
-    <div class="row" style="padding-top: 1rem">
-        <div class="col s12 m6 offset-m3">
-            <div class="card-panel">
-                <div class="row">
-                    <div class="col s12">
+    <div class="row justify-content-center my-5">
+        <div class="col col-lg-8 col-xl-6">
+            <div class="card">
+                <div class="card-body">
 
-                        <h4 th:if="${username != null}">
-                            <span th:text="#{registration.niceToMeetYou}"></span> <span
-                                th:text="${username}"></span>!
-                        </h4>
+                    <img class="card-img-top mb-2" src="https://images.unsplash.com/photo-1466096115517-bceecbfb6fde?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
-                        <p th:text="#{registration.emailConfirmationSent}"></p>
+                    <h4 class="card-title" th:if="${username != null}">
+                        <span th:text="#{registration.niceToMeetYou}"></span> <span
+                            th:text="${username}"></span>!
+                    </h4>
 
-                    </div>
+                    <p class="card-text" th:text="#{registration.emailConfirmationSent}"></p>
+
                 </div>
             </div>
         </div>
