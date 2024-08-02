@@ -76,7 +76,7 @@ public class TopicControllerTest {
         doReturn(Topic.builder().id(1).build()).when(topicService).createNewTopic(any(), eq(user), eq(section));
         String expectedRedirect = "redirect:/topics/1";
         //when
-        String result = controller.processAndAddNewTopic(sectionId, new NewTopicForm(), bindingResult, authentication, model);
+        String result = controller.processAndAddNewTopic(NewTopicForm.builder().sectionId(sectionId).build(), bindingResult, authentication, model);
         //then
         assertEquals(expectedRedirect, result);
         verify(userService).findByUsername(any());
@@ -91,7 +91,7 @@ public class TopicControllerTest {
         doReturn(true).when(bindingResult).hasErrors();
         String expectedRedirect = "topics/new_topic_form";
         //when
-        String result = controller.processAndAddNewTopic(sectionId, new NewTopicForm(), bindingResult, authentication, model);
+        String result = controller.processAndAddNewTopic(NewTopicForm.builder().sectionId(sectionId).build(), bindingResult, authentication, model);
         //then
         assertEquals(expectedRedirect, result);
         verifyNoInteractions(userService);

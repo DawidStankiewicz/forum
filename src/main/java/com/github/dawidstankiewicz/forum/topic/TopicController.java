@@ -11,15 +11,13 @@ import com.github.dawidstankiewicz.forum.section.SectionService;
 import com.github.dawidstankiewicz.forum.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -77,27 +75,28 @@ public class TopicController {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping(value = "/sections/{sectionId}/topics/new", method = RequestMethod.GET)
-    public String getNewTopicForm(@PathVariable int sectionId, Model model) {
-        model.addAttribute("selectedSection", sectionService.findOne(sectionId));
+    @GetMapping(value = {"/topics/new"})
+    public String getNewTopicForm(@Param("sectionId") Integer sectionId, Model model) {
+        if (sectionId != null) {
+            model.addAttribute("selectedSection", sectionService.findOne(sectionId));
+        }
         model.addAttribute("newTopic", NewTopicForm.builder().sectionId(sectionId).build());
         model.addAttribute("sections", sectionService.findAll());
         return "topics/new_topic_form";
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping(value = "/sections/{selectedSectionId}/topics/new", method = RequestMethod.POST)
-    public String processAndAddNewTopic(@PathVariable int selectedSectionId,
-                                        @Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
+    @PostMapping(value = "/topics/new")
+    public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
                                         BindingResult result,
                                         Authentication authentication,
                                         Model model) {
         log.info("Create new topic requested by user: " + authentication.getName());
         if (result.hasErrors()) {
-            return getNewTopicForm(selectedSectionId, model);
+            return getNewTopicForm(newTopic.getSectionId(), model);
         }
         User user = userService.findByEmailOrExit(authentication.getName());
-        Section section = sectionService.findOne(selectedSectionId);
+        Section section = sectionService.findOne(newTopic.getSectionId());
         Topic topic = topicService.createNewTopic(newTopic, user, section);
         return "redirect:/topics/" + topic.getId();
     }

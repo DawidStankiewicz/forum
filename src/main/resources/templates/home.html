@@ -3,113 +3,146 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/head :: head">
+<head th:replace="fragments/head-bootstrap :: head">
 </head>
 <body>
+
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="container">
+
+<div class="container" style="min-height: 80vh">
     <div th:replace="fragments/messages :: messages"></div>
 
     <!-- SECTIONS -->
+    <th:block th:if="${sections.size() > 0}">
 
-    <div class="row" th:if="${sections.size() > 0}">
-        <div class="col s12">
-            <div class="col s12">
-                <h4 th:text="#{sections}">Sections</h4>
-            </div>
-            <div class="row" id="sections">
-                <div class="col s12">
-                    <a sec:authorize="hasAnyAuthority('MOD')" th:href="@{/a/sections/new}" th:text="#{new.section}"
-                       class="waves-effect waves-light btn"></a>
+
+        <div class="row">
+            <div class="col">
+                <div class="col pt-5">
+                    <h1 th:text="#{sections}">Sections</h1>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col s12">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li th:each="section : ${sections}">
-                            <div class="collapsible-header">
-                                <a th:href="@{/sections/} + ${section.id}" th:text="${section.name}"></a>
-                            </div>
-                            <div class="collapsible-body">
-                                <p th:text="${section.description}"></p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div sec:authorize="hasAnyAuthority('MOD')" class="col pb-4">
+                        <a class="btn btn-secondary" th:href="@{/a/sections/new}" th:text="#{new.section}"></a>
+                    </div>
+                </div>
+
+                <div class="row row-cols-auto">
+                    <div class="col my-3" th:each="section : ${sections}">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" alt="section image"
+                                 src="https://unsplash.com/photos/1_CMoFsPfso/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzIyNTQzODU3fA&force=true&w=640"/>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${section.name}"></h5>
+                            <p class="card-text" th:text="${section.description}"></p>
+                            <a class="btn btn-primary" th:href="@{/sections/} + ${section.id}">View section</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    </th:block>
+    <!-- END SECTIONS -->
 
 
     <!-- RECENT TOPICS -->
 
-    <div class="row" th:if="${topics.size() > 0}" id="recent-topics">
-        <div class="col s12">
-            <div class="row">
-                <div class="col s12">
-                    <h4 th:text="#{recent.topics}">Recent topics</h4>
-                    <div class="divider"></div>
+    <th:block th:if="${topics.size() > 0}">
+        <div class="row mt-5" id="recent-topics">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h1 th:text="#{recent.topics}">Recent topics</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="row" th:each="topic : ${topics}">
-                        <div class="col s12">
-                            <div class="section">
-                                <a th:href="@{/topics/} + ${topic.id}">
-                                    <span th:text="'@' + ${topic.user.username} + ': ' + ${topic.title}"></span> <span
-                                        class="right"
-                                        th:text="${topic.creationDate} ? ${#temporals.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span>
 
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="divider"></div>
-                        </div>
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <tbody>
+                            <tr th:each="topic : ${topics}">
+                                <td>
+                                    <div class="row">
+                                        <h4>
+                                            <a class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                               th:href="@{/topics/} + ${topic.id}" th:text="${topic.title}"></a>
+                                        </h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-end">
+                                            <span th:text="'@' + ${topic.user.username}"></span> to
+                                            <a th:href="@{/sections/} + ${topic.section.id}"
+                                               th:text="${topic.section.name}"></a>,
+                                            <span th:text="${topic.creationDate} ? ${#temporals.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </th:block>
 
-    <div class="row" th:if="${topics.size() == 0}">
-        <h4 th:text="#{recent.noTopics}">There are no topics yet.</h4>
-    </div>
+    <th:block th:if="${topics.size() == 0}">
+        <div class="row">
+            <div class="col p-2">
+                <h4 th:text="#{recent.noTopics}">There are no topics yet.</h4>
+                <a class="btn btn-primary" th:href="@{/topics/new}">Create new topic</a>
+            </div>
+        </div>
+    </th:block>
+    <!-- END RECENT TOPICS -->
 
     <!-- RECENT POSTS -->
 
-    <div class="row" th:if="${posts.size() > 0}" id="recent-posts">
-        <div class="col s12">
-            <div class="row">
-                <div class="col s12">
-                    <h4 th:text="#{recent.posts}">Recent postss</h4>
-                    <div class="divider"></div>
+    <th:block th:if="${posts.size() > 0}">
+        <div class="row" id="recent-posts">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <h1 th:text="#{recent.posts}">Recent posts</h1>
+                        <div class="divider"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="row" th:each="post : ${posts}">
-                        <div class="col s12">
-                            <div class="section">
-                                <a th:href="@{/topics/} + ${post.topic.id}">
-                                    <span th:text="'@' + ${post.user.username} + ' ' + #{reply.to} + ' ' + ${post.topic.title}"></span>
-                                    <span class="right"
-                                          th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'dd MMMM yyyy HH:mm')}"></span>
-                                    <span class="truncate"
-                                          th:text="${post.content}"></span>
-                                </a>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row" th:each="post : ${posts}">
+                            <div class="col s12">
+                                <div class="section">
+                                    <a th:href="@{/topics/} + ${post.topic.id}">
+                                        <span th:text="'@' + ${post.user.username} + ' ' + #{reply.to} + ' ' + ${post.topic.title}"></span>
+                                        <span class="right"
+                                              th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'dd MMMM yyyy HH:mm')}"></span>
+                                        <span class="truncate"
+                                              th:text="${post.content}"></span>
+                                    </a>
+                                </div>
+                                <div class="divider"></div>
                             </div>
-                            <div class="divider"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </th:block>
 
+    <!-- END RECENT POSTS -->
 </div>
-<footer th:replace="fragments/footer :: footer"></footer>
+
+<footer th:replace="fragments/footer :: footer">
+
+</footer>
+
 </body>
 </html>

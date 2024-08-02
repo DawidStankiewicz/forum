@@ -8,51 +8,63 @@
 
 <body>
 <th:block th:fragment="navbar">
-    <!-- Admin Dropdown Structure -->
-    <ul sec:authorize="hasAuthority('ADMIN')"
-        id="navbar-admin-dropdown"
-        class="dropdown-content">
-        <li sec:authorize="hasAuthority('ADMIN')"><a th:text="#{navbar.adminDropdown.sections}"
-                                                     th:href="@{/a/sections}">Sections</a></li>
-        <li sec:authorize="hasAuthority('ADMIN')"><a th:text="#{navbar.adminDropdown.users}"
-                                                     th:href="@{/users}">Users</a></li>
-    </ul>
-
     <nav
-         class="primary">
-        <div class="nav-wrapper">
+            class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
             <a th:href=" @{~/}"
-               class="brand-logo"
-               style="margin-left: 10px;"> Forum</a>
-
-            <ul id="nav-mobile"
-                class="right hide-on-med-and-down">
-
-                <li sec:authorize="!isAuthenticated()"><a th:text="#{navbar.login}"
-                                                          th:href="@{/hello}">Sign up</a></li>
-                <li sec:authorize="!isAuthenticated()"><a th:text="#{navbar.register}"
-                                                          th:href="@{/hello}">Sign in</a></li>
+               class="navbar-brand">Forum</a>
 
 
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/topics/new}">New topic</a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
-                <!-- Admin Dropdown Trigger -->
-                <li sec:authorize="hasAuthority('ADMIN')"><a
-                        class="navbar-admin-dropdown-trigger"
-                        href="#!"
-                        data-target="navbar-admin-dropdown">
-                    <span th:text="#{navbar.adminDropdown.trigger}"></span>
-                    <i class="material-icons right">arrow_drop_down</i>
-                </a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <a class="btn me-1"
+                           th:text="#{navbar.login}"
+                           th:href="@{/hello}">Sign up</a>
+
+                        <a class="btn btn-primary"
+                           th:text="#{navbar.register}"
+                           th:href="@{/hello}">Sign in</a>
+                    </th:block>
+
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/topics/new}">New
+                        topic</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/myprofile}">My
+                        Profile</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+                        <a
+                                class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <span th:text="#{navbar.adminDropdown.trigger}"></span>
+                        </a>
+
+                        <ul sec:authorize="hasAuthority('ADMIN')"
+                            class="dropdown-menu">
+                            <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item"
+                                                                         th:text="#{navbar.adminDropdown.sections}"
+                                                                         th:href="@{/a/sections}">Sections</a></li>
+                            <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item"
+                                                                         th:text="#{navbar.adminDropdown.users}"
+                                                                         th:href="@{/users}">Users</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+
         </div>
     </nav>
-    <script>
-        $( document ).ready(function() {
-            $(".navbar-admin-dropdown-trigger").dropdown();
-        });
-    </script>
 </th:block>
 
 </body>
