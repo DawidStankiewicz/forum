@@ -23,12 +23,12 @@
                    class="btn btn-primary"></a>
             </div>
             <!-- TOPICS -->
-            <div class="row topics-container">
-                <div class="col s12 topic-wrapper" th:each="topic : ${topics}" th:id="${topic.id}">
-                    <div class="row">
-                        <div class="col s12">
-                            <a th:href="@{/topics/} + ${topic.id}"><h3 th:text="${topic.title}"></h3></a>
-                        </div>
+            <div class="card my-3" th:each="topic : ${topics}" th:id="${topic.id}">
+                <div class="card-body">
+                    <a class="card-title link-underline link-underline-opacity-0 link-underline-opacity-75-hover" th:href="@{/topics/} + ${topic.id}"><h3 th:text="${topic.title}"></h3></a>
+                    <div class="card-text text-end" >
+                        <span th:text="${topic.user.username}"></span> @
+                        <span th:text="${topic.creationDate != null} ? ${#temporals.format(topic.creationDate, 'HH:mm dd MMMM yyyy')} : ''"></span>
                     </div>
                 </div>
             </div>

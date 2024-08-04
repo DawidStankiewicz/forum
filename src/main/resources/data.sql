@@ -1,3 +1,6 @@
+
+DELETE FROM forum.posts;
+DELETE FROM forum.topics;
 DELETE FROM forum.sections;
 DELETE FROM forum.user_roles;
 DELETE FROM forum.roles;
