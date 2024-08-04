@@ -45,12 +45,12 @@ public class PostService {
         return postRepository.findByUser(user);
     }
     
-    public Set<Post> findByTopic(int idTopic) {
+    public List<Post> findByTopic(int idTopic) {
         return findByTopic(topicService.findOne(idTopic));
     }
     
-    public Set<Post> findByTopic(Topic topic) {
-        return postRepository.findByTopic(topic);
+    public List<Post> findByTopic(Topic topic) {
+        return postRepository.findByTopicOrderByCreationDate(topic);
     }
     
     public void save(Post post) {

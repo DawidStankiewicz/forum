@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -44,7 +47,9 @@ public class TopicController {
         topic.setViews(topic.getViews() + 1);
 
         model.addAttribute("topic", topic);
-        model.addAttribute("posts", postService.findByTopic(idTopic));
+        List<Post> posts = postService.findByTopic(idTopic);
+        model.addAttribute("topicPost", posts.get(0));
+        model.addAttribute("posts", posts.stream().skip(1).collect(Collectors.toList()));
         model.addAttribute("newPost", new NewPostForm());
         return "topics/topic";
     }
