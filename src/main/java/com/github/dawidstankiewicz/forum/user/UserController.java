@@ -76,7 +76,7 @@ public class UserController {
         User user = userService.findByUsername(authentication.getName());
         try {
             String path =
-                request.getSession().getServletContext().getRealPath("/resources/public/img/pp/");
+                request.getSession().getServletContext().getRealPath("/resources/uploads/avatars/");
             profilePicture.transferTo(new File(path + user.getId() + ".jpg"));
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();

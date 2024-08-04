@@ -6,23 +6,33 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
-    <div class="container">
+    <div class="container min-vh-100">
         <div th:replace="fragments/messages :: messages"></div>
 
-        <div class="row z-depth-1" style="margin-bottom: 40px; padding: 10px;">
-            <div class="col s12">
-                <h5>
-                    <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}"></a>
-                    : : <span th:text="${topic.title}"></span>
-                </h5>
+
+        <nav class="my-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href=" @{~/}" th:text="#{homePage}"></a></li>
+                <li class="breadcrumb-item"><a th:href="@{/sections/} + ${topic.section.id}" th:text="${topic.section.name}"></a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span th:text="${topic.title}"></span></li>
+            </ol>
+        </nav>
+
+
+        <!-- TOPIC  -->
+
+        <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-11">
+
             </div>
         </div>
 
 
 
-        <!-- TOPIC  -->
-
-        <div class="row z-depth-1">
+        <div class="row">
             <div class="row">
                 <!-- L -->
                 <div class="col s2  center">
