@@ -1,6 +1,19 @@
 # **Project Forum**
-Simple forum created using Spring Boot framework and Thymeleaf.
+Simple forum created using Spring Boot and Thymeleaf.
 Example of simple CRUD web application. 
+
+## Technologies used
+- Spring Boot
+- Spring Security
+- Spring JPA & Hibernate
+- Thymeleaf
+- Bootstrap 5
+- Sass (SCSS)
+- Lombok
+- Docker
+- Docker Compose
+- MySQL
+- Node.js (gulp)
 
 
 ## Current functions
@@ -25,34 +38,6 @@ Example of simple CRUD web application.
 ## Configuration
 Example application properties are in the `application.example.properties` file.
 Befroe build Forum or run tests you have to create `application.properties` files.
-
-```properties
-## Database connection ##
-spring.datasource.url=jdbc:mysql://localhost:3306/forum
-spring.datasource.username=forum
-spring.datasource.password=password
-
-## Hibernate ##
-spring.jpa.hibernate.ddl-auto=create
-spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
-## Thymeleaf ##
-spring.thymeleaf.cache=false
-spring.messages.basename=messages/messages
-
-## Static resources ##
-spring.mvc.static-path-pattern=/resources/**
-
-## Email ##
-spring.mail.properties.mail.smtp.starttls.enable=true
-spring.mail.properties.mail.smtp.starttls.required=true
-spring.mail.transport.protocol=stmp
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=### EMAIL ###
-spring.mail.password=### PASSWORD ### 
-spring.mail.smtp.auth=true
-```
 
 ## Development Setup
 
