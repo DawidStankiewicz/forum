@@ -1,7 +1,7 @@
 package com.github.dawidstankiewicz.forum.section;
 
 
-import com.github.dawidstankiewicz.forum.config.Routes;
+import com.github.dawidstankiewicz.forum.config.Templates;
 import com.github.dawidstankiewicz.forum.model.ForumModelMapper;
 import com.github.dawidstankiewicz.forum.model.dto.NewSectionForm;
 import com.github.dawidstankiewicz.forum.model.dto.SectionDto;
@@ -33,7 +33,7 @@ public class SectionAdminController {
         Page<Section> sections = sectionService.findSections(pageable);
         Page<SectionDto> dtos = modelMapper.mapPage(sections, SectionDto.class);
         model.addAttribute("sections", dtos);
-        return Routes.Views.ADMIN_SECTIONS_PANEL;
+        return Templates.ADMIN_SECTIONS_PANEL;
     }
 
     @GetMapping(value = "/new")

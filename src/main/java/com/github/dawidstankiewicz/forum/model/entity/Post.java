@@ -53,7 +53,6 @@ public class Post {
     public enum ContentType {
         TEXT,
         MARKDOWN,
-        HTML
     }
 }
 

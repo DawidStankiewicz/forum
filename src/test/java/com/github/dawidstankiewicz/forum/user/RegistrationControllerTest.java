@@ -25,7 +25,7 @@ public class RegistrationControllerTest {
 
 
     @Test
-    public void shoudlReturnRegistrationFormPage() {
+    public void shouldReturnRegistrationFormPage() {
         //when
         String result = controller.userRegistrationForm(model, null);
         //then

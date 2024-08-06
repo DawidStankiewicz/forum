@@ -1,6 +1,6 @@
 package com.github.dawidstankiewicz.forum.section;
 
-import com.github.dawidstankiewicz.forum.config.Routes;
+import com.github.dawidstankiewicz.forum.config.Templates;
 import com.github.dawidstankiewicz.forum.model.ForumModelMapper;
 import com.github.dawidstankiewicz.forum.model.dto.NewSectionForm;
 import com.github.dawidstankiewicz.forum.model.dto.SectionDto;
@@ -26,11 +26,17 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SectionAdminControllerTest {
 
-    @Mock private SectionService sectionService;
-    @Mock private ForumModelMapper mapper;
-    @Mock private Model model;
-    @Mock private BindingResult bindingResult;
-    @Spy @InjectMocks private SectionAdminController controller;
+    @Mock
+    private SectionService sectionService;
+    @Mock
+    private ForumModelMapper mapper;
+    @Mock
+    private Model model;
+    @Mock
+    private BindingResult bindingResult;
+    @Spy
+    @InjectMocks
+    private SectionAdminController controller;
 
     @Test
     public void shouldReturnSectionsPage() {
@@ -49,7 +55,7 @@ public class SectionAdminControllerTest {
         //when
         String result = controller.getSectionsPage(model, pageable);
         //then
-        assertEquals(Routes.Views.ADMIN_SECTIONS_PANEL, result);
+        assertEquals(Templates.ADMIN_SECTIONS_PANEL, result);
         verify(model).addAttribute("sections", dtos);
         verify(sectionService).findSections(pageable);
         verify(mapper).mapPage(page, SectionDto.class);

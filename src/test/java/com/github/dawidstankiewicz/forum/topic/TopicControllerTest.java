@@ -4,13 +4,13 @@ import com.github.dawidstankiewicz.forum.model.dto.NewTopicForm;
 import com.github.dawidstankiewicz.forum.model.entity.Section;
 import com.github.dawidstankiewicz.forum.model.entity.Topic;
 import com.github.dawidstankiewicz.forum.model.entity.User;
+import com.github.dawidstankiewicz.forum.post.PostService;
 import com.github.dawidstankiewicz.forum.section.SectionService;
 import com.github.dawidstankiewicz.forum.user.UserService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -34,15 +34,22 @@ public class TopicControllerTest {
     @Mock
     private TopicService topicService;
     @Mock
+    private PostService postService;
+    @Mock
     private Model model;
     @Mock
     private BindingResult bindingResult;
     @Mock
     private Authentication authentication;
-    @Spy
-    @InjectMocks
     private TopicController controller;
 
+    String username = "username";
+
+    @Before
+    public void setup() {
+        doReturn(username).when(authentication).getName();
+        controller = new TopicController(postService, topicService, sectionService, userService);
+    }
 
     @Test
     public void shouldGetNewTopicForm() {
@@ -66,22 +73,21 @@ public class TopicControllerTest {
     @Test
     public void shouldCreateNewTopic() {
         //given
-        String username = "username";
         int sectionId = 12;
-        doReturn(username).when(authentication).getName();
         User user = User.builder().build();
-        doReturn(user).when(userService).findByUsername(eq(username));
+        doReturn(user).when(userService).findByEmailOrExit(eq(username));
         Section section = Section.builder().build();
         doReturn(section).when(sectionService).findOne(sectionId);
         doReturn(Topic.builder().id(1).build()).when(topicService).createNewTopic(any(), eq(user), eq(section));
         String expectedRedirect = "redirect:/topics/1";
         //when
-        String result = controller.processAndAddNewTopic(NewTopicForm.builder().sectionId(sectionId).build(), bindingResult, authentication, model);
+        String result = controller.processAndAddNewTopic(
+                NewTopicForm.builder().sectionId(sectionId).build(), bindingResult, authentication, model);
         //then
         assertEquals(expectedRedirect, result);
-        verify(userService).findByUsername(any());
+        verify(userService).findByEmailOrExit(any());
         verify(sectionService).findOne(eq(sectionId));
-        verify(topicService).createNewTopic(any(), any(), any());
+        verify(topicService).createNewTopic(any(), eq(user), eq(section));
     }
 
     @Test

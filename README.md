@@ -15,6 +15,9 @@ Example of simple CRUD web application.
 - MySQL
 - Node.js (gulp)
 
+## Spring's features demonstrated
+- custom HandlerMethodArgumentResolver - look at PathTopicArgumentResolver and @PathTopic that looks for `idTopic` in the path and resolves it into Topic object that is injected into controller's methods
+
 
 ## Current functions
 ### For everyone: 

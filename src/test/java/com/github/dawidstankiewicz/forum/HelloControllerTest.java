@@ -2,10 +2,12 @@ package com.github.dawidstankiewicz.forum;
 
 import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.UserService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,15 +21,20 @@ public class HelloControllerTest {
 
     @Mock private UserService userService;
     @Mock private RedirectAttributes model;
-    @Spy @InjectMocks private HelloController controller;
+    private HelloController controller;
+
+    @Before
+    public void setUp() {
+        controller = new HelloController(userService);
+    }
 
     @Test
-    public void shoudlReturnHelloPage() {
+    public void shouldReturnHelloPage() {
         assertEquals("hello", controller.hello());
     }
 
     @Test
-    public void shoudlRedirectToLoginPage_WhenUserExists() {
+    public void shouldRedirectToLoginPage_WhenUserExists() {
         //given
         String email = "email";
         User user = User.builder().username("username").build();
@@ -42,7 +49,7 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void shoudlRedirectToNewUserForm_WhenNewUser() {
+    public void shouldRedirectToNewUserForm_WhenNewUser() {
         //given
         String email = "email";
         User user = User.builder().build();

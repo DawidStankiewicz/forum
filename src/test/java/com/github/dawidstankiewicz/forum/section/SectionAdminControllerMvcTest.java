@@ -1,6 +1,5 @@
 package com.github.dawidstankiewicz.forum.section;
 
-import com.github.dawidstankiewicz.forum.config.Routes;
 import com.github.dawidstankiewicz.forum.security.ForumUserDetailsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +29,7 @@ public class SectionAdminControllerMvcTest {
     @Test
     public void shouldReturnSectionPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(Routes.ADMIN_SECTIONS_PANEL)
+                .get("/a/sections")
                 .param("page", "5")
                 .param("size", "10")
                 .param("sort", "id,desc")   // <-- no space after comma!

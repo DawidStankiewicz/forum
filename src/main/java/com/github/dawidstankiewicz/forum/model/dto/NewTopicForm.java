@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 public class NewTopicForm {
     @NotEmpty
     private String title;
+    @NotEmpty
     private Integer sectionId;
     @NotEmpty
     private String content;
