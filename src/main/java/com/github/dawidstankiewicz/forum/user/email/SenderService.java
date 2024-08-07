@@ -16,8 +16,11 @@ import javax.mail.internet.MimeMessage;
 @Slf4j
 public class SenderService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
+
+    public SenderService(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     @Async
     public void sendEmail(EmailMessage emailMessage) {

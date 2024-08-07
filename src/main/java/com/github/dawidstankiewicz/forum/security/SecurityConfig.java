@@ -18,12 +18,15 @@ import static com.github.dawidstankiewicz.forum.security.AccessRules.*;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private ForumUserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private CsrfTokenRepository csrfTokenRepository;
+    private final ForumUserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final CsrfTokenRepository csrfTokenRepository;
+
+    public SecurityConfig(ForumUserDetailsService userDetailsService, PasswordEncoder passwordEncoder, CsrfTokenRepository csrfTokenRepository) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.csrfTokenRepository = csrfTokenRepository;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

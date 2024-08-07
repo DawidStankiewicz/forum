@@ -25,8 +25,13 @@ import javax.validation.Valid;
 @Slf4j
 public class SectionAdminController {
 
-    @Autowired private SectionService sectionService;
-    @Autowired private ForumModelMapper modelMapper;
+    private final SectionService sectionService;
+    private final ForumModelMapper modelMapper;
+
+    public SectionAdminController(SectionService sectionService, ForumModelMapper modelMapper) {
+        this.sectionService = sectionService;
+        this.modelMapper = modelMapper;
+    }
 
     @GetMapping
     public String getSectionsPage(Model model, Pageable pageable) {

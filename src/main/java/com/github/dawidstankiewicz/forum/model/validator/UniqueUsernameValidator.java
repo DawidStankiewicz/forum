@@ -9,7 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 
-    @Autowired private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UniqueUsernameValidator(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {

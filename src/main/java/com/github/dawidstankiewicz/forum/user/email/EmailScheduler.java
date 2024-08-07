@@ -6,5 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailScheduler {
 
-    @Autowired private EmailMessageRepository emailMessageRepository;
+    private final EmailMessageRepository emailMessageRepository;
+
+    public EmailScheduler(EmailMessageRepository emailMessageRepository) {
+        this.emailMessageRepository = emailMessageRepository;
+    }
 }

@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ActivationController {
 
-    @Autowired
-    private ActivationService activationService;
+    private final ActivationService activationService;
+
+    public ActivationController(ActivationService activationService) {
+        this.activationService = activationService;
+    }
 
     @RequestMapping(value = "/users/{username}/activation")
     public String activateUserAndRedirectToLoginPage(@PathVariable String username,

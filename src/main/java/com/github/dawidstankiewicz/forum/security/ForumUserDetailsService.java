@@ -20,8 +20,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ForumUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public ForumUserDetailsService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Transactional(readOnly = true)
     @Override

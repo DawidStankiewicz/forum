@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActivationService {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public ActivationService(UserService userService) {
+        this.userService = userService;
+    }
 
     public void activate(String username, String activationCodeId) {
         //todo

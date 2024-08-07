@@ -17,7 +17,11 @@ import javax.validation.Valid;
 @Slf4j
 public class RegistrationController {
 
-    @Autowired private UserRegistrationService registrationService;
+    private final UserRegistrationService registrationService;
+
+    public RegistrationController(UserRegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
 
     @GetMapping(value = "/new-user")
     public String userRegistrationForm(Model model, String error) {

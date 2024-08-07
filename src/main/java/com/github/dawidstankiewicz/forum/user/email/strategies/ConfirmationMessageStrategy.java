@@ -8,10 +8,14 @@ import org.thymeleaf.context.Context;
 @Component
 public class ConfirmationMessageStrategy {
 
-    @Autowired private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
     private final String TEMPLATE = "messages/activation_message";
     private final String ACTIVATION_CODE_VARIABLE = "activationCode";
+
+    public ConfirmationMessageStrategy(TemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
 
     //todo
     public String createMessageContent(String activationCode) {

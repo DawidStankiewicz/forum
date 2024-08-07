@@ -15,15 +15,18 @@ import java.util.Set;
 @Service
 public class PostService {
     
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
     
-    @Autowired
-    private TopicService topicService;
+    private final TopicService topicService;
     
-    @Autowired
-    private UserService userService;
-    
+    private final UserService userService;
+
+    public PostService(PostRepository postRepository, TopicService topicService, UserService userService) {
+        this.postRepository = postRepository;
+        this.topicService = topicService;
+        this.userService = userService;
+    }
+
     public Post findOne(int id) {
         // todo fix optional
         return postRepository.findById(id).get();
@@ -35,14 +38,6 @@ public class PostService {
     
     public Set<Post> findRecent() {
         return postRepository.findTop5ByOrderByCreationDateDesc();
-    }
-    
-    public Set<Post> findAllByOrderByCreationDateDesc() {
-        return postRepository.findAllByOrderByCreationDateDesc();
-    }
-    
-    public Set<Post> findByUser(User user) {
-        return postRepository.findByUser(user);
     }
     
     public List<Post> findByTopic(int idTopic) {

@@ -11,15 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserProfileService {
     
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
     
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
     
-    @Autowired
-    private TopicService topicService;
-    
+    private final TopicService topicService;
+
+    public UserProfileService(UserService userService, PostService postService, TopicService topicService) {
+        this.userService = userService;
+        this.postService = postService;
+        this.topicService = topicService;
+    }
+
     public UserProfile findOne(int userId) {
         UserProfile userProfile = new UserProfile();
         User user = userService.findOne(userId);

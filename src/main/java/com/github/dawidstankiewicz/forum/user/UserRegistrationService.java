@@ -15,9 +15,15 @@ import java.time.LocalDateTime;
 @Slf4j
 public class UserRegistrationService {
 
-    @Autowired private UserRepository userRepository;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private EmailMessageService emailMessageService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EmailMessageService emailMessageService;
+
+    public UserRegistrationService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailMessageService emailMessageService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.emailMessageService = emailMessageService;
+    }
 
     public User registerUser(UserRegistrationForm form) {
         log.info("Register new user {}, {}", form.getEmail(), form.getUsername());

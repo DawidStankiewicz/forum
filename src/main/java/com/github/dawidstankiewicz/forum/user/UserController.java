@@ -23,11 +23,14 @@ import java.io.IOException;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
+
+    public UserController(UserService userService, UserProfileService userProfileService) {
+        this.userService = userService;
+        this.userProfileService = userProfileService;
+    }
 //
 //    @RequestMapping(value = "/user/{username}")
 //    public String findUserByUsernameAndViewProfilePage(@PathVariable String username,

@@ -10,7 +10,11 @@ import java.time.LocalDateTime;
 @Service
 public class EmailMessageService {
 
-    @Autowired private EmailMessageRepository repository;
+    private final EmailMessageRepository repository;
+
+    public EmailMessageService(EmailMessageRepository repository) {
+        this.repository = repository;
+    }
 
     public void scheduleMessage(EmailMessage message) {
         message.setScheduledSentDate(LocalDateTime.now());

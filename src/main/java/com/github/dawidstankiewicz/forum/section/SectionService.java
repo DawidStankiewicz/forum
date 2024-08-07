@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class SectionService {
 
-    @Autowired
-    private SectionRepository sectionRepository;
+    private final SectionRepository sectionRepository;
+
+    public SectionService(SectionRepository sectionRepository) {
+        this.sectionRepository = sectionRepository;
+    }
 
     public List<Section> findAll() {
         return sectionRepository.findAll();

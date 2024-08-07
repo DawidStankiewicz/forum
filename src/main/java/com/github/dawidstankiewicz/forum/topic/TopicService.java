@@ -17,15 +17,18 @@ import java.util.Set;
 @Service
 public class TopicService {
     
-    @Autowired
-    private TopicRepository topicRepository;
+    private final TopicRepository topicRepository;
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
     
-    @Autowired
-    private SectionService sectionService;
-    
+    private final SectionService sectionService;
+
+    public TopicService(TopicRepository topicRepository, PostRepository postRepository, SectionService sectionService) {
+        this.topicRepository = topicRepository;
+        this.postRepository = postRepository;
+        this.sectionService = sectionService;
+    }
+
     public List<Topic> findAll() {
         return topicRepository.findAll();
     }

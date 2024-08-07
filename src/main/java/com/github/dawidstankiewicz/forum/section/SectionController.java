@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sections/")
 public class SectionController {
 
-    @Autowired private SectionService sectionService;
-    @Autowired private TopicService topicService;
+    private final SectionService sectionService;
+    private final TopicService topicService;
+
+    public SectionController(SectionService sectionService, TopicService topicService) {
+        this.sectionService = sectionService;
+        this.topicService = topicService;
+    }
 
     @RequestMapping("{id}")
     public String getSection(@PathVariable int id,
