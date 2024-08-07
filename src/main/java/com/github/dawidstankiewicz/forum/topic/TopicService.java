@@ -46,10 +46,6 @@ public class TopicService {
         return topicRepository.findBySection(section);
     }
 
-    public Set<Topic> findBySection(String sectionName) {
-        return findBySection(sectionService.findByName(sectionName));
-    }
-
     public Topic createNewTopic(NewTopicForm topicForm, User author, Section section) {
         Topic topic = Topic.builder()
                 .section(section)
@@ -63,14 +59,6 @@ public class TopicService {
                 .build();
         postRepository.save(post);
         return topic;
-    }
-    
-    public Set<Topic> findBySection(int id) {
-        return findBySection(sectionService.findOne(id));
-    }
-
-    public Set<Topic> findByUser(User user) {
-        return topicRepository.findByUser(user);
     }
 
     public void delete(int id) {

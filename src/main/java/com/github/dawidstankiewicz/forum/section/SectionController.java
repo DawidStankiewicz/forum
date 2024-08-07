@@ -1,8 +1,8 @@
 package com.github.dawidstankiewicz.forum.section;
 
 
+import com.github.dawidstankiewicz.forum.model.entity.Section;
 import com.github.dawidstankiewicz.forum.topic.TopicService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +23,10 @@ public class SectionController {
 
     @RequestMapping("{id}")
     public String getSection(@PathVariable int id,
-                                       Model model) {
-        model.addAttribute("section", sectionService.findOne(id));
-        model.addAttribute("topics", topicService.findBySection(id));
+                             Model model) {
+        Section section = sectionService.findOne(id);
+        model.addAttribute("section", section);
+        model.addAttribute("topics", topicService.findBySection(section));
         return "sections/section";
     }
 
