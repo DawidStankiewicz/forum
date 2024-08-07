@@ -18,9 +18,12 @@ Example of simple CRUD web application.
 ## Features demonstrated
 ### Spring Boot
 - custom HandlerMethodArgumentResolver - PathTopicArgumentResolver and @PathTopic that looks for `idTopic` in the path and resolves it into Topic object that is injected into controller's methods
+- custom data validation annotations - @UniqueEmail or @UniqueUsername
+- resource handler with multiple paths - path `/avatars/**` (e.g. `/avatars/person.png`)
 
 ### Thymeleaf
 - Thymeleaf templates - table template for more complex example of data binding
+- Thymeleaf and Sass
 
 ### MySQL
 - changing default collation to utf8mb4_unicode_ci - docker-compose.yml > db > command 
