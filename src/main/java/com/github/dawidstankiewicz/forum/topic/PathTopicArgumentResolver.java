@@ -1,5 +1,6 @@
 package com.github.dawidstankiewicz.forum.topic;
 
+import com.github.dawidstankiewicz.forum.exception.ResourceNotFoundException;
 import com.github.dawidstankiewicz.forum.model.entity.Topic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -32,14 +33,14 @@ public class PathTopicArgumentResolver implements HandlerMethodArgumentResolver 
         @SuppressWarnings("unchecked") Map<String, String> pathVariables = (Map<String, String>) webRequest.getAttribute(
                 HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);
         if (pathVariables == null) {
-            throw new TopicNotFoundException();
+            throw new ResourceNotFoundException();
         }
         String idStr = pathVariables.get("idTopic");
         if (idStr == null) {
-            throw new TopicNotFoundException();
+            throw new ResourceNotFoundException();
         }
         int id = Integer.parseInt(idStr);
         log.debug("Resolving topic with id {}", idStr);
-        return topicRepository.findById(id).orElseThrow(TopicNotFoundException::new);
+        return topicRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }

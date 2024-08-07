@@ -19,8 +19,8 @@
 
             <!-- CONTROLS -->
             <div class="mb-3">
-                <a th:href="@{/topics/new}" th:text="#{section.add.new.topic}"
-                   class="btn btn-primary"></a>
+                <a th:replace="fragments/buttons :: add_topic"></a>
+                <a th:replace="fragments/buttons :: edit_section (${section.id})"></a>
             </div>
             <!-- TOPICS -->
             <div class="card my-3" th:each="topic : ${topics}" th:id="${topic.id}">

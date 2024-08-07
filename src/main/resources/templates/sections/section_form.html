@@ -12,25 +12,24 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        <h5 th:text="#{section.new}"></h5>
+                        <h5 th:text="${isNew} ? #{section.new} : #{section.edit}"></h5>
                     </div>
 
-                    <form name='f' th:action='@{/a/sections/new}' th:object="${newSection}" method="POST">
+                    <form name='f' th:action="@{/a/sections/} + (${!isNew} ? ${newSection.id} : '')"
+                          th:object="${newSection}"
+                          method="POST">
                         <div class="mb-3">
-                            <div class="input-field col s12">
-                                <label class="form-label" for="name" th:text="#{section.name}"></label>
-                                <input th:field="*{name}" id="name" name='name' type="text" class="form-control"
-                                       length="50" required/>
-                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">
-                                    Incorrect
-                                    name!</p>
-                            </div>
+                            <label class="form-label" for="name" th:text="#{section.name}"></label>
+                            <input th:field="*{name}" id="name" name='name' type="text" class="form-control"
+                                   length="50" required/>
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">
+                                Incorrect name!</p>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="description" th:text="#{section.description}"></label>
                             <textarea th:field="*{description}" id="description" name='description'
-                                      class="form-control" length="150"></textarea>
+                                      class="form-control" maxlength="150"></textarea>
                             <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
                                class="text-danger">
                                 Incorrect description!</p>
@@ -38,10 +37,9 @@
 
                         <div class="d-grid">
                             <input class="btn btn-primary" type="submit" name="action"
-                                   th:value="#{button.create}"/>
+                                   th:value="${isNew} ? #{button.create} : #{button.save}"/>
 
                         </div>
-
                     </form>
                 </div>
             </div>

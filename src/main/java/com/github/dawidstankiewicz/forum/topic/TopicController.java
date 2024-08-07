@@ -79,7 +79,7 @@ public class TopicController {
     @GetMapping(value = {"/topics/new"})
     public String getNewTopicForm(@Param("sectionId") Integer sectionId, Model model) {
         if (sectionId != null) {
-            model.addAttribute("selectedSection", sectionService.findOne(sectionId));
+            model.addAttribute("selectedSection", sectionService.findOneOrExit(sectionId));
         }
         model.addAttribute("newTopic", NewTopicForm.builder().sectionId(sectionId).build());
         model.addAttribute("sections", sectionService.findAll());
@@ -97,7 +97,7 @@ public class TopicController {
             return getNewTopicForm(newTopic.getSectionId(), model);
         }
         User user = userService.findByEmailOrExit(authentication.getName());
-        Section section = sectionService.findOne(newTopic.getSectionId());
+        Section section = sectionService.findOneOrExit(newTopic.getSectionId());
         Topic topic = topicService.createNewTopic(newTopic, user, section);
         return "redirect:/topics/" + topic.getId();
     }

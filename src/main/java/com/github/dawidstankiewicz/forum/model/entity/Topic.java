@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -43,6 +44,9 @@ public class Topic {
 
     @Column
     private boolean closed;
+
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
 
     @PrePersist
     protected void onCreate() {

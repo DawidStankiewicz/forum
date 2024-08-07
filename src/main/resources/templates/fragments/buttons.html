@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+<head>
+</head>
+
+
+<body>
+<div th:fragment="add_section">
+    <div sec:authorize="hasAnyAuthority('MOD')" class="col pb-4">
+        <a class="btn btn-secondary" th:href="@{/a/sections/new}" th:text="#{new.section}"></a>
+    </div>
+</div>
+
+<a th:fragment="add_topic" th:href="@{/topics/new}" th:text="#{section.add.new.topic}" class="btn btn-primary"></a>
+
+<a th:fragment="cancel_and_return" th:text="#{button.cancel}" class="btn btn-secondary" onclick="history.go(-1)"></a>
+
+<a th:fragment="edit_section (id)" sec:authorize="hasAnyAuthority('MOD')" class="btn btn-outline-secondary"
+   th:href="@{'/a/sections/' + ${id} + '/details'}" th:text="#{section.edit}"></a>
+</body>
+</html>

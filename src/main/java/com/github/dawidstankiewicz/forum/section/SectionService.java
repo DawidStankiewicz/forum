@@ -1,12 +1,13 @@
 package com.github.dawidstankiewicz.forum.section;
 
+import com.github.dawidstankiewicz.forum.exception.ResourceNotFoundException;
 import com.github.dawidstankiewicz.forum.model.entity.Section;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,8 +23,12 @@ public class SectionService {
         return sectionRepository.findAll();
     }
 
-    public Section findOne(int id) {
-        return sectionRepository.findById(id).get();
+    public Section findOneOrExit(int id) {
+        Optional<Section> sectionOptional = sectionRepository.findById(id);
+        if (!sectionOptional.isPresent()) {
+            throw new ResourceNotFoundException();
+        }
+        return sectionOptional.get();
     }
 
     public Section findByName(String name) {
@@ -35,7 +40,7 @@ public class SectionService {
     }
 
     public void delete(int id) {
-        delete(findOne(id));
+        delete(findOneOrExit(id));
     }
 
     public void delete(Section section) {

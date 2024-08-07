@@ -2,7 +2,7 @@ package com.github.dawidstankiewicz.forum.section;
 
 import com.github.dawidstankiewicz.forum.config.Templates;
 import com.github.dawidstankiewicz.forum.model.ForumModelMapper;
-import com.github.dawidstankiewicz.forum.model.dto.NewSectionForm;
+import com.github.dawidstankiewicz.forum.model.dto.SectionForm;
 import com.github.dawidstankiewicz.forum.model.dto.SectionDto;
 import com.github.dawidstankiewicz.forum.model.entity.Section;
 import org.junit.Test;
@@ -64,7 +64,7 @@ public class SectionAdminControllerTest {
     @Test
     public void shouldAddNewSection() {
         //given
-        NewSectionForm form = NewSectionForm.builder()
+        SectionForm form = SectionForm.builder()
                 .name("name")
                 .description("desc")
                 .build();
@@ -81,7 +81,7 @@ public class SectionAdminControllerTest {
     @Test
     public void shouldNotAddNewSection_WhenFormIsInvalid() {
         //given
-        NewSectionForm form = NewSectionForm.builder()
+        SectionForm form = SectionForm.builder()
                 .name("name")
                 .description("desc")
                 .build();
@@ -91,6 +91,6 @@ public class SectionAdminControllerTest {
         //then
         verifyNoInteractions(sectionService);
         verify(bindingResult).hasErrors();
-        assertEquals("sections/new_section_form", resultView);
+        assertEquals("sections/section_form", resultView);
     }
 }

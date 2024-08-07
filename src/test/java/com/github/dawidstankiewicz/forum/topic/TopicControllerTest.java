@@ -58,7 +58,7 @@ public class TopicControllerTest {
         String expectedRedirect = "topics/new_topic_form";
         List<Section> sections = Collections.singletonList(Section.builder().build());
         doReturn(sections).when(sectionService).findAll();
-        doReturn(new Section()).when(sectionService).findOne(sectionId);
+        doReturn(new Section()).when(sectionService).findOneOrExit(sectionId);
         //when
         String result = controller.getNewTopicForm(sectionId, model);
         //then
@@ -66,7 +66,7 @@ public class TopicControllerTest {
         verify(model).addAttribute(eq("selectedSection"), any(Section.class));
         verify(model).addAttribute(eq("newTopic"), any(NewTopicForm.class));
         verify(model).addAttribute(eq("sections"), eq(sections));
-        verify(sectionService).findOne(sectionId);
+        verify(sectionService).findOneOrExit(sectionId);
         verify(sectionService).findAll();
     }
 
@@ -77,7 +77,7 @@ public class TopicControllerTest {
         User user = User.builder().build();
         doReturn(user).when(userService).findByEmailOrExit(eq(username));
         Section section = Section.builder().build();
-        doReturn(section).when(sectionService).findOne(sectionId);
+        doReturn(section).when(sectionService).findOneOrExit(sectionId);
         doReturn(Topic.builder().id(1).build()).when(topicService).createNewTopic(any(), eq(user), eq(section));
         String expectedRedirect = "redirect:/topics/1";
         //when
@@ -86,7 +86,7 @@ public class TopicControllerTest {
         //then
         assertEquals(expectedRedirect, result);
         verify(userService).findByEmailOrExit(any());
-        verify(sectionService).findOne(eq(sectionId));
+        verify(sectionService).findOneOrExit(eq(sectionId));
         verify(topicService).createNewTopic(any(), eq(user), eq(section));
     }
 

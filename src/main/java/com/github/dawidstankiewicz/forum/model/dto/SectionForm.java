@@ -11,8 +11,9 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewSectionForm {
+public class SectionForm {
 
+    private Integer id;
     @Size(min = 3)
     private String name;
     private String description;

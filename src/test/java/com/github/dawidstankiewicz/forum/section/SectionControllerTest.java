@@ -35,7 +35,7 @@ public class SectionControllerTest {
         //given
         int id = 1;
         Section section = Section.builder().id(id).build();
-        when(sectionService.findOne(id)).thenReturn(section);
+        when(sectionService.findOneOrExit(id)).thenReturn(section);
         Set<Topic> topics = Set.of(Topic.builder().id(12).build());
         when(topicService.findBySection(section)).thenReturn(topics);
         //when

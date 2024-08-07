@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -26,4 +27,6 @@ public class Section {
     @Column(length = 150)
     private String description;
 
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Topic> topics;
 }

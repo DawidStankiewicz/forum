@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/head:: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container min-vh-100">
+
+    <div class="row justify-content-md-center my-5">
+
+        <div class="col col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h5 th:text="#{confirm.delete}"></h5>
+                    </div>
+
+                    <div class="mb-3">
+                        <p th:text="#{type} + ': ' + #{${type}}"></p>
+                        <span th:text="#{name} + ': '"></span><span class="fw-bold" th:text="${name}"></span>
+                    </div>
+
+                    <form name='f' th:action="@{${deleteUrl}}"
+                          th:object="${id}"
+                          method="POST" class="text-between">
+
+                        <a th:replace="fragments/buttons :: cancel_and_return"> </a>
+
+                        <input class="btn btn-danger" type="submit" name="action"
+                               th:value="#{button.delete}"/>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
