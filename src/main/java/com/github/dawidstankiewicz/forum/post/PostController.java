@@ -1,7 +1,6 @@
 package com.github.dawidstankiewicz.forum.post;
 
 import com.github.dawidstankiewicz.forum.model.entity.Post;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,7 @@ public class PostController {
     public String delete(@PathVariable int id,
                          Authentication authentication,
                          RedirectAttributes model) {
-        Post post = postService.findOne(id);
+        Post post = postService.findOneOrExit(id);
         if (post == null || authentication == null || authentication.getName() == null
                 || !authentication.getName().equals(post.getUser().getEmail())) {
             return "redirect:/";
