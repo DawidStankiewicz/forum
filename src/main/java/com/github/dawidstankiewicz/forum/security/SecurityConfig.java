@@ -1,33 +1,32 @@
 package com.github.dawidstankiewicz.forum.security;
 
-import static com.github.dawidstankiewicz.forum.security.AccessRules.ADMINS_ROLES;
-import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_ADMINS;
-import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_AUTHORIZED_USERS;
-import static com.github.dawidstankiewicz.forum.security.AccessRules.FOR_EVERYONE;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import static com.github.dawidstankiewicz.forum.security.AccessRules.*;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private CsrfTokenRepository csrfTokenRepository;
+    private final ForumUserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final CsrfTokenRepository csrfTokenRepository;
+
+    public SecurityConfig(ForumUserDetailsService userDetailsService, PasswordEncoder passwordEncoder, CsrfTokenRepository csrfTokenRepository) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.csrfTokenRepository = csrfTokenRepository;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

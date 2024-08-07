@@ -7,10 +7,13 @@
 
 
 <body>
-    <div th:fragment="messages" class="row">
-        <div th:if="${message != null}" class="col s12 green lighten-4">
-            <p th:text="#{${message}}">Message</p>
+<div th:fragment="messages" class="row">
+    <div class="col">
+        <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+        <div th:if="${message != null}" class="alert alert-success mt-3" role="alert" th:text="#{${message}}">
         </div>
     </div>
+
+</div>
 </body>
 </html>

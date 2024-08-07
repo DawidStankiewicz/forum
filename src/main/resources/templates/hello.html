@@ -1,0 +1,53 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head:: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div th:replace="fragments/messages :: messages"></div>
+
+    <div class="row justify-content-md-center"
+         style="padding-top: 10%; padding-bottom: 10%">
+        <div class="col-md-auto">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <form name='f'
+                          th:action='@{/hello}'
+                          method="POST">
+                        <div class="mb-3">
+                            <label for="email"
+                                   class="form-label"
+                                   th:text="#{hello.emailToContinue}">Email
+                            </label>
+                            <input id="email"
+                                   name="email"
+                                   type="email"
+                                   class="form-control"
+                                   required/>
+                            <span class="form-text text-danger"
+                                  th:data-error="#{error.invalidEmail}"
+                                  data-success=""></span>
+                        </div>
+
+                        <div class="d-grid">
+
+                            <button class="btn btn-primary"
+                                    type="submit"
+                                    name="action"
+                                    th:text="#{hello.continueButton}">
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

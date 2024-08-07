@@ -1,125 +1,119 @@
-/**
- * Created by Dawid Stankiewicz on 19.07.2016
- */
 package com.github.dawidstankiewicz.forum.topic;
 
+import com.github.dawidstankiewicz.forum.model.dto.NewPostForm;
+import com.github.dawidstankiewicz.forum.model.dto.NewTopicForm;
+import com.github.dawidstankiewicz.forum.model.entity.Post;
+import com.github.dawidstankiewicz.forum.model.entity.Section;
+import com.github.dawidstankiewicz.forum.model.entity.Topic;
+import com.github.dawidstankiewicz.forum.model.entity.User;
+import com.github.dawidstankiewicz.forum.post.PostService;
 import com.github.dawidstankiewicz.forum.section.SectionService;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.dawidstankiewicz.forum.user.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.github.dawidstankiewicz.forum.post.NewPostForm;
-import com.github.dawidstankiewicz.forum.post.Post;
-import com.github.dawidstankiewicz.forum.post.PostService;
-import com.github.dawidstankiewicz.forum.user.UserService;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("/topic/")
+@Slf4j
 public class TopicController {
-    
-    @Autowired
-    private PostService postService;
-    
-    @Autowired
-    private TopicService topicService;
-    
-    @Autowired
-    private SectionService sectionService;
-    
-    @Autowired
-    private UserService userService;
-    
-    @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
-    public String getTopicById(@PathVariable int idTopic,
-                               Model model) {
-        Topic topic = topicService.findOne(idTopic);
-        topic.setViews(topic.getViews() + 1);
-        topicService.save(topic);
-        
-        model.addAttribute("topic", topic);
-        model.addAttribute("posts", postService.findByTopic(idTopic));
-        model.addAttribute("newPost", new NewPostForm());
-        return "topic";
+
+    private final PostService postService;
+    private final TopicService topicService;
+    private final SectionService sectionService;
+    private final UserService userService;
+
+    public TopicController(PostService postService, TopicService topicService, SectionService sectionService, UserService userService) {
+        this.postService = postService;
+        this.topicService = topicService;
+        this.sectionService = sectionService;
+        this.userService = userService;
     }
-    
-    @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
-    public String addPost(@Valid @ModelAttribute("newPost") NewPostForm newPost,
-                          BindingResult result,
-                          Authentication authentication,
-                          @PathVariable int idTopic,
-                          Model model) {
-        
+
+    @RequestMapping(value = "/topics/{idTopic}", method = RequestMethod.GET)
+    public String getTopicById(@PathTopic Topic topic, Model model) {
+        model.addAttribute("topic", topic);
+        List<Post> posts = postService.findByTopic(topic.getId());
+        model.addAttribute("topicPost", posts.get(0));
+        model.addAttribute("posts", posts.stream().skip(1).collect(Collectors.toList()));
+        model.addAttribute("newPost", new NewPostForm());
+        return "topics/topic";
+    }
+
+    @RequestMapping(value = "/topics/{idTopic}", method = RequestMethod.POST)
+    public String addPost(
+            @Valid
+            @ModelAttribute("newPost") NewPostForm newPost,
+            BindingResult result,
+            Authentication authentication,
+            @PathTopic Topic topic,
+            Model model) {
+
         if (result.hasErrors()) {
-            model.addAttribute("topic", topicService.findOne(idTopic));
-            model.addAttribute("posts", postService.findByTopic(idTopic));
-            return "topic";
+            model.addAttribute("topic", topic);
+            model.addAttribute("posts", postService.findByTopic(topic));
+            return "topics/topic";
         }
-        
+
         Post post = new Post();
         post.setContent(newPost.getContent());
-        post.setTopic(topicService.findOne(idTopic));
-        post.setUser(userService.findByUsername(authentication.getName()));
+        post.setTopic(topic);
+        post.setUser(userService.findByEmail(authentication.getName()));
         postService.save(post);
-        
+
         model.asMap().clear();
-        return "redirect:/topic/" + idTopic;
+        return "redirect:/topics/" + topic.getId();
     }
-    
-    @RequestMapping(value = "new", method = RequestMethod.GET)
-    public String getNewTopictForm(Model model) {
-        model.addAttribute("newTopic", new NewTopicForm());
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = {"/topics/new"})
+    public String getNewTopicForm(@Param("sectionId") Integer sectionId, Model model) {
+        if (sectionId != null) {
+            model.addAttribute("selectedSection", sectionService.findOne(sectionId));
+        }
+        model.addAttribute("newTopic", NewTopicForm.builder().sectionId(sectionId).build());
         model.addAttribute("sections", sectionService.findAll());
-        return "new_topic_form";
+        return "topics/new_topic_form";
     }
-    
-    @RequestMapping(value = "new", method = RequestMethod.POST)
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping(value = "/topics/new")
     public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
                                         BindingResult result,
                                         Authentication authentication,
                                         Model model) {
-        
+        log.info("Create new topic requested by user: " + authentication.getName());
         if (result.hasErrors()) {
-            model.addAttribute("sections", sectionService.findAll());
-            return "new_topic_form";
+            return getNewTopicForm(newTopic.getSectionId(), model);
         }
-        
-        Topic topic = new Topic();
-        topic.setUser(userService.findByUsername(authentication.getName()));
-        topic.setTitle(newTopic.getTitle());
-        topic.setContent(newTopic.getContent());
-        topic.setSection(sectionService.findOne(newTopic.getSectionId()));
-        topicService.save(topic);
-        
-        return "redirect:/topic/" + topic.getId();
+        User user = userService.findByEmailOrExit(authentication.getName());
+        Section section = sectionService.findOne(newTopic.getSectionId());
+        Topic topic = topicService.createNewTopic(newTopic, user, section);
+        return "redirect:/topics/" + topic.getId();
     }
-    
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable int id,
+
+    @RequestMapping(value = "delete/{idTopic}", method = RequestMethod.GET)
+    public String delete(@PathTopic Topic topic,
                          Authentication authentication,
                          RedirectAttributes model) {
-        Topic topic = topicService.findOne(id);
-        
-        if (topic == null) {
-            return "redirect:/";
+        if (!authentication.getName().equals(topic.getUser().getEmail())) {
+            return "redirect:/topics/" + topic.getId();
         }
-        if (!authentication.getName().equals(topic.getUser().getUsername())) {
-            return "redirect:/topic/" + id;
-        }
-        
+
         topicService.delete(topic);
-        
+
         model.addFlashAttribute("message", "topic.successfully.deleted");
         return "redirect:/section/" + topic.getSection().getId();
     }
-    
+
 }

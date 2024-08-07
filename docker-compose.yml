@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+#    volumes:
+#      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPass
+      MYSQL_DATABASE: forum
+      MYSQL_USER: forum
+      MYSQL_PASSWORD: password
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+#  forum:
+#    container_name: forum
+#    build:
+#      context: forum
+#      dockerfile: Dockerfile
+#    image: message-server:latest
+#    ports:
+#      - 8000:8000
+#    networks:
+#      - forum
+#
+#networks:
+#  forum:
+#    driver: bridge

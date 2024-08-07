@@ -1,6 +1,3 @@
-/**
- * Created by Dawid Stankiewicz on 17.07.2016
- */
 package com.github.dawidstankiewicz.forum.security;
 
 import org.springframework.context.annotation.Bean;

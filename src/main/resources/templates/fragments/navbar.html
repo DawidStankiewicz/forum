@@ -1,30 +1,71 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
-
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 </head>
 
 
 <body>
-    <nav th:fragment="navbar" class="nav-wrapper amber darken-4">
-        <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+<th:block th:fragment="navbar">
+    <nav
+            class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
 
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-login" class="modal-trigger">Sign up</a></li>
-            <li sec:authorize="!isAuthenticated()"><a href="#modal-user-create" class="modal-trigger">Sign in</a></li>
-
-            <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/topic/new}">New topic</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-        </ul>
+            <a th:href=" @{~/}"
+               class="navbar-brand">Forum</a>
 
 
-        <div th:replace="fragments/user_form :: modal_user_login_form"></div>
-        <div th:replace="fragments/create_user_modal_form :: create_user_modal_form"></div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <a class="btn me-1"
+                           th:text="#{navbar.login}"
+                           th:href="@{/hello}">Sign up</a>
+
+                        <a class="btn btn-primary"
+                           th:text="#{navbar.register}"
+                           th:href="@{/hello}">Sign in</a>
+                    </th:block>
+
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/topics/new}">New
+                        topic</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/myprofile}">My
+                        Profile</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+                        <a
+                                class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <span th:text="#{navbar.adminDropdown.trigger}"></span>
+                        </a>
+
+                        <ul sec:authorize="hasAuthority('ADMIN')"
+                            class="dropdown-menu">
+                            <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item"
+                                                                         th:text="#{navbar.adminDropdown.sections}"
+                                                                         th:href="@{/a/sections}">Sections</a></li>
+                            <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item"
+                                                                         th:text="#{navbar.adminDropdown.users}"
+                                                                         th:href="@{/users}">Users</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
     </nav>
+</th:block>
+
 </body>
 </html>

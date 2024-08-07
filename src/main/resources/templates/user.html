@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html th:lang="${#locale.language}"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
+<head th:replace="fragments/head:: head">
 </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -63,9 +63,9 @@
                                         <p th:text="${userProfile.user.info.LastName}"></p>
                                         <p th:text='${userProfile.user.info.male} ? #{male} : #{female}'></p>
                                         <p th:text="${userProfile.user.info.city}"></p>
-                                        <p th:text="${userProfile.user.info.birthday} ? ${#calendars.format(userProfile.user.info.birthday, 'dd MMMM yyyy')}"></p>
-                                        <p th:text="${userProfile.user.info.joinedDate} ? ${#calendars.format(userProfile.user.info.joinedDate, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${userProfile.user.info.lastLoginTime} ? ${#calendars.format(userProfile.user.info.lastLoginTime, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.info.birthday} ? ${#temporals.format(userProfile.user.info.birthday, 'dd MMMM yyyy')}"></p>
+                                        <p th:text="${userProfile.user.info.joinedDate} ? ${#temporals.format(userProfile.user.info.joinedDate, 'dd MMMM yyyy HH:mm')}"></p>
+                                        <p th:text="${userProfile.user.info.lastLoginTime} ? ${#temporals.format(userProfile.user.info.lastLoginTime, 'dd MMMM yyyy HH:mm')}"></p>
                                         <p th:text="${userProfile.user.info.footer}"></p>
                                         <p th:text="${userProfile.user.info.aboutMe}"></p>
                                     </div>
@@ -98,11 +98,11 @@
 
                                     <div class="row" th:each="topic : ${userProfile.topics}">
                                         <div class="col s6">
-                                            <span th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
+                                            <span th:text="${topic.creationDate} ? ${#temporals.format(topic.creationDate, ' d MMM yy HH:mm')}"></span>
                                             <a th:href="@{/section/} + ${topic.section.id}" th:text="${topic.section.name}" class="right"></a>
                                         </div>
                                         <div class="col s6">
-                                            <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.title}"></a>
+                                            <a th:href="@{/topics/} + ${topic.id}" th:text="${topic.title}"></a>
                                             <span th:text="${topic.views}" class="right"></span>
                                         </div>
                                     </div>
@@ -134,11 +134,11 @@
                                     </div>
                                     <div class="row" th:each="post : ${userProfile.posts}">
                                         <div class="col s6 right-align">
-                                            <span th:text="${post.creationDate} ? ${#calendars.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
-                                            <a th:href="@{/topic/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
+                                            <span th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'd MMM yy HH:mm')} + '&nbsp; &nbsp;'" class="left"></span>
+                                            <a th:href="@{/topics/} + ${post.topic.id}" th:text="${post.topic.title}" class="truncate"></a>
                                         </div>
                                         <div class="col s6">
-                                            <a th:href="@{/topic/} + ${post.topic.id} + '#' + ${post.id}" th:text="${post.content}" class="truncate"></a>
+                                            <a th:href="@{/topics/} + ${post.topic.id} + '#' + ${post.id}" th:text="${post.content}" class="truncate"></a>
                                         </div>
                                     </div>
                                 </div>

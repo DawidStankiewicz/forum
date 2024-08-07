@@ -1,0 +1,129 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/head:: head"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container min-vh-100">
+    <div th:replace="fragments/messages :: messages"></div>
+
+
+    <nav class="my-4" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href=" @{~/}" th:text="#{homePage}"></a></li>
+            <li class="breadcrumb-item"><a th:href="@{/sections/} + ${topic.section.id}"
+                                           th:text="${topic.section.name}"></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span th:text="${topic.title}"></span></li>
+        </ol>
+    </nav>
+
+
+    <!-- TOPIC  -->
+
+    <div class="row my-3">
+        <div class="col-sm-auto">
+            <img class="rounded-circle text-white p-2" style="width: 5rem;" alt="Avatar"
+                 src="https://raw.githubusercontent.com/twbs/icons/main/icons/person-fill.svg">
+        </div>
+        <div class=col>
+            <h1 th:text="${topic.title}"></h1>
+            <span class="text-muted">Posted by </span>
+            <a class="link link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+               th:href="@{/user/} + ${topic.user.username}" th:text="${topic.user.username}"></a>
+            <span class="text-muted">on <span
+                    th:text="${topic.creationDate} ? ${#temporals.format(topic.creationDate, 'dd MMM yyyy')}"
+                    th:title="${topic.creationDate} ? ${#temporals.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> </span>
+
+            <div class="mt-2"
+                 th:if="${#authentication.name} eq ${topic.user.username} or ${#authentication.name} eq ${topic.user.email}">
+
+                <a class="btn btn-outline-secondary" th:href="'/topics/' + ${topic.id} + '/edit'">
+                    <i class="bi bi-pencil"></i> <span th:text="#{button.edit}"></span>
+                </a>
+                <a class="btn btn-outline-danger" th:href="'/topics/' + ${topic.id} + '/delete'">
+                    <i class="bi bi-trash"></i> <span th:text="#{button.delete}"></span>
+                </a>
+            </div>
+            <hr>
+            <div class="mt-2 mb-4">
+                <span th:text="${topicPost.content}" style="white-space: pre-line"></span>
+            </div>
+
+            <h4 th:text="${posts.size()} == 1 ? '1' + ' ' + #{reply} : ${posts.size()} + ' ' + #{replies}"></h4>
+            <hr>
+
+            <div class="mt-4">
+
+                <ul class="timeline-with-icons">
+                    <th:block th:each="post : ${posts}">
+                        <li class="timeline-item mb-5" th:id="${post.id}">
+                                <span class="timeline-icon">
+                                    <img class="rounded-circle text-white p-2" style="width: 5rem;" alt="Avatar"
+                                         src="https://raw.githubusercontent.com/twbs/icons/main/icons/person-fill.svg">
+                                </span>
+                            <h5 class="fw-bold"><a
+                                    class="link link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                                    th:href="@{/users/} + ${post.user.username}"
+                                    th:text="${post.user.username}"></a></h5>
+                            <p class="text-muted mb-2"
+                               th:text="${post.creationDate} ? ${#temporals.format(post.creationDate, 'dd MMM yyyy')}" th:title="${#temporals.format(post.creationDate, 'dd MMM yyyy HH:mm:ss')}">
+                            </p>
+                            <p class="" style="white-space: pre-line" th:text="${post.content}"></p>
+                            <div class="mt-2"
+                                 th:if="${#authentication.name} eq ${post.user.username} or ${#authentication.name} eq ${post.user.email}">
+                                <a class="btn btn-outline-secondary" th:href="@{'/posts/' + ${post.id} + '/edit/'}"
+                                   th:title="#{button.edit}">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a class="btn btn-outline-danger" th:href="@{'/posts/' + ${post.id} + '/delete/'}"
+                                   th:title="#{button.delete}">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li class="timeline-item mb-5">
+                                <span class="timeline-icon">
+                                    <img class="rounded-circle text-white p-2" style="width: 5rem;" alt="Avatar"
+                                         src="https://raw.githubusercontent.com/twbs/icons/main/icons/person-fill.svg">
+                                </span>
+                            <h5 class="fw-bold mb-3">Your reply</h5>
+                            <form th:action="@{/topics/} + ${topic.id}" method="POST" th:object="${newPost}">
+                                <div class="mb-3">
+                                        <textarea th:field="*{content}" id="content" name="content"
+                                                  class="form-control"></textarea>
+                                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
+                                       class="red-text">Invalid
+                                        content!</p>
+                                </div>
+                                <button class="btn btn-primary" type="submit" name="action">
+                                    Reply <i class="bi bi-send"></i>
+                                </button>
+                            </form>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <li class="timeline-item">
+                                <span class="timeline-icon">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                            <h5 th:text="#{login.to.reply}"></h5>
+                            <a class="btn btn-primary"
+                               th:text="#{navbar.sign.up}"
+                               th:href="@{/hello}"></a>
+                        </li>
+                    </th:block>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

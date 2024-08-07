@@ -1,10 +1,11 @@
 package com.github.dawidstankiewicz.forum.user;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 import com.github.dawidstankiewicz.forum.UnitsTestCase;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,34 +13,68 @@ import java.util.Optional;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.internal.verification.VerificationModeFactory;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
-public class UserServiceTest extends UnitsTestCase {
+@RunWith(MockitoJUnitRunner.class)
+public class UserServiceTest {
 
-    @Autowired
-    private UserService userService;
-
-    @MockBean
-    private UserRepository userRepository;
+    @Mock private UserRepository userRepository;
+    @Spy @InjectMocks private UserService userService;
 
     private User mockedUser;
     private List<User> mockedUsers;
 
     @Before
     public void setup() {
-        createMockedUser();
+        mockedUser = User.builder().id(1).email("email@email.com").build();
         createMockedUsers();
         setupMockedRepository();
     }
 
-    @After
-    public void reset() {
-        resetMockedRepository();
+    @Test
+    public void shouldReturnUserByEmail() {
+        //given
+        String email = "email";
+        doReturn(mockedUser).when(userRepository).findByEmail(email);
+        //when
+        User user = userService.findByEmail(email);
+        //then
+        assertNotNull(user);
+        verify(userRepository).findByEmail(email);
     }
+
+    @Test
+    public void shouldReturnUser_WhenFindByEmailOrExit() {
+        //given
+        String email = "email";
+        doReturn(mockedUser).when(userRepository).findByEmail(email);
+        //when
+        User user = userService.findByEmailOrExit(email);
+        //then
+        assertNotNull(user);
+        verify(userRepository).findByEmail(email);
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void shouldExit_WhenUserByEmailNotFound() {
+        //given
+        String email = "email";
+        doReturn(null).when(userRepository).findByEmail(email);
+        //when
+        User user = userService.findByEmailOrExit(email);
+        //then exception
+    }
+
+    // todo
 
     @Test
     public void testFindAll() {
@@ -98,20 +133,9 @@ public class UserServiceTest extends UnitsTestCase {
         mockedUsers.add(mockedUser);
     }
 
-    private void createMockedUser() {
-        mockedUser = new User();
-        mockedUser.setId(123);
-        mockedUser.setUsername("test");
-        mockedUser.setPassword("encrypted");
-    }
-
     private void setupMockedRepository() {
         when(userRepository.findAll()).thenReturn(mockedUsers);
         when(userRepository.findById(123)).thenReturn(Optional.of(mockedUser));
         when(userRepository.findByUsername("test")).thenReturn(mockedUser);
-    }
-
-    private void resetMockedRepository() {
-        Mockito.reset(userRepository);
     }
 }

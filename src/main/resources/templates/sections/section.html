@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html th:lang="${#locale.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/head:: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container min-vh-100">
+    <div th:replace="fragments/messages :: messages"></div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <!-- NAME -->
+            <h1 th:text="${section.name}"></h1>
+            <!-- DESC-->
+            <p th:text="${section.description}"></p>
+
+            <!-- CONTROLS -->
+            <div class="mb-3">
+                <a th:href="@{/topics/new}" th:text="#{section.add.new.topic}"
+                   class="btn btn-primary"></a>
+            </div>
+            <!-- TOPICS -->
+            <div class="card my-3" th:each="topic : ${topics}" th:id="${topic.id}">
+                <div class="card-body">
+                    <a class="card-title link-underline link-underline-opacity-0 link-underline-opacity-75-hover" th:href="@{/topics/} + ${topic.id}"><h3 th:text="${topic.title}"></h3></a>
+                    <div class="card-text text-end" >
+                        <span th:text="${topic.user.username}"></span> @
+                        <span th:text="${topic.creationDate != null} ? ${#temporals.format(topic.creationDate, 'HH:mm dd MMMM yyyy')} : ''"></span>
+                    </div>
+                </div>
+            </div>
+
+            <th:block th:if="${topics.isEmpty()}">
+                <div class="alert alert-warning" th:text="#{section.noTopics}"></div>
+            </th:block>
+
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

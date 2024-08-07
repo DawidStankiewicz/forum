@@ -1,21 +1,19 @@
-/**
- * Created by Dawid Stankiewicz on 18.07.2016
- */
 package com.github.dawidstankiewicz.forum.post;
 
-import com.github.dawidstankiewicz.forum.topic.Topic;
-import java.util.Set;
-
+import com.github.dawidstankiewicz.forum.model.entity.Post;
+import com.github.dawidstankiewicz.forum.model.entity.Topic;
+import com.github.dawidstankiewicz.forum.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.github.dawidstankiewicz.forum.user.User;
+import java.util.List;
+import java.util.Set;
 
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
     
     Set<Post> findByUser(User user);
     
-    Set<Post> findByTopic(Topic topic);
+    List<Post> findByTopicOrderByCreationDate(Topic topic);
     
     Set<Post> findAllByOrderByCreationDateDesc();
     

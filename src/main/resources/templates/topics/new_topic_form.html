@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head:: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container min-vh-100">
+
+    <div class="row justify-content-md-center my-5">
+        <div class="col col-xl-4">
+            <form class="card" name='f' th:action='@{/topics/new}' th:object="${newTopic}" method="POST">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h5 th:text="#{page.section.new.topic}"></h5>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="section" th:text="#{section}"></label>
+                        <select class="form-select" id="section" th:field="${newTopic.sectionId}">
+                            <option value="0" disabled="disabled">Choose section</option>
+                            <option th:each="section : ${sections}" th:text="${section.name}" th:value="${section.id}"
+                                    th:selected="section.id == selectedSection.id"></option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('sectionId')}" th:errors="*{sectionId}" class="red-text">Select
+                            section!</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="title" th:text="#{title}"></label>
+                        <input th:field="*{title}" id="title" name='title' type="text" class="form-control"
+                               length="50"/>
+                        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="red-text">Incorrect
+                            title!</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="content">Content</label>
+                        <textarea th:field="*{content}" id="content" name="content" class="form-control"></textarea>
+                        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="red-text">Incorrect
+                            content!</p>
+                    </div>
+
+                    <div class="d-grid">
+                        <input class="btn btn-primary" type="submit" name="action" th:value="#{button.create}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -3,24 +3,32 @@ package com.github.dawidstankiewicz.forum.security;
 public class AccessRules {
 
     protected static final String[] FOR_EVERYONE = {
-        "/error",
-        "/users/**"
+            "/hello",
+            "/login",
+            "/error",
+            "/users/**"
     };
 
     protected static final String[] FOR_AUTHORIZED_USERS = {
-        "/user/**",
-        "/topic/new/**",
-        "/topic/delete/**",
-        "/section/delete/**",
-        "/section/new/**",
-        "/post/**",
-        "/myprofile/**"};
+            "/user/**",
+            "/topics/new/**",
+            "/topics/delete/**",
+            "/section/delete/**",
+            "/section/new/**",
+            "/post/**",
+            "/myprofile/**"
+    };
 
-    protected static final String[] FOR_ADMINS = {"/admin/**",
-        "/users/**",
-        "/section/new"};
+    protected static final String[] FOR_ADMINS = {
+            "/admin/**",
+            "/a/**",
+            "/users/**",
+            "/section/new"
+    };
 
-    protected static final String[] ADMINS_ROLES = {"HEAD_ADMIN",
-        "ADMIN"};
+    protected static final String[] ADMINS_ROLES = {
+            "HEAD_ADMIN",
+            "ADMIN"
+    };
 
 }

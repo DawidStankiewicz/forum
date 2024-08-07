@@ -1,6 +1,3 @@
-/**
- * Created by Dawid Stankiewicz on 06.08.2016
- */
 package com.github.dawidstankiewicz.forum.user.exception;
 
 import org.springframework.http.HttpStatus;

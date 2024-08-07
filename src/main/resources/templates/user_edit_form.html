@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
+<head th:replace="fragments/head:: head">
 </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -15,7 +15,7 @@
                 <div class="col s2">
                     <div class="row">
                         <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
+<!--                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />-->
                         </div>
                     </div>
                     <div class="row">
@@ -135,7 +135,7 @@
                                                 <div class="row">
                                                     <div class="input-field col s12">
                                                         <input name="birthday" type="date"
-                                                            th:value="${userProfile.user.birthday} ? ${#calendars.format(userProfile.user.birthday, 'yyyy-mm-dd')}" class="datepicker"
+                                                            th:value="${userProfile.user.birthday} ? ${#temporals.format(userProfile.user.birthday, 'yyyy-mm-dd')}" class="datepicker"
                                                             id="birthday" />
                                                         <label for="birthday">Birthday</label>
                                                         <p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="red-text">error</p>
@@ -189,9 +189,9 @@
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
     <script>
-					$(document).ready(function() {
-						$('select').material_select();
-					});
+					// $(document).ready(function() {
+					// 	$('select').material_select();
+					// });
 
 					$('.datepicker').pickadate({
 						format : 'yyyy-mm-dd',

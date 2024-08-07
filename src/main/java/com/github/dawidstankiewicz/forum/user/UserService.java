@@ -1,19 +1,53 @@
-/**
- * Created by Dawid Stankiewicz on 11.07.2016
- */
 package com.github.dawidstankiewicz.forum.user;
+
+import com.github.dawidstankiewicz.forum.model.entity.User;
+import com.github.dawidstankiewicz.forum.user.exception.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-public interface UserService {
+@Service
+public class UserService {
 
-    List<User> findAll();
+    private final UserRepository userRepository;
 
-    User findOne(int id);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    User findByUsername(String username);
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
-    User save(User user);
+    public User findOne(int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+        return user;
+    }
 
+    public User findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User findByEmailOrExit(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
+    }
 }

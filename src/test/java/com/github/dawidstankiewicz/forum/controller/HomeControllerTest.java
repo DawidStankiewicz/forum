@@ -1,6 +1,3 @@
-/**
- * Created by Dawid Stankiewicz on 25.07.2016
- */
 package com.github.dawidstankiewicz.forum.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

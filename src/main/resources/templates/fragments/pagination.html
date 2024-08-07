@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body>
+<th:block th:fragment="pagination (items)">
+    <ul th:if="${items.totalPages} > 1"
+        class="pagination center-align">
+        <li th:classappend="${!items.hasPrevious() ? 'disabled' : 'waves-effect'}">
+            <a th:if="${items.hasPrevious()}"
+               th:href="@{'?page=' + ${items.number - 1} + '&size=' + ${items.size}}"
+               tabindex="-1">
+                <i class="material-icons">chevron_left</i>
+            </a>
+            <div th:unless="${ items.hasPrevious()}">
+                <i class="material-icons">chevron_left</i>
+            </div>
+        </li>
+
+        <th:block th:each="i: ${#numbers.sequence(0, items.totalPages - 1)}">
+            <li th:classappend="${i == items.number ? 'active' : 'waves-effect'}">
+                <a th:href="@{'?page=' + ${ i } + '&size=' + ${items.size}}"
+                   th:text="${i+1}"></a>
+            </li>
+        </th:block>
+
+        <li th:classappend="${!items.hasNext() ? 'disabled' : 'waves-effect'}">
+            <a th:if="${items.hasNext()}"
+               th:href="@{'?page=' + ${items.number + 1} + '&size=' + ${items.size}}"
+            >
+                <i class="material-icons">chevron_right</i>
+            </a>
+            <div th:unless="${ items.hasNext()}">
+                <i class="material-icons">chevron_right</i>
+            </div>
+        </li>
+    </ul>
+</th:block>
+</body>
+</html>

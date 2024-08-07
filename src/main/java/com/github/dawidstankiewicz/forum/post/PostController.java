@@ -1,8 +1,6 @@
-/**
- * Created by Dawid Stankiewicz on 23.07.2016
- */
 package com.github.dawidstankiewicz.forum.post;
 
+import com.github.dawidstankiewicz.forum.model.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,22 +14,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/post")
 public class PostController {
     
-    @Autowired
-    private PostService postService;
-    
+    private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id,
                          Authentication authentication,
                          RedirectAttributes model) {
         Post post = postService.findOne(id);
         if (post == null || authentication == null || authentication.getName() == null
-                || !authentication.getName().equals(post.getUser().getUsername())) {
+                || !authentication.getName().equals(post.getUser().getEmail())) {
             return "redirect:/";
         }
         
         postService.delete(post);
         
         model.addFlashAttribute("message", "post.successfully.deleted");
-        return "redirect:/topic/" + post.getTopic().getId();
+        return "redirect:/topics/" + post.getTopic().getId();
     }
 }
