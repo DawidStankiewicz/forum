@@ -15,6 +15,8 @@ Example of simple CRUD web application.
 - MySQL
 - Node.js (gulp)
 
+
+
 ## Features demonstrated
 ### Spring Boot
 - custom HandlerMethodArgumentResolver - PathTopicArgumentResolver and @PathTopic that looks for `idTopic` in the path and resolves it into Topic object that is injected into controller's methods
@@ -30,28 +32,36 @@ Example of simple CRUD web application.
 
 
 
-## Current functions
-### For everyone: 
-- Creating a user profile at [/registration](http://localhost:8080/forum/registration).
-- Displaying at the homepage: all existing sections, recent topics and recent posts.
-- Displaying all topics from section at [/section/{id}](http://localhost:8080/forum/section/1).
-- Displaying topic and posts at [/topics/{id}](http://localhost:8080/forum/topics/1).
+## Current user's functions
+### For everyone:
+- Creating a user account
+- Logging to a user account using email and password
+- Displaying sections, recent topics and recent posts at home page
+- Displaying section and topics created in that section
+- Displaying topic and posts created in that topic
 
-### Only for authorized user (ROLE_USER):
-- Displaying of user profiles at [/user/{username}](http://localhost:8080/forum/user/user) or [/user/id/{id}](http://localhost:8080/forum/user/id/1). Displaying your own profile at [/myprofile](http://localhost:8080/forum/myprofile).
-- Editing your profile at [/myprofile/edit](http://localhost:8080/forum/myprofile/edit).
-- Removal user profile at [/myprofile/delete](http://localhost:8080/forum/myprofile/delete). This operation requires a password confirmation.
-- Creating new topic at [/topics/new](http://localhost:8080/forum/topics/new).
-- Creating posts at topic page.
-- Removal own topics and posts by button at topic page.
+### Authorized user (has role USER):
+- Creating new topic in a section
+- Creating new post in a topic
+- ❌Editing & deleting topic
+- ❌Editing & deleting post
+- ❌Displaying of user profiles 
+- ❌Displaying your own profile at
+- ❌Editing your profile at 
+- ❌Removal user profile with password confirmation
 
-### Only for admin (ROLE_ADMIN): 
-- Creating new section at [/section/new](http://localhost:8080/forum/section/new).
-- Displaying list of all users at [/users](http://localhost:8080/forum//users)
+### Moderator (has role MOD): 
+- Creating new sections
+- Displaying list of all sections
+- ❌Displaying list of all users
+
+
 
 ## Configuration
 Example application properties are in the `application.example.properties` file.
-Befroe build Forum or run tests you have to create `application.properties` files.
+Before build Forum or run tests you have to create `application.properties` files.
+
+
 
 ## Development Setup
 
