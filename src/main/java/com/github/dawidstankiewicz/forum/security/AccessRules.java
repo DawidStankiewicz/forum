@@ -19,7 +19,9 @@ public class AccessRules {
             "/myprofile/**"
     };
 
-    protected static final String[] FOR_ADMINS = {"/admin/**",
+    protected static final String[] FOR_ADMINS = {
+            "/admin/**",
+            "/a/**",
             "/users/**",
             "/section/new"
     };

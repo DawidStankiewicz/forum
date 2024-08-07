@@ -1,8 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html th:lang="${#locale.language}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head:: head">
 </head>
 <body>
@@ -10,32 +9,26 @@
 <div class="container">
     <div th:replace="fragments/messages :: messages"></div>
 
-    <div class="row"
-         style="padding-top: 1rem">
-        <div class="col s12">
-            <div class="card-panel">
+    <h1 th:text="#{sections}"></h1>
 
-                <table
-                        th:replace="fragments/table :: table (
+    <table
+            th:replace="fragments/table :: table (
                         columnNames=${ { 'table.id', 'table.name', 'table.description', 'table.actions' } },
                         values=${ { 'id', 'name', 'description'} },
                         items=${sections},
                         actions=~{ :: .table-actions})">
-                    <tbody>
-                    <tr>
-                        <td class="table-actions">
-                            <div><a th:href="@{/a/sections/{id}/details(id=${item.id})}"
-                            >edit</a></div>
-                        </td>
-                    </tr>
+        <tbody>
+        <tr>
+            <td class="table-actions">
+                <div><a th:href="@{/a/sections/{id}/details(id=${item.id})}"
+                >edit</a></div>
+            </td>
+        </tr>
 
-                    </tbody>
-                </table>
+        </tbody>
+    </table>
 
 
-            </div>
-        </div>
-    </div>
 
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>

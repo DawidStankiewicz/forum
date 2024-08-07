@@ -8,10 +8,10 @@
 
 <th:block th:fragment="table (columnNames, values, items, actions)">
     <table
-            class="responsive-table">
+            class="table">
         <thead>
         <tr>
-            <th th:each="column : ${columnNames}"
+            <th scope="col" th:each="column : ${columnNames}"
                 th:text="#{${column}}">
             </th>
         </tr>

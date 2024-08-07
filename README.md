@@ -15,8 +15,16 @@ Example of simple CRUD web application.
 - MySQL
 - Node.js (gulp)
 
-## Spring's features demonstrated
-- custom HandlerMethodArgumentResolver - look at PathTopicArgumentResolver and @PathTopic that looks for `idTopic` in the path and resolves it into Topic object that is injected into controller's methods
+## Features demonstrated
+### Spring Boot
+- custom HandlerMethodArgumentResolver - PathTopicArgumentResolver and @PathTopic that looks for `idTopic` in the path and resolves it into Topic object that is injected into controller's methods
+
+### Thymeleaf
+- Thymeleaf templates - table template for more complex example of data binding
+
+### MySQL
+- changing default collation to utf8mb4_unicode_ci - docker-compose.yml > db > command 
+
 
 
 ## Current functions

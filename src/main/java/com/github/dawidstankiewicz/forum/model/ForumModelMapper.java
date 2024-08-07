@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 @Component
 public class ForumModelMapper extends ModelMapper {
 
-    public Page mapPage(Page<?> sections, Class<?> destinationClass) {
+
+    public <T> Page<T> mapPage(Page<?> sections, Class<T> destinationClass) {
         return new PageImpl<>(
                 sections.getContent()
                         .stream()

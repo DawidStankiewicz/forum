@@ -7,7 +7,6 @@ import com.github.dawidstankiewicz.forum.model.dto.NewSectionForm;
 import com.github.dawidstankiewicz.forum.model.dto.SectionDto;
 import com.github.dawidstankiewicz.forum.model.entity.Section;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -36,8 +35,7 @@ public class SectionAdminController {
     @GetMapping
     public String getSectionsPage(Model model, Pageable pageable) {
         Page<Section> sections = sectionService.findSections(pageable);
-        Page<SectionDto> dtos = modelMapper.mapPage(sections, SectionDto.class);
-        model.addAttribute("sections", dtos);
+        model.addAttribute("sections", modelMapper.mapPage(sections, SectionDto.class));
         return Templates.ADMIN_SECTIONS_PANEL;
     }
 
